@@ -1,0 +1,29 @@
+{
+  "groups": {
+    "group_list": {
+      "popupBox": {
+        "svg_elements": [
+          "cp pbDrag",
+          "cp pbClose"
+        ],
+        "tabs": [
+          "Group List",
+          "Edit Group",
+          "Find Players"
+        ],
+        "controls": {
+          "groupHelp": "?",
+          "groupItems": [
+            "Group1",
+            "Group2",
+            "Group3"
+          ]
+        },
+        "groupActions": [
+          "Edit",
+          "Find Players"
+        ]
+      }
+    }
+  }
+}

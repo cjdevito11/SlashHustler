@@ -1,0 +1,23 @@
+{
+    "health_mana": {
+        "current_health": 5484,
+        "max_health": 5484,
+        "current_mana": 1368,
+        "max_mana": 1368
+    },
+    "inventory_items": [
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {}
+    ],
+    "equipment_items": []
+}

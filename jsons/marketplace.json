@@ -1,0 +1,116 @@
+{
+  "marketplace": {
+    "market_search": {
+      "popupBox pbMarket cur marketBuy": {
+        "svg_elements": [
+          "cp pbDrag",
+          "cp pbClose"
+        ],
+        "tabs": [
+          "Market Search",
+          "Sell Items",
+          "Transfer"
+        ],
+        "controls": {
+          "Type": ["Weapons", "Armor", "Charms", "Items", "Objects"],
+          "Sub Type": ["sword", "club", "axe", "dagger", "staff", "longsword", "warhammer", "battleaxe", "spear", "polearm"],
+          "Level Range": ["I (0)", "II (0)", "III (0)", "IV (5)", "V (10)", "VI (15)", "VII (20)", "VIII (25)", "IX (30)", "X (35)", "XI (40)", "XII (45)", "XIII (50)", "XIV (55)"],
+          "Magic Level": ["Normal", "Magical", "Rare", "Mystical", "Angelic", "Mythical", "Arcane", "Legendary", "Godly", "Epic", "Relic", "Artifact", "Unique"],
+          "Cost Range": "",
+          "Attributes": ["Enhanced Effect", "Strength", "Dexterity", "Vitality", "Intelligence", "Max Life", "Max Mana", "Experience Gained", "Magic Luck", "Life Regen", "Mana Regen", "Extra Equipment Slots", "Critical Strike", "Life per Attack", "Mana per Attack", "Life per Kill", "Mana per Kill", "Life Steal", "Damage Return", "Mind Numb", "Armor Pierce", "Parry", "Critical Flux", "Physical Damage Reduction", "Magical Damage Reduction", "Mana Syphon", "Quick Draw", "Mana Consumption", "Heal Mastery", "Mana Skin", "Power Shot", "Glancing Blow", "Jubilance", "Ice Mastery", "Fire Mastery", "Lightning Mastery", "Wind Mastery", "Earth Mastery"]
+        },
+        "mkCtrlCheckWrap": "Only Show Items I Can Use",
+        "mkCtrlBWrap": "Search",
+        "mktRes": {
+          "marketItemsBox": "",
+          "mkItemSlot mkBuy": {
+            "itemSlotBox": "",
+            "mkCostFeeWrap": ["Cost", "Fee"],
+            "mkBuySellWrap": ["Gold Password", "Buy This Item"]
+          }
+        }
+      }
+    },
+    "sell_items": {
+      "popupBox pbMarket marketSell": {
+        "svg_elements": [
+          "cp pbDrag",
+          "cp pbClose"
+        ],
+        "tabs": [
+          "Market Search",
+          "Sell Items",
+          "Transfer"
+        ],
+        "controls": {
+          "mkSellHelp": "?",
+          "itemSlotBox": "tbIcon"
+        },
+        "mktRes": {
+          "marketItemsBox": "itemBox cp",
+          "items": [
+            "iconChainmail.svg +7 II 1 Gold",
+            "iconSpear.svg +2 VII 1 Gold",
+            "iconSword.svg +4 I 1 Gold",
+            "iconSword.svg +5 VI 1 Gold",
+            "iconChainmail.svg IV 1 Gold",
+            "iconLightCharm.svg +1 III 1 Gold",
+            "iconPlatemail.svg +1 X 1 Gold",
+            "iconAxe.svg VII 15 Gold",
+            "iconSword.svg +7 I 1 Gold",
+            "iconPlatemail.svg +2 III 1 Gold",
+            "iconDagger.svg II 1 Gold",
+            "iconRobe.svg +6 II 1 Gold",
+            "iconRobe.svg +1 XIII 10 Gold",
+            "iconFireCharm.svg +5 I 1 Gold",
+            "iconPaddedRobe.svg +4 I 1 Gold",
+            "iconDagger.svg IX 30 Gold",
+            "iconEarthCharm.svg +5 II 1 Gold",
+            "iconHealCharm.svg +1 VIII 1 Gold",
+            "iconEarthCharm.svg +5 I 1 Gold",
+            "iconRobe.svg +2 III 1 Gold",
+            "iconLightCharm.svg +1 VII 1 Gold",
+            "iconLeather.svg +2 VI 2 Gold",
+            "iconWindCharm.svg +1 II 1 Gold",
+            "iconClub.svg +6 I 1 Gold"
+          ],
+          "mkItemSlot mkSell": {
+            "itemSlotBox": "",
+            "mkCostFeeWrap": ["Cost", "Fee"],
+            "mkBuySellWrap": ["Gold Password", "Sell This Item"]
+          }
+        }
+      }
+    },
+    "transfer": {
+      "popupBox pbMarket marketTransfer": {
+        "svg_elements": [
+          "cp pbDrag",
+          "cp pbClose"
+        ],
+        "tabs": [
+          "Market Search",
+          "Sell Items",
+          "Transfer"
+        ],
+        "controls": {
+          "mkSellHelp": "?"
+        },
+        "mktRes": {
+          "marketItemsBox": "njRBWrap marketChars",
+          "characters": [
+            "MrHustle - Level 45 Guardian",
+            "TigBittyBroad - Level 5 Barbarian",
+            "HustleDeez - Level 1 Magician",
+            "HustleBaba - Level 1 Barbarian"
+          ],
+          "mkItemSlot mkXfer": {
+            "itemSlotBox": "",
+            "mkCostFeeWrap": ["Cost", "Fee"],
+            "mkBuySellWrap": ["Gold Password", "Transfer Item"]
+          }
+        }
+      }
+    }
+  }
+}

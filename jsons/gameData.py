@@ -1,0 +1,89 @@
+# gameData.py
+
+data = {
+    "Equipment": {
+        "+ % Enhanced Effect": "Also Known As EE, this increases the base stat of the item by the percent listed. Weapons = More Damage, Armors = More Defense, Charms = More Power, Glyph = More Duration.",
+        "+ Strength": "Adds to your Strength stat.",
+        "+ Dexterity": "Adds to your Dexterity stat.",
+        "+ Vitality": "Adds to your Vitality stat.",
+        "+ Intelligence": "Adds to your Intelligence stat.",
+        "+ Max Life": "Increases your Maximum Life.",
+        "+ Max Mana": "Increases your Maximum Mana.",
+        "+ % Experience Gained": "Gives an added bonus to the experience you gain based on the %. This does not affect Jubilance.",
+        "+ Magic Luck": "Increases the chances for higher stats on an item drop.",
+        "+ Life Regen": "Gives a bonus to your natural life healing. 1 Life Regen = 1 extra life per second. This only works while you are in town. It will not work while using skills, or while in a group or combat.",
+        "+ Mana Regen": "Gives a bonus to your natural mana recovery. 1 Mana Regen = 1 extra mana per second. This only works while you are in town. It will not work while using skills, or while in a group or combat.",
+        "+ Extra Equipment Slots": "Each extra slot will allow to hold an extra item in your inventory, you start off with 8 open spots for an inventory.",
+        "+ Critical Strike": "Increases your chance to perform a powerful attack.",
+        "+ Life per Attack": "For each attack that deals at least 1 damage, you will heal between 1 and this value life.",
+        "+ Mana per Attack": "For each attack that deals at least 1 damage, you will recover between 1 and this value mana.",
+        "+ Life per Kill": "After each kill, you will heal between 1 and this value life.",
+        "+ Mana per Kill": "After each kill, you will recover between 1 and this value mana.",
+        "+ % Life Steal": "Converts a % of the melee damage dealt to an opponent back into life healed.",
+        "+ % Damage Return": "Returns a % of the damage received back onto the attacker.",
+        "+ % Mind Numb": "Gives a % chance to ignore the target's Intelligence with your magical attack. Lowered target intelligence will result in more magic damage dealt.",
+        "+ % Armor Pierce": "Gives a % chance to ignore the target Defense for your attack. Lowered target defense will result in more damage dealt.",
+        "+ % Parry": "Gives a % chance to parry a melee attack, which gives you increased defense vs that attack.",
+        "+ % Critical Flux": "Gives a % chance to stop an enemy's attack from critical hitting you.",
+        "+ % Physical Damage Reduction": "Reduces any physical damage received by this %. All decimal amounts are rounded down.",
+        "+ % Magical Damage Reduction": "Reduces any magical damage received by this %. All decimal amounts are rounded down. This stacks with individual element masteries below for resistances.",
+        "+ % Mana Syphon": "Gives a % chance to absorb a portion of the mana used by an enemy when they cast a spell against you.",
+        "+ % Quick Draw": "Gives a % chance that your next attack will occur at an accelerated rate, giving you less time between attacks.",
+        "- % Mana Consumption": "Reduces the amount of mana your charms consume by the given %.",
+        "+ % Ice Mastery": "Adds to the Enhanced Effect of any ice charms you use by the % listed. Also increases resistance vs ice attacks against your character.",
+        "+ % Fire Mastery": "Adds to the Enhanced Effect of any fire charms you use by the % listed. Also increases resistance vs fire attacks against your character.",
+        "+ % Lightning Mastery": "Adds to the Enhanced Effect of any lightning charms you use by the % listed. Also increases resistance vs lightning attacks against your character.",
+        "+ % Earth Mastery": "Adds to the Enhanced Effect of any earth charms you use by the % listed. Also increases resistance vs earth attacks against your character.",
+        "+ % Wind Mastery": "Adds to the Enhanced Effect of any wind charms you use by the % listed. Also increases resistance vs wind attacks against your character.",
+        "+ % Heal Mastery": "Adds to the Enhanced Effect of any healing charms you use by the % listed.",
+        "+ % Mana Skin": "Gives a % chance that a portion of any damage received may be absorbed into your mana pool, instead of receiving full damage.",
+        "+ % Power Shot": "Gives a % chance that your melee attack will do the full damage amount listed on the weapon.",
+        "+ % Glancing Blow": "Gives a % chance that a melee attack received will occur at the minimum value of the weapons range.",
+        "Jubilance": "While in town, gives you +1 experience per second for each point in Jubilance you have. It does not work above level 70."
+    },
+    "Totems": {
+        "+ to Guild Points": "Adds to your Guild Points when used.",
+        "+ to Stat Points": "Adds the listed amount to your unused stat points."
+    },
+    "Recovery Items": {
+        "Heals Life": "Heals the amount of life listed when used.",
+        "Recovers Mana": "Recovers the amount of mana listed when used.",
+        "Cooked %": "This stat refers to how well an item was cooked. If the value is negative, that means the item was burnt. 100% is a perfectly cooked item."
+    },
+    "Maps": {
+        "+ Warm Lights": "Increases the number of warm lights that will spawn on this map by this amount.",
+        "+ Evil Presences": "Increases the number of evil presences that will spawn on this map by this amount.",
+        "+ Treasure Chests": "Increases the number of treasure chests that will spawn on this map by this amount.",
+        "+ Rooms": "Increases the number of rooms that will spawn on this map by this amount.",
+        "+ % Warm Light Effectiveness": "Increases the effectiveness of warm lights by this amount.",
+        "+ % Monster Difficulty": "Increases the monster difficulty by this amount.",
+        "+ % Experience Gained": "Increases the amount of experience gained for the entire group by this amount while on this map.",
+        "+ % Item Drops": "Increases the amount of item drops by this amount.",
+        "+ % Item Quality": "Increases the chance of better quality (tier/stats) of items dropped by this amount.",
+        "Quantity": "The number of times this map can be used.",
+        "+ % Swarm": "Gives this % chance that your fight will become a swarm after completion.",
+        "+ % Guild Points": "Upon completing the map, you have this % chance to gain a guild point.",
+        "+ % Level Up": "Upon completing the map, you have this % chance to level up.",
+        "+ Level Cap": "Increases the maximum level that items and monsters can spawn on this map by this amount.",
+        "+ % Stealth": "Gives % chance to surprise monsters and get first attack(s).",
+        "+ Evil Wells": "Map will spawn this many more Evil Wells."
+    },
+    "Fishing Rods": {
+        "+ to Proficiency": "Adds to your Fishing Skill while in use.",
+        "+ Durability": "Increased durability of your rod. When this reaches zero, your rod will break and be removed."
+    },
+    "Magical Prefixes": {
+        "Magical": "1 Magical Stat",
+        "Rare": "2 Magical Stats",
+        "Mystical": "3 Magical Stats",
+        "Angelic": "4 Magical Stats",
+        "Mythical": "5 Magical Stats",
+        "Arcane": "6 Magical Stats",
+        "Legendary": "7 Magical Stats",
+        "Godly": "8 Magical Stats",
+        "Epic": "9 Magical Stats",
+        "Relic": "10 Magical Stats",
+        "Artifact": "11 Magical Stats",
+        "Unique": "12 Magical Stats"
+    }
+}

@@ -1,0 +1,31 @@
+{
+  "vault": {
+    "vault": {
+      "popupBox": {
+        "svg_elements": [
+          "cp pbDrag",
+          "cp pbClose"
+        ],
+        "tabs": [
+          "Vault",
+          "Withdraw",
+          "Deposit",
+          "Transfer"
+        ],
+        "controls": {
+          "vaultHelp": "?",
+          "vaultItems": [
+            "Item1",
+            "Item2",
+            "Item3"
+          ]
+        },
+        "vaultActions": [
+          "Withdraw",
+          "Deposit",
+          "Transfer"
+        ]
+      }
+    }
+  }
+}
