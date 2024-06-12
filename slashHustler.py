@@ -411,6 +411,11 @@ def automate_fighting():
         if catacombs_location:
             catacombs_location = randomize_position((catacombs_location.x, catacombs_location.y))
             click_button(catacombs_location)
+            keyboard.send("a")
+            keyboard.send("w")
+            keyboard.send("a")
+            keyboard.send("w")
+            time.sleep(.5)
             
       #  if status:
       #      if health_percentage < 50:  # Threshold to start healing
@@ -441,7 +446,7 @@ def automate_fighting():
             write_to_terminal(f"Found Monster at {monster_health_location.x}, {monster_health_location.y}")
             newX = randomize_position((monster_health_location.x, monster_health_location.y + 100))
             write_to_terminal(f"Updated Monster at {newX[0]}, {newX[1]}")
-            click_button(newX, clicks=20, interval=random.uniform(0.09, 0.11))  # Randomize click interval
+            click_button(newX, clicks=5, interval=random.uniform(0.09, 0.11))  # Randomize click interval
 
         engage_location = find_image(['engage.png', 'engage1.png', 'engage2.png', 'engage3.png', 'engage4.png'], region=fightRegion)
         if engage_location:
@@ -451,7 +456,7 @@ def automate_fighting():
             
         #if fighting and selected_action == 'attack':
         grid_positions = calculate_grid_positions(fightRegion)
-        if (fight_state==12 or fight_state==13 or fight_state==14):
+        if (fight_state==7 or fight_state==13 or fight_state==22):
             grid_positions = calculate_grid_positions(fightRegion,9,9)
         random.shuffle(grid_positions)  # Shuffle grid positions to ensure random clicking order
         for position in grid_positions:
