@@ -36,6 +36,13 @@ running = False
 fighting = False
 fight_state = 0
 
+
+# Load the scoring system from JSON
+def load_scoring_system():
+    with open('jsons\itemScore.json', 'r') as file:
+        return json.load(file)
+scoring_system = load_scoring_system()
+
 # Selenium setup
 def setup_browser():
     chrome_options = Options()
@@ -93,7 +100,61 @@ def get_monsters(driver):
     except Exception as e:
         write_to_terminal(f"Error: {e}")
         return []
+        
+def hover_and_print_item_details(driver, item_element):
+    try:
+        # Move to the item to trigger the hover effect
+        actions = ActionChains(driver)
+        actions.move_to_element(item_element).perform()
 
+        # Pause for a moment to allow the popup to appear
+        time.sleep(10)
+
+        # Locate the popup div that appears when hovering
+        popup = driver.find_element(By.CSS_SELECTOR, ".popupClassName")  # Adjust the CSS selector as needed
+
+        # Print the popup's HTML content
+        print(popup.get_attribute('outerHTML'))
+
+    except Exception as e:
+        write_to_terminal(f"Error while hovering and printing item details: {e}")
+
+def hover_and_print_all_item_details(driver):
+    try:
+        # Locate the drop items container
+        drop_items_container = driver.find_element(By.CSS_SELECTOR, ".dropItemsBox")
+        # Find all items within the container
+        items = drop_items_container.find_elements(By.CSS_SELECTOR, ".itemBox.cp")
+
+        for item in items:
+            # Move to the item to trigger the hover effect
+            actions = ActionChains(driver)
+            actions.move_to_element(item).perform()
+
+            # Pause for a moment to allow the popup to appear
+            time.sleep(1)
+
+            # Locate the popup div that appears when hovering
+            popup = driver.find_element(By.CSS_SELECTOR, ".tipBox.tbItemDesc")
+
+            # Print the popup's HTML content
+            print(popup.get_attribute('outerHTML'))
+
+    except Exception as e:
+        write_to_terminal(f"Error while hovering and printing item details: {e}")
+        
+# Function to switch to attack slot if health is above 70%
+def attack_switch(driver, hp, mp):
+    if hp > 50 or mp < 30:
+        try:
+            attack_slot = driver.find_element(By.CSS_SELECTOR, ".tbIcon.atkBox[slot='0']")
+            if "sel" not in attack_slot.get_attribute("class"):
+                attack_slot.click()
+                write_to_terminal("Switched to attack slot.")
+                print("Switched to attack slot.")
+        except Exception as e:
+            write_to_terminal(f"Error switching to attack slot: {e}")
+            
 # Function to attack a monster
 def attack_monster(driver, monster):
     try:
@@ -108,10 +169,36 @@ def town_heal(driver):
     try:
         town_button = driver.find_element(By.CSS_SELECTOR, ".abutGradBl.gradRed")  # Adjust selector as needed
         town_button.click()
+        print("Town Heal")
+        write_to_terminal("Town Heal")
         time.sleep(240)  # Adjust healing time as needed
+        health_mana_data = get_health_mana(driver)
+        if health_mana_data:
+            current_health = health_mana_data['current_health']
+            max_health = health_mana_data['max_health']
+            current_mana = health_mana_data['current_mana']
+            max_mana = health_mana_data['max_mana']
+            hp = (current_health / max_health) * 100
+            mp = (current_mana / max_mana) * 100
+            
+            if hp < 100 & mp < 60:
+                town_heal(driver)
+        
     except Exception as e:
         write_to_terminal(f"Error going to town: {e}")
 
+def fight_heal(driver,hp,mp):
+    if hp < 50:
+        if mp > 20: 
+            keyboard.send("R")
+            time.sleep(1)
+            #fight_heal(driver,hp,mp)
+        else:
+            keyboard.send("Q")
+            return
+    else:
+        keyboard.send("Q")
+        return
 # Function to check if in town
 def is_in_town(driver):
     try:
@@ -142,10 +229,68 @@ def select_catacombs(driver):
             if "Catacombs" in element.text:
                 element.click()
                 time.sleep(2)  # Adjust as needed for the game to load
+                keyboard.send("a")
+                keyboard.send("a")
                 return
     except Exception as e:
         write_to_terminal(f"Error selecting catacombs: {e}")
+        
+# Function to loot an item
+def loot_item(driver, item):
+    try:
+        write_to_terminal(f"Looting item: {item['name']} with score: {item['score']}")
+        item["element"].click()
+    except Exception as e:
+        write_to_terminal(f"Error looting item: {e}")
+        
+# Function to parse item drops and calculate their scores
+def parse_and_score_drops(driver, drop_items):
+    try:
+        #drop_items = driver.find_elements(By.CSS_SELECTOR, ".dropItemsBox .itemBox")
+        scored_items = []
 
+        for item in drop_items:
+            item_name_element = item.find_element(By.CSS_SELECTOR, "img")
+            item_modifiers = item.find_elements(By.CSS_SELECTOR, ".ds2")
+            
+            #hover_and_print_item_details(driver, item)
+            hover_and_print_all_item_details(driver)
+            
+            item_name = item_name_element.get_attribute("src").split("/")[-1].replace(".svg", "")
+            iLvl = [mod.text for mod in item_modifiers]
+            
+            item_score = calculate_item_score(item_name, iLvl)
+
+            write_to_terminal(f"Item: {item_name}, Score: {item_score}")
+            write_to_terminal(f"iLvl: {iLvl}")
+            print(f"Item: {item_name}, Score: {item_score}")
+            print(f"iLvl: {iLvl}")
+            scored_items.append({
+                "element": item,
+                "name": item_name,
+                "iLvl": iLvl,
+                "score": item_score
+            })
+
+            if item_score > loot_threshold:
+                loot_item(driver, item)
+
+        return scored_items
+    except Exception as e:
+        write_to_terminal(f"Error parsing and scoring drops: {e}")
+        return []
+
+# Function to calculate the score of an item based on its name and modifiers
+def calculate_item_score(item_name, modifiers):
+    score = 0
+    if item_name in scoring_system:
+        score += scoring_system[item_name]["base_score"]
+        for mod in modifiers:
+            print(f"Mod: {mod}")
+            if mod in scoring_system[item_name]["modifiers"]:
+                score += scoring_system[item_name]["modifiers"][mod]
+    return score
+    
 # Function to automate fighting
 def automate_fighting(driver):
     global fighting, fight_state
@@ -155,16 +300,31 @@ def automate_fighting(driver):
         if is_in_town(driver):
             select_catacombs(driver)
             
+            
         health_mana_data = get_health_mana(driver)
         if health_mana_data:
             current_health = health_mana_data['current_health']
             max_health = health_mana_data['max_health']
-            health_percentage = (current_health / max_health) * 100
-            write_to_terminal(f"HP: {health_percentage}")
-
-            if health_percentage < 30:
+            current_mana = health_mana_data['current_mana']
+            max_mana = health_mana_data['max_mana']
+            
+            hp = (current_health / max_health) * 100
+            mp = (current_mana / max_mana) * 100
+            write_to_terminal(f"HP: {hp}")
+            print(f"HP: {hp}")
+            write_to_terminal(f"MP: {mp}")
+            print(f"MP: {mp}")
+            
+            if hp < 30:
                 town_heal(driver)
+            if hp < 50:
+                fight_heal(driver, hp, mp)
+                  
         
+        drop_items = driver.find_elements(By.CSS_SELECTOR, ".dropItemsBox .itemBox") 
+        if (drop_items):
+            parse_and_score_drops(driver, drop_items)
+            
         monsters = get_monsters(driver)
         if not monsters:
             engage_button = driver.find_element(By.CSS_SELECTOR, ".cataEngage")
