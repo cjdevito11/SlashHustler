@@ -17,6 +17,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.action_chains import ActionChains
+from selenium.webdriver.common.keys import Keys
 
 # Redirect print function
 class StdoutRedirector:
@@ -47,7 +48,7 @@ scoring_system = load_scoring_system()
 def setup_browser():
     chrome_options = Options()
     chrome_options.add_experimental_option("debuggerAddress", "localhost:9222")
-    driver = webdriver.Chrome(options=chrome_options, service=Service(r"C:\chromedriver-win64\chromedriver.exe"))
+    driver = webdriver.Chrome(options=chrome_options, service=Service(r"C:\Windows\System32\chromedriver.exe"))
     return driver
 
 def write_to_terminal(message):
@@ -207,6 +208,7 @@ def town_heal(driver):
                 if hp < 100:
                     print("~~ Loop TownHeal ~~")
                     town_heal(driver)
+                    return
         
     except Exception as e:
         write_to_terminal(f"Error going to town: {e}")
@@ -218,6 +220,7 @@ def fight_heal(driver,hp,mp):
             time.sleep(5)
             #fight_heal(driver,hp,mp)
             send_keystrokes(driver,"Q")
+            actions = ActionChains(driver).key_down(Keys.CONTROL).key_up(Keys.CONTROL).perform()
         else:
             send_keystrokes(driver,"Q")
             return
