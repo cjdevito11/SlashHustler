@@ -319,7 +319,8 @@ def automate_fighting(driver):
                 town_heal(driver)
             if hp < 50:
                 fight_heal(driver, hp, mp)
-                  
+            if hp > 50 or mp < 30:
+                attack_switch(driver, hp, mp)
         
         drop_items = driver.find_elements(By.CSS_SELECTOR, ".dropItemsBox .itemBox") 
         if (drop_items):
