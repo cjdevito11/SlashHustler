@@ -163,26 +163,50 @@ def attack_monster(driver, monster):
         actions.move_to_element(monster["element"]).click().perform()
     except Exception as e:
         write_to_terminal(f"Error attacking monster: {e}")
-
+# Function to send keystrokes
+def send_keystrokes(driver, keys):
+    try:
+        # Find an element to send keystrokes to (e.g., the body or a specific element)
+        body = driver.find_element(By.TAG_NAME, "body")
+        actions = ActionChains(driver)
+        actions.move_to_element(body)
+        
+        # Send the specified keys
+        actions.send_keys(keys).perform()
+        
+        write_to_terminal(f"Sent keystrokes: {keys}")
+    except Exception as e:
+        write_to_terminal(f"Error sending keystrokes: {e}")
+         
 # Function to go to town for healing
 def town_heal(driver):
     try:
-        town_button = driver.find_element(By.CSS_SELECTOR, ".abutGradBl.gradRed")  # Adjust selector as needed
-        town_button.click()
-        print("Town Heal")
-        write_to_terminal("Town Heal")
-        time.sleep(240)  # Adjust healing time as needed
-        health_mana_data = get_health_mana(driver)
-        if health_mana_data:
-            current_health = health_mana_data['current_health']
-            max_health = health_mana_data['max_health']
-            current_mana = health_mana_data['current_mana']
-            max_mana = health_mana_data['max_mana']
-            hp = (current_health / max_health) * 100
-            mp = (current_mana / max_mana) * 100
-            
-            if hp < 100 & mp < 60:
-                town_heal(driver)
+        try:
+            town_button = driver.find_element(By.CSS_SELECTOR, ".abutGradBl.gradRed")  # Adjust selector as needed
+            town_button.click()
+        finally:
+            print(" - Talking to Akara - ")
+            write_to_terminal("Talking to Akara")
+            time.sleep(15)  # Adjust healing time as needed
+            health_mana_data = get_health_mana(driver)
+            if health_mana_data:
+                current_health = health_mana_data['current_health']
+                max_health = health_mana_data['max_health']
+                current_mana = health_mana_data['current_mana']
+                max_mana = health_mana_data['max_mana']
+                hp = (current_health / max_health) * 100
+                mp = (current_mana / max_mana) * 100
+                
+                write_to_terminal(f"~Town Stats~")
+                write_to_terminal(f"-HP: {hp}")
+                write_to_terminal(f"-MP: {mp}")
+                print(f"~Town Stats~")
+                print(f"~HP: {hp}")
+                print(f"-MP: {mp}")
+                
+                if hp < 100:
+                    print("~~ Loop TownHeal ~~")
+                    town_heal(driver)
         
     except Exception as e:
         write_to_terminal(f"Error going to town: {e}")
@@ -190,14 +214,15 @@ def town_heal(driver):
 def fight_heal(driver,hp,mp):
     if hp < 50:
         if mp > 20: 
-            keyboard.send("R")
-            time.sleep(1)
+            send_keystrokes(driver,"R")
+            time.sleep(5)
             #fight_heal(driver,hp,mp)
+            send_keystrokes(driver,"Q")
         else:
-            keyboard.send("Q")
+            send_keystrokes(driver,"Q")
             return
     else:
-        keyboard.send("Q")
+        send_keystrokes(driver,"Q")
         return
 # Function to check if in town
 def is_in_town(driver):
@@ -229,8 +254,8 @@ def select_catacombs(driver):
             if "Catacombs" in element.text:
                 element.click()
                 time.sleep(2)  # Adjust as needed for the game to load
-                keyboard.send("a")
-                keyboard.send("a")
+                send_keystrokes(driver,"a")
+                send_keystrokes(driver,"a")
                 return
     except Exception as e:
         write_to_terminal(f"Error selecting catacombs: {e}")
@@ -310,12 +335,13 @@ def automate_fighting(driver):
             
             hp = (current_health / max_health) * 100
             mp = (current_mana / max_mana) * 100
-            write_to_terminal(f"HP: {hp}")
-            print(f"HP: {hp}")
-            write_to_terminal(f"MP: {mp}")
-            print(f"MP: {mp}")
+            write_to_terminal(f"-HP: {hp}")
+            print(f"-HP: {hp}")
+            write_to_terminal(f"-MP: {mp}")
+            print(f"-MP: {mp}")
             
             if hp < 30:
+                print("Fight: ~> Town Heal <~")
                 town_heal(driver)
             if hp < 50:
                 fight_heal(driver, hp, mp)
@@ -331,7 +357,7 @@ def automate_fighting(driver):
             engage_button = driver.find_element(By.CSS_SELECTOR, ".cataEngage")
             if is_engage_button_visible(engage_button):
                 if whistle_var.get():
-                    keyboard.send("T")  # Assume T is the hotkey for whistle
+                    send_keystrokes(driver,"T")  # Assume T is the hotkey for whistle
                     write_to_terminal("Whistled.")
                 if engage_button:
                     engage_button.click()
