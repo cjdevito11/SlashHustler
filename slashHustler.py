@@ -25,8 +25,8 @@ class StdoutRedirector:
         pass
 
 pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
-normal_state_image_path = 'normal_state.png'
-snag_image_path = 'snag.png'
+normal_state_image_path = 'images/normal_state.png'
+snag_image_path = 'images/snag.png'
 
 running = False
 reeling = False
@@ -37,7 +37,7 @@ fighting = False
 killed_count = 0
 fight_state = 0
 
-stats_file_path = 'fishing_stats.json'
+stats_file_path = 'jsons/fishing_stats.json'
 stats = {
     'runs': 0,
     'fish_caught': 0,
@@ -366,7 +366,7 @@ def calculate_grid_positions(region, rows=3, columns=3):
 def detect_fishing():
     fish_region = (0, 75, 450, 400)
     #found_fishing = pyautogui.locateCenterOnScreen('fishing.png', confidence=0.75, region=fish_region)
-    found_fishing = find_image('fishScreen.png', fish_region)
+    found_fishing = find_image('images/fishScreen.png', fish_region)
     write_to_terminal(f"Fishing? : {found_fishing}")
     if found_fishing:
         to_town = pyautogui.locateCenterOnScreen('backToTown.png', confidence=0.75, region=fish_region)
@@ -380,7 +380,7 @@ def townHeal():
     click_button(fightingToTownButton)
     write_to_terminal("Going to town for 120 seconds to heal")
     
-    time.sleep(120)
+    time.sleep(59)
     
     write_to_terminal("Back to the fight!")
     click_button(catacombs)
@@ -404,7 +404,7 @@ def automate_fighting():
    #     health_current, health_max, mana_current, mana_max = status
    #     health_percentage = (health_current / health_max) * 100
    # check_status()
-    catacombs_location = find_image('catacombs.png')
+    catacombs_location = find_image('images/catacombs.png')
     
     if fighting:
         click_button(catacombs)
@@ -441,17 +441,17 @@ def automate_fighting():
             
         #check_status()
         
-        monster_health_location = find_image(['fullHealth.png', 'fullHealth1.png', '23Health.png', 'halfHealth.png', '13health.png'], region=fightRegion)
+        monster_health_location = find_image(['images/fullHealth.png', 'images/fullHealth1.png', 'images/23Health.png', 'images/halfHealth.png', 'images/13health.png'], region=fightRegion)
         if monster_health_location:
             write_to_terminal(f"Found Monster at {monster_health_location.x}, {monster_health_location.y}")
             newX = randomize_position((monster_health_location.x, monster_health_location.y + 100))
             write_to_terminal(f"Updated Monster at {newX[0]}, {newX[1]}")
             click_button(newX, clicks=5, interval=random.uniform(0.09, 0.11))  # Randomize click interval
 
-        engage_location = find_image(['engage.png', 'engage1.png', 'engage2.png', 'engage3.png', 'engage4.png'], region=fightRegion)
+        engage_location = find_image(['images/engage.png', 'images/engage1.png', 'images/engage2.png', 'images/engage3.png', 'images/engage4.png'], region=fightRegion)
         if engage_location:
             engage_location = randomize_position((engage_location.x, engage_location.y))
-            keyboard.send("T")
+            #keyboard.send("T")
             click_button(engage_location, clicks=2, interval=random.uniform(0.95, 1.05))  # Randomize click interval
             
         #if fighting and selected_action == 'attack':
@@ -477,9 +477,9 @@ def automate_fighting():
             keyboard.send("R")
             write_to_terminal("--Fight State 5 - Heal--")
         if (fight_state==6):
-            keyboard.send("Q")
+            keyboard.send("E")
             time.sleep(.1)
-            keyboard.send("Q")
+            keyboard.send("E")
             write_to_terminal("--Fight State 6 - Attack + Skill 1--")
             click_button(skillOne)
         if (fight_state==10):
@@ -497,8 +497,8 @@ def automate_fighting():
             write_to_terminal("--Fight State 24 - Heal--")
         if (fight_state==25):
             fight_state=0
-            keyboard.send("T") ### T is hotkey to "Whistle"
             click_button(continueButton)   
+            #keyboard.send("T") ### T is hotkey to "Whistle"
             write_to_terminal("--Fight State 25 - Try to continue--")
             
         write_to_terminal(" - - - Press SPACE to kill - - - ")
@@ -510,23 +510,23 @@ def automate_fishing():
     #    stats = load_stats()
     
     if running and fished_count < total_fishing_attempts:
-        reel_location = find_button('reel.png')
-        #reel_on_location = find_button('reelOn.png')
-        reel_mouse_on_location = find_button('reelMouseOn.png')
+        reel_location = find_button('images/reel.png')
+        #reel_on_location = find_button('images/reelOn.png')
+        reel_mouse_on_location = find_button('images/reelMouseOn.png')
         
         if reel_location:
             reeling = True
             click_button(reel_location, clicks=3, interval=.1)
             
-        #reel_on_location = find_button('reelOn.png')
+        #reel_on_location = find_button('images/reelOn.png')
        # if reel_on_location:
         #    click_button(reel_on_location, clicks=6, interval=.09)
         
-        reel_mouse_on_location = find_button('reelMouseOn.png')
+        reel_mouse_on_location = find_button('images/reelMouseOn.png')
         if reel_mouse_on_location:
             click_button(reel_mouse_on_location, clicks=4, interval=.13)
         
-        snag_location = find_button('snag.png')
+        snag_location = find_button('images/snag.png')
         
         while reeling == True:
             print(":--click1")
@@ -538,7 +538,7 @@ def automate_fishing():
             click_button(reel_mouse_on_location, clicks=4, interval=.11)
             
             print("check recast")
-            recast_location = find_button('recast.png')
+            recast_location = find_button('images/recast.png')
             #print(f"recast_location = " + {recast_location})
             if recast_location:
                 reeling = False
@@ -556,7 +556,7 @@ def automate_fishing():
                 #time.sleep(1)  # Pause before recasting
                 click_button(recast_location)
         write_to_terminal("Press SPACE to kill")
-       # recast_location = find_button('recast.png')
+       # recast_location = find_button('images/recast.png')
         overlay.after(1, automate_fishing)  # Schedule next check
 
 def startFishing():
