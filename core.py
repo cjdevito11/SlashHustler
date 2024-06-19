@@ -429,7 +429,7 @@ def resetDungeon(driver):
                                     if btn.text == 'Leave Group':
                                         time.sleep(2)
                                         btn.click()
-                                        time.sleep(120)
+                                        time.sleep(560)
                         
         #Create Group
         #Leave Group
