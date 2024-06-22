@@ -1,0 +1,53 @@
+{
+    "name": "MrHustle",
+    "class": "dps",
+    "leader": true,
+    "whistle": false,
+    "inventory": [
+        {
+            "html": "<div title=\"\" class=\"tipBox tbItemDesc\" style=\"left: 1107px; top: 251px;\"><div title=\"\" class=\"itemDescBox\"><img title=\"\" src=\"svg/iconMap.svg\" class=\"itemDescImg\" width=\"40\" height=\"40\"><div title=\"\" class=\"fcb fwb\">Rare patched volcano map</div><div title=\"\" class=\"fcGray\">Use Item to Receive Effect</div><div title=\"\" class=\"fcb\">+1 Evil Presences</div><div title=\"\" class=\"fcb\">Quantity: 4 </div><div title=\"\" class=\"fcBlue1\">Ctrl-Click to Use this item</div></div></div>"
+        },
+        {
+            "html": "<div title=\"\" class=\"tipBox tbItemDesc\" style=\"left: 1131px; top: 251px;\"><div title=\"\" class=\"itemDescBox\"><img title=\"\" src=\"svg/iconMap.svg\" class=\"itemDescImg\" width=\"40\" height=\"40\"><div title=\"\" class=\"fcb fwb\">Rare rawhide arctic map</div><div title=\"\" class=\"fcGray\">Use Item to Receive Effect</div><div title=\"\" class=\"fcb\">+3 Warm Lights</div><div title=\"\" class=\"fcb\">Quantity: 2 </div><div title=\"\" class=\"fcBlue1\">Ctrl-Click to Use this item</div></div></div>"
+        },
+        {
+            "html": "<div title=\"\" class=\"tipBox tbItemDesc\" style=\"left: 1154px; top: 251px;\"><div title=\"\" class=\"itemDescBox\"><img title=\"\" src=\"svg/iconMap.svg\" class=\"itemDescImg\" width=\"40\" height=\"40\"><div title=\"\" class=\"fcb fwb\">Rare rawhide beach map</div><div title=\"\" class=\"fcGray\">Use Item to Receive Effect</div><div title=\"\" class=\"fcb\">+1 Warm Lights</div><div title=\"\" class=\"fcb\">Quantity: 5 </div><div title=\"\" class=\"fcBlue1\">Ctrl-Click to Use this item</div></div></div>"
+        },
+        {
+            "html": "<div title=\"\" class=\"tipBox tbItemDesc\" style=\"left: 1178px; top: 251px;\"><div title=\"\" class=\"itemDescBox\"><img title=\"\" src=\"svg/iconFish.svg\" class=\"itemDescImg\" width=\"40\" height=\"40\"><div title=\"\" class=\"fcb fwb\">Magical sardine fish</div><div title=\"\" class=\"fcGray\">Use Item to Receive Effect</div><div title=\"\" class=\"fcb\">Heals 64 Life</div><div title=\"\" class=\"fcb\">Quantity: 25 </div><div title=\"\" class=\"fcBlue1\">Ctrl-Click to Use this item</div></div></div>"
+        },
+        {
+            "html": "<div title=\"\" class=\"tipBox tbItemDesc\" style=\"left: 1201px; top: 251px;\"><div title=\"\" class=\"itemDescBox\"><img title=\"\" src=\"svg/iconFish.svg\" class=\"itemDescImg\" width=\"40\" height=\"40\"><div title=\"\" class=\"fcb fwb\">Magical sardine fish</div><div title=\"\" class=\"fcGray\">Use Item to Receive Effect</div><div title=\"\" class=\"fcb\">Heals 48 Life</div><div title=\"\" class=\"fcb\">Recovers 20 Mana</div><div title=\"\" class=\"fcb\">Quantity: 47 </div><div title=\"\" class=\"fcBlue1\">Ctrl-Click to Use this item</div></div></div>"
+        },
+        {
+            "html": "<div title=\"\" class=\"tipBox tbItemDesc\" style=\"left: 1225px; top: 251px;\"><div title=\"\" class=\"itemDescBox\"><img title=\"\" src=\"svg/iconFish.svg\" class=\"itemDescImg\" width=\"40\" height=\"40\"><div title=\"\" class=\"fcb fwb\">Magical sardine fish</div><div title=\"\" class=\"fcGray\">Use Item to Receive Effect</div><div title=\"\" class=\"fcb\">Heals 55 Life</div><div title=\"\" class=\"fcb\">Recovers 2 Mana</div><div title=\"\" class=\"fcb\">Quantity: 12 </div><div title=\"\" class=\"fcBlue1\">Ctrl-Click to Use this item</div></div></div>"
+        },
+        {
+            "html": "<div title=\"\" class=\"tipBox tbItemDesc\" style=\"left: 1220px; top: 251px;\"><div title=\"\" class=\"itemDescBox\"><img title=\"\" src=\"svg/iconMap.svg\" class=\"itemDescImg\" width=\"40\" height=\"40\"><div title=\"\" class=\"fcb fwb\">Mystical rawhide volcano map</div><div title=\"\" class=\"fcGray\">Use Item to Receive Effect</div><div title=\"\" class=\"fcb\">+1 Warm Lights</div><div title=\"\" class=\"fcb\">+95% Warm Light Effectiveness</div><div title=\"\" class=\"fcb\">Quantity: 2 </div><div title=\"\" class=\"fcBlue1\">Ctrl-Click to Use this item</div></div></div>"
+        },
+        {
+            "html": "<div title=\"\" class=\"tipBox tbItemDesc\" style=\"left: 1224px; top: 251px;\"><div title=\"\" class=\"itemDescBox\"><img title=\"\" src=\"svg/iconMap.svg\" class=\"itemDescImg\" width=\"40\" height=\"40\"><div title=\"\" class=\"fcb fwb\">Rare rawhide mountain map</div><div title=\"\" class=\"fcGray\">Use Item to Receive Effect</div><div title=\"\" class=\"fcb\">+149% Warm Light Effectiveness</div><div title=\"\" class=\"fcb\">Quantity: 4 </div><div title=\"\" class=\"fcBlue1\">Ctrl-Click to Use this item</div></div></div>"
+        },
+        {
+            "html": "<div title=\"\" class=\"tipBox tbItemDesc\" style=\"left: 1107px; top: 274px;\"><div title=\"\" class=\"itemDescBox\"><img title=\"\" src=\"svg/iconComfrey.svg\" class=\"itemDescImg\" width=\"40\" height=\"40\"><div title=\"\" class=\"fcb fwb\">Magical comfrey</div><div title=\"\" class=\"fcGray\">Use Item to Receive Effect</div><div title=\"\" class=\"fcb\">Recovers 861 Mana</div><div title=\"\" class=\"fcBlue1\">Ctrl-Click to Use this item</div></div></div>"
+        },
+        {
+            "html": "<div title=\"\" class=\"tipBox tbItemDesc\" style=\"left: 1131px; top: 274px;\"><div title=\"\" class=\"itemDescBox\"><img title=\"\" src=\"svg/iconPole.svg\" class=\"itemDescImg\" width=\"40\" height=\"40\"><div title=\"\" class=\"fcb fwb\">Magical heartwood fishing rod</div><div title=\"\" class=\"fcb\">Skill Rank Req: 25</div><div title=\"\" class=\"fcb\">+17 Durability</div></div></div>"
+        },
+        {
+            "html": "<div title=\"\" class=\"tipBox tbItemDesc\" style=\"left: 1154px; top: 274px;\"><div title=\"\" class=\"itemDescBox\"><img title=\"\" src=\"svg/iconFish.svg\" class=\"itemDescImg\" width=\"40\" height=\"40\"><div title=\"\" class=\"fcb fwb\">Magical sardine fish</div><div title=\"\" class=\"fcGray\">Use Item to Receive Effect</div><div title=\"\" class=\"fcb\">Recovers 86 Mana</div><div title=\"\" class=\"fcBlue1\">Ctrl-Click to Use this item</div></div></div>"
+        },
+        {
+            "html": "<div title=\"\" class=\"tipBox tbItemDesc\" style=\"left: 1178px; top: 274px;\"><div title=\"\" class=\"itemDescBox\"><img title=\"\" src=\"svg/iconComfrey.svg\" class=\"itemDescImg\" width=\"40\" height=\"40\"><div title=\"\" class=\"fcb fwb\">Magical comfrey</div><div title=\"\" class=\"fcGray\">Use Item to Receive Effect</div><div title=\"\" class=\"fcb\">Heals 997 Life</div><div title=\"\" class=\"fcBlue1\">Ctrl-Click to Use this item</div></div></div>"
+        },
+        {
+            "html": "<div title=\"\" class=\"tipBox tbItemDesc\" style=\"left: 1201px; top: 274px;\"><div title=\"\" class=\"itemDescBox\"><img title=\"\" src=\"svg/iconPole.svg\" class=\"itemDescImg\" width=\"40\" height=\"40\"><div title=\"\" class=\"fcb fwb\">pine fishing rod</div><div title=\"\" class=\"fcb\">Skill Rank Req: 5</div></div></div>"
+        }
+    ],
+    "equipment": {
+        "weapon": {},
+        "armor": {},
+        "charms": [],
+        "glyphs": []
+    }
+}
