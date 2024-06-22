@@ -591,6 +591,9 @@ def fight_based_on_role(driver, role):
     elif role == 'dps':
         ensure_position(driver, 'posBack')
         attack_nearest_monster(driver)
+    elif role == 'tankheal':
+        ensure_position(driver, 'posFront')
+        heal_group_members(driver)
     elif role == 'nohit':
         ensure_position(driver, 'posFront')
 
@@ -603,22 +606,21 @@ def heal_group_members(driver):
         if (current_health / max_health) * 100 < 50:
             # Assuming you have a healing skill assigned to 'R'
             send_keystrokes(driver, 'R')
+           # member.click()
             write_to_terminal(f"Healed {member.find_element(By.CSS_SELECTOR, '.cName').text}")
 
 def mage_attack_strategy(driver):
-    # Use 'E' key every 3rd attack, for example
     global attack_counter
     attack_counter += 1
-    if attack_counter % 3 == 0:
-        send_keystrokes(driver, 'E')
+    
+    if attack_counter % 2 == 0:
+        spellAttack(driver,'R')
     else:
         attack_nearest_monster(driver)
-
-def attack_nearest_monster(driver):
-    # Simple attack function, could be more complex based on the actual game
     
-    ## ADD LOGIC TO ATTACK CERTAIN MOBS FIRST 
+def attack_nearest_monster(driver):
     try:
+        quickAttack(driver)
         monsters = get_monsters(driver)
         #if len(monsters) > 4:
             #resetDungeon(driver)
@@ -630,7 +632,31 @@ def attack_nearest_monster(driver):
             
     except:
         print("couldnt attack monster")
+
+def spellAttack(driver, key):
+    try:
+        #quickAttack(driver)
+        monsters = get_monsters(driver)
+        #if len(monsters) > 4:
+            #resetDungeon(driver)
         
+        send_keystrokes(driver, key)
+        for monster in monsters:
+            attack_monster(driver, monster)
+            break
+            
+    except:
+        print("couldnt attack monster")
+
+
+def quickAttack(driver):
+    try:
+        monsters = driver.find_elements(By.CSS_SELECTOR, ".mobArea .mob")
+        for monster in monsters:
+            attack_monster(monster)
+            break
+    except:
+        print("Quick Attack Failed")
 
 
 def automate_fighting(driver):
