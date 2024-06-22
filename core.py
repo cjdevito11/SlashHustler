@@ -80,7 +80,7 @@ def update_overlay_position():
                     # Position overlay on top of Chrome
                     print('Chrome Window NOT Minimized')
                     chrome_pos = chrome_window.topleft
-                    newX = chrome_pos.x + 5
+                    newX = chrome_pos.x + 1000
                     newY = chrome_pos.y + 730
                     overlay.geometry(f"800x400+{newX}+{newY}")
                     overlay.deiconify()  # Show the overlay if hidden
@@ -102,8 +102,9 @@ def update_overlay_position():
                     # Position overlay on top of Chrome
                     print('Chrome Window NOT Minimized')
                     chrome_pos = chrome_window.topleft
+                    newX = chrome_pos.x + 1000
                     newY = chrome_pos.y + 730
-                    overlay.geometry(f"800x400+{chrome_pos.x}+{newY}")
+                    overlay.geometry(f"800x400+{newX}+{newY}")
                     overlay.deiconify()  # Show the overlay if hidden
                     overlay.attributes('-topmost', True)
             time.sleep(1)  # Check every second
@@ -590,6 +591,8 @@ def fight_based_on_role(driver, role):
     elif role == 'dps':
         ensure_position(driver, 'posBack')
         attack_nearest_monster(driver)
+    elif role == 'nohit':
+        ensure_position(driver, 'posFront')
 
 def heal_group_members(driver):
     # Example of healing group members
