@@ -19,6 +19,8 @@ from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.keys import Keys
+import pygetwindow as gw
+import threading
 
 # Redirect print function
 class StdoutRedirector:
@@ -37,6 +39,7 @@ pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tessera
 running = False
 fighting = False
 fight_state = 0
+role = ''
 
 CHARACTER_JSON_PATH = 'configs/MrHustle.json'  # Update this to get character name
 
@@ -60,6 +63,53 @@ def load_scoring_system():
         return json.load(file)
 scoring_system = load_scoring_system()
 
+# Function to update overlay position
+def update_overlay_position():
+    global fighting
+    while fighting != True:
+        try:
+            # Get the Chrome window
+            chrome_window = gw.getWindowsWithTitle("Ladder Slasher v1.33.1")[0]
+            if chrome_window:
+                # Check if Chrome is minimized
+                if chrome_window.isMinimized:
+                    print('Chrome Window Minimized')
+                    overlay.withdraw()  # Hide the overlay
+                    overlay.attributes('-topmost', False)
+                else:
+                    # Position overlay on top of Chrome
+                    print('Chrome Window NOT Minimized')
+                    chrome_pos = chrome_window.topleft
+                    newX = chrome_pos.x + 5
+                    newY = chrome_pos.y + 730
+                    overlay.geometry(f"800x400+{newX}+{newY}")
+                    overlay.deiconify()  # Show the overlay if hidden
+                    overlay.attributes('-topmost', True)
+            time.sleep(1)  # Check every second
+        except IndexError:
+            pass  # Handle case where window might not be found
+    if fighting == True:
+        try:
+            # Get the Chrome window
+            chrome_window = gw.getWindowsWithTitle("Ladder Slasher v1.33.1")[0]
+            if chrome_window:
+                # Check if Chrome is minimized
+                if chrome_window.isMinimized:
+                    print('Chrome Window Minimized')
+                    overlay.withdraw()  # Hide the overlay
+                    overlay.attributes('-topmost', False)
+                else:
+                    # Position overlay on top of Chrome
+                    print('Chrome Window NOT Minimized')
+                    chrome_pos = chrome_window.topleft
+                    newY = chrome_pos.y + 730
+                    overlay.geometry(f"800x400+{chrome_pos.x}+{newY}")
+                    overlay.deiconify()  # Show the overlay if hidden
+                    overlay.attributes('-topmost', True)
+            time.sleep(1)  # Check every second
+        except IndexError:
+            pass  # Handle case where window might not be found
+            
 # Selenium setup
 def setup_browser():
     chrome_options = Options()
@@ -100,6 +150,27 @@ def update_character_json(driver):
     CONFIG["equipment"] = scan_equipment(driver)
     
     saveConfig()
+
+def move_to_position(driver, move_class):
+    try:
+        button = driver.find_element(By.CLASS_NAME, move_class)
+        button.click()
+        time.sleep(1)  # Allow some time for movement to process
+    except Exception as e:
+        write_to_terminal(f"Error moving to position: {e}")
+
+def ensure_position(driver, expected_position):
+    try:
+        position_element = driver.find_element(By.CLASS_NAME, 'charImg')
+        current_position = position_element.get_attribute('class')
+        if expected_position not in current_position:
+            if 'posBack' in expected_position:
+                move_to_position(driver, 'moveL')
+            elif 'posFront' in expected_position:
+                move_to_position(driver, 'moveR')
+    except Exception as e:
+        write_to_terminal(f"Error ensuring position: {e}")
+
 
 def scan_inventory(driver):
     inventory_items = driver.find_elements(By.CSS_SELECTOR, ".invEqBox .itemBox")
@@ -220,11 +291,11 @@ def get_health_mana(driver):
         max_health = int(health_text[1])
         current_mana = int(mana_text[0])
         max_mana = int(mana_text[1])
+        hp = (current_health / max_health) * 100
+        mp = (current_mana / max_mana) * 100
         return {
-            "current_health": current_health,
-            "max_health": max_health,
-            "current_mana": current_mana,
-            "max_mana": max_mana
+            "hp": hp,
+            "mp": mp
         }
     except Exception as e:
         write_to_terminal(f"Error: {e}")
@@ -300,15 +371,11 @@ def town_heal(driver):
         finally:
             print(" - Talking to Akara - ")
             write_to_terminal("Talking to Akara")
-            time.sleep(15)  # Adjust healing time as needed
+            time.sleep(5)  # Adjust healing time as needed
             health_mana_data = get_health_mana(driver)
             if health_mana_data:
-                current_health = health_mana_data['current_health']
-                max_health = health_mana_data['max_health']
-                current_mana = health_mana_data['current_mana']
-                max_mana = health_mana_data['max_mana']
-                hp = (current_health / max_health) * 100
-                mp = (current_mana / max_mana) * 100
+                hp = health_mana_data['hp']
+                mp = health_mana_data['mp']
                 
                 write_to_terminal(f"~Town Stats~")
                 write_to_terminal(f"-HP: {hp}")
@@ -329,7 +396,7 @@ def fight_heal(driver,hp,mp):
     if hp < 50:
         if mp > 20: 
             send_keystrokes(driver,"R")
-            time.sleep(5)
+            time.sleep(1)
             #fight_heal(driver,hp,mp)
             send_keystrokes(driver,"Q")
             actions = ActionChains(driver).key_down(Keys.CONTROL).key_up(Keys.CONTROL).perform()
@@ -483,77 +550,189 @@ def calculate_item_score(item_name, modifiers):
                 score += scoring_system[item_name]["modifiers"][mod]
     return score
 
-# Function to automate fighting
+def is_leader(driver):
+    return bool(driver.find_elements(By.CSS_SELECTOR, ".cName.gLeader"))
+
+def engage_if_leader(driver):
+    if is_leader(driver):
+        print('Try find engage as leader')
+        if is_engage_button_visible(driver):
+            engage_button = driver.find_element(By.CSS_SELECTOR, ".cataEngage")  # Update selector as needed
+            if engage_button:
+                engage_button.click()
+
+        # if whistle_var.get():
+                # send_keystrokes(driver, "T")  # Assume T is the hotkey for whistle
+                # write_to_terminal("Whistled.")
+            # if engage_button:
+                # engage_button.click()
+                # write_to_terminal("Clicked engage button.")
+            
+            
+            
+        # SETUP SWITCH FOR WHISTLE
+
+def wait_for_monsters():
+    # Function that waits until monsters appear on the screen
+    pass  # Implement based on game logic
+
+
+def fight_based_on_role(driver, role):
+    if role == 'healer':
+        ensure_position(driver, 'posBack')
+        heal_group_members(driver)
+    elif role == 'tank':
+        ensure_position(driver, 'posFront')
+        attack_nearest_monster(driver)
+    elif role == 'mage':
+        ensure_position(driver, 'posBack')
+        mage_attack_strategy(driver)
+
+def heal_group_members(driver):
+    # Example of healing group members
+    group_members = driver.find_elements(By.CSS_SELECTOR, ".charObj")
+    for member in group_members:
+        health_text = member.find_element(By.CSS_SELECTOR, ".lifeMeter .meterBoxLabel").text
+        current_health, max_health = map(int, health_text.split(' / '))
+        if (current_health / max_health) * 100 < 50:
+            # Assuming you have a healing skill assigned to 'R'
+            send_keystrokes(driver, 'R')
+            write_to_terminal(f"Healed {member.find_element(By.CSS_SELECTOR, '.cName').text}")
+
+def mage_attack_strategy(driver):
+    # Use 'E' key every 3rd attack, for example
+    global attack_counter
+    attack_counter += 1
+    if attack_counter % 3 == 0:
+        send_keystrokes(driver, 'E')
+    else:
+        attack_nearest_monster(driver)
+
+def attack_nearest_monster(driver):
+    # Simple attack function, could be more complex based on the actual game
+    
+    ## ADD LOGIC TO ATTACK CERTAIN MOBS FIRST 
+    monsters = driver.find_elements(By.CSS_SELECTOR, ".mob")
+    if monsters:
+        send_keystrokes(driver, 'Q')
+        monsters[0].click()  # Attacks the first monster found
+        monsterName = monsters[0].find_element(By.CSS_SELECTOR, ".meterBoxLabel").text
+        write_to_terminal(f'Attacked {monsterName}')
+
 def automate_fighting(driver):
-    global fighting, fight_state
+    global fighting, fight_state, role
     write_to_terminal(f"Fighting: {fighting}")
+    write_to_terminal(f"Fight State: {fight_state}")
+    update_overlay_position()
+    
     if fighting:
+        isLeader = is_leader(driver)
+        print(f'Is Leader: {isLeader}')
         if is_in_town(driver):
             select_catacombs(driver)
+    
+        check_health_and_react(driver)
+            #Print group health/mana data
+            
+        if not isLeader:
+            wait_for_monsters()
+        else:
+            engage_if_leader(driver)
+            
+        fight_based_on_role(driver, role)
+        
 
+        overlay.after(1000, lambda: automate_fighting(driver))  # Adjust delay as needed
+
+def check_health_and_react(driver):
+    try:
         health_mana_data = get_health_mana(driver)
         if health_mana_data:
-            current_health = health_mana_data['current_health']
-            max_health = health_mana_data['max_health']
-            current_mana = health_mana_data['current_mana']
-            max_mana = health_mana_data['max_mana']
+            hp = health_mana_data['hp']
+            mp = health_mana_data['mp']
             
-            hp = (current_health / max_health) * 100
-            mp = (current_mana / max_mana) * 100
             write_to_terminal(f"-HP: {hp}")
-            print(f"-HP: {hp}")
             write_to_terminal(f"-MP: {mp}")
+            print(f"-HP: {hp}")
             print(f"-MP: {mp}")
             
-            if hp < 40:
-                print("Fight: ~> Town Heal <~")
-                town_heal(driver)
-            if hp < 60:
-                fight_heal(driver, hp, mp)
-            if hp > 60 or mp < 30:
-                attack_switch(driver, hp, mp)
-        
-        drop_items = driver.find_elements(By.CSS_SELECTOR, ".dropItemsBox .itemBox")
-        if drop_items:
-            parse_and_score_drops(driver, drop_items)
-            
-        monsters = get_monsters(driver)
-        if len(monsters) > 4:
-            resetDungeon(driver)
-        if not monsters:
-            if is_engage_button_visible(driver):
-                engage_button = driver.find_element(By.CSS_SELECTOR, ".cataEngage")
-                if whistle_var.get():
-                    send_keystrokes(driver, "T")  # Assume T is the hotkey for whistle
-                    write_to_terminal("Whistled.")
-                if engage_button:
-                    engage_button.click()
-                    write_to_terminal("Clicked engage button.")
-            else:
-                send_keystrokes(driver, "T")
-                
-        for monster in monsters:
-            if monster["health_percentage"] > 0:
-                attack_monster(driver, monster)
-                break
+    except Exception as e:
+        print(f"Error in checkHealthAndReact: {e}")
+    
+# Function to automate fighting
+# def automate_fighting(driver):
+    # global fighting, fight_state
+    # write_to_terminal(f"Fighting: {fighting}")
+    # update_overlay_position()
+    # if fighting:
+        # if is_in_town(driver):
+            # select_catacombs(driver)
 
-        # Schedule next fight action
-        overlay.after(1000, lambda: automate_fighting(driver))  # Adjust delay as needed
+        # health_mana_data = get_health_mana(driver)
+        # if health_mana_data:
+            # current_health = health_mana_data['current_health']
+            # max_health = health_mana_data['max_health']
+            # current_mana = health_mana_data['current_mana']
+            # max_mana = health_mana_data['max_mana']
+            
+            # hp = (current_health / max_health) * 100
+            # mp = (current_mana / max_mana) * 100
+            # write_to_terminal(f"-HP: {hp}")
+            # print(f"-HP: {hp}")
+            # write_to_terminal(f"-MP: {mp}")
+            # print(f"-MP: {mp}")
+            
+            # if hp < 40:
+                # print("Fight: ~> Town Heal <~")
+                # town_heal(driver)
+            # if hp < 60:
+                # fight_heal(driver, hp, mp)
+            # if hp > 60 or mp < 30:
+                # attack_switch(driver, hp, mp)
+        
+        # drop_items = driver.find_elements(By.CSS_SELECTOR, ".dropItemsBox .itemBox")
+        # if drop_items:
+            # parse_and_score_drops(driver, drop_items)
+            
+        # monsters = get_monsters(driver)
+        # if len(monsters) > 4:
+            # resetDungeon(driver)
+        # if not monsters:
+            # if is_engage_button_visible(driver):
+                # engage_button = driver.find_element(By.CSS_SELECTOR, ".cataEngage")
+                # if whistle_var.get():
+                    # send_keystrokes(driver, "T")  # Assume T is the hotkey for whistle
+                    # write_to_terminal("Whistled.")
+                # if engage_button:
+                    # engage_button.click()
+                    # write_to_terminal("Clicked engage button.")
+            # else:
+                # send_keystrokes(driver, "T")
+                
+        # for monster in monsters:
+            # if monster["health_percentage"] > 0:
+                # attack_monster(driver, monster)
+                # break
+
+        # # Schedule next fight action
+        # overlay.after(1000, lambda: automate_fighting(driver))  # Adjust delay as needed
 
 # Function to start fighting
 def fight():
-    global fighting
+    global fighting, role
     
     driver = setup_browser()
     fighting = True
     print("Get Character Config")
     getCharacter(driver)
+    role = CONFIG['class']
     
     # Scan inventory and equipment at the start
     #update_character_json(driver)
     
     write_to_terminal("Fight!... ")
     automate_fighting(driver)
+
 
 # Function to stop automation
 def stop_automation():
@@ -585,6 +764,13 @@ terminal_output.pack(expand=True, fill='both')
 
 #sys.stdout = StdoutRedirector(terminal_output)
 
-#keyboard.add_hotkey('space', stop_automation)
+keyboard.add_hotkey('+', stop_automation)
+
+
+
+# Start the monitoring thread
+thread = threading.Thread(target=update_overlay_position)
+thread.daemon = True
+thread.start()
 
 overlay.mainloop()
