@@ -587,6 +587,9 @@ def fight_based_on_role(driver, role):
     elif role == 'mage':
         ensure_position(driver, 'posBack')
         mage_attack_strategy(driver)
+    elif role == 'dps':
+        ensure_position(driver, 'posBack')
+        attack_nearest_monster(driver)
 
 def heal_group_members(driver):
     # Example of healing group members
@@ -612,12 +615,20 @@ def attack_nearest_monster(driver):
     # Simple attack function, could be more complex based on the actual game
     
     ## ADD LOGIC TO ATTACK CERTAIN MOBS FIRST 
-    monsters = driver.find_elements(By.CSS_SELECTOR, ".mob")
-    if monsters:
+    try:
+        monsters = get_monsters(driver)
+        #if len(monsters) > 4:
+            #resetDungeon(driver)
+        
         send_keystrokes(driver, 'Q')
-        monsters[0].click()  # Attacks the first monster found
-        monsterName = monsters[0].find_element(By.CSS_SELECTOR, ".meterBoxLabel").text
-        write_to_terminal(f'Attacked {monsterName}')
+        for monster in monsters:
+            attack_monster(driver, monster)
+            break
+            
+    except:
+        print("couldnt attack monster")
+        
+
 
 def automate_fighting(driver):
     global fighting, fight_state, role
