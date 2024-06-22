@@ -631,7 +631,7 @@ def automate_fighting(driver):
         if is_in_town(driver):
             select_catacombs(driver)
     
-        check_health_and_react(driver)
+        checkHealth(driver)
             #Print group health/mana data
             
         if not isLeader:
@@ -644,9 +644,10 @@ def automate_fighting(driver):
 
         overlay.after(1000, lambda: automate_fighting(driver))  # Adjust delay as needed
 
-def check_health_and_react(driver):
+def checkHealth(driver):
     try:
         health_mana_data = get_health_mana(driver)
+        
         if health_mana_data:
             hp = health_mana_data['hp']
             mp = health_mana_data['mp']
@@ -655,6 +656,16 @@ def check_health_and_react(driver):
             write_to_terminal(f"-MP: {mp}")
             print(f"-HP: {hp}")
             print(f"-MP: {mp}")
+            
+            if hp < 40:
+                print("Fight: ~> Town Heal <~")
+                write_to_terminal("Fight: ~> Town Heal <~")
+                town_heal(driver)
+                
+            #if hp < 60:
+                #fight_heal(driver, hp, mp)
+            #if hp > 60 or mp < 30:
+                #attack_switch(driver, hp, mp)
             
     except Exception as e:
         print(f"Error in checkHealthAndReact: {e}")
