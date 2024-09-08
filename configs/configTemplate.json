@@ -1,0 +1,13 @@
+{
+    "name": "CharacterName",
+    "class": "tank",
+    "leader": true,
+    "whistle": false,
+    "inventory": [],
+    "equipment": {
+        "weapon": {},
+        "armor": {},
+        "charms": [],
+        "glyphs": []
+    }
+}
