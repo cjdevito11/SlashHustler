@@ -75,7 +75,7 @@ def update_overlay_position():
                 # Check if Chrome is minimized
                 if chrome_window.isMinimized:
                     print('Chrome Window Minimized')
-                    overlay.withdraw()  # Hide the overlay
+                    #overlay.withdraw()  # Hide the overlay
                     overlay.attributes('-topmost', False)
                 else:
                     # Position overlay on top of Chrome
@@ -90,6 +90,7 @@ def update_overlay_position():
         except IndexError:
             pass  # Handle case where window might not be found
     if fighting == True:
+        print('fighting = true')
         try:
             # Get the Chrome window
             chrome_window = gw.getWindowsWithTitle("Ladder Slasher v1.33.1")[0]
@@ -97,7 +98,7 @@ def update_overlay_position():
                 # Check if Chrome is minimized
                 if chrome_window.isMinimized:
                     print('Chrome Window Minimized')
-                    overlay.withdraw()  # Hide the overlay
+                    #overlay.withdraw()  # Hide the overlay
                     overlay.attributes('-topmost', False)
                 else:
                     # Position overlay on top of Chrome
@@ -203,6 +204,8 @@ def scan_equipment(driver):
         hover_and_print_item_details(driver, item)
         time.sleep(0.3)  # Allow time for the hover popup to appear
         item_details = driver.find_element(By.CSS_SELECTOR, ".tipBox.tbItemDesc").get_attribute('outerHTML')
+        print(f'********')
+        print(f'Item Details: {item_details}')
         #parsed_item = parse_item_details(item_details)
         parsed_item = parse_gear_details(item_details)
         print(f"parsed_item: {parsed_item}")
@@ -226,10 +229,21 @@ def parse_gear_details(html):
     soup = BeautifulSoup(html, 'html.parser')
     item_details = {}
 
-    item_name = soup.find('div', class_='fcb fwb').text.strip()
-    item_details['name'] = item_name
+    # Try to locate the first `itemdescBox`
+    item_box = soup.find('div', class_='itemDescBox')
 
-    stats = soup.find_all('div', class_='fcb')
+    if not item_box:
+        print("Item_box not found")
+        return None
+
+    # Continue parsing if found
+    item_name = item_box.find('div', class_='fcb fwb').text.strip()
+    item_details['name'] = item_name
+    print(f'item_details -- {item_details}')
+
+    # Find all stats inside this specific itemdescBox
+    stats = item_box.find_all('div', class_='fcb')
+
     for stat in stats:
         text = stat.text.strip()
         if 'Level Req' in text:
@@ -243,6 +257,15 @@ def parse_gear_details(html):
             item_details['mana_cost'] = text.split(': ')[1]
         elif 'Heals' in text:
             item_details['heals'] = text.split(': ')[1]
+        elif '%' in text:
+            item_details[text.split('% ')[1]] = text.split('% ')[0]
+        elif ' to ' in text:
+            wrongName = text.split(' to ')[1]
+            newName = wrongName.split(' ')[1]
+            leftStat = text.split(' to ')[0]
+            rightStat = wrongName.split(' ')[0]
+            newStat = leftStat + ' to ' + rightStat
+            item_details[newName] = newStat
         else:
             # General attribute handling
             parts = text.split(' ')
@@ -252,9 +275,10 @@ def parse_gear_details(html):
                 item_details[stat_name.lower().replace(' ', '_')] = stat_value
 
     return item_details
-    
+   
 def hover_and_print_item_details(driver, item_element):
     try:
+        time.sleep(.5)
         # Move to the item to trigger the hover effect
         actions = ActionChains(driver)
         actions.move_to_element(item_element).perform()
@@ -270,6 +294,113 @@ def hover_and_print_item_details(driver, item_element):
 
     except Exception as e:
         write_to_terminal(f"Error while hovering and printing item details: {e}")
+
+
+# LOOT SYSTEM
+
+def hover_and_extract_item(driver, item_element):
+    try:
+        # Hover over the item
+        actions = ActionChains(driver)
+        actions.move_to_element(item_element).perform()
+        time.sleep(0.5)  # Wait for hover effect to trigger
+
+        # Capture item details from popup
+        popup = driver.find_element(By.CSS_SELECTOR, ".tipBox.tbItemDesc")
+        item_html = popup.get_attribute('outerHTML')
+        parsed_item = parse_gear_details(item_html)
+
+        return parsed_item
+
+    except Exception as e:
+        print(f"Error hovering over item: {e}")
+        return None
+
+def log_item_to_file(item_details, item_score, filename="logs/itemDrops.txt"):
+    with open(filename, 'a') as log_file:
+        log_file.write("+++++++++++++++++++++++++++++++++++++++++++++++++++++\n")
+        log_file.write(f"Item Name: {item_details['name']}\n")
+        log_file.write(f"Item Details: {item_details}\n")
+        log_file.write(f"Item Score: {item_score}\n")
+        log_file.write("----- Stats -----\n")
+        # Log other item details (such as stats)
+        for stat, value in item_details.items():
+            if stat != 'name':
+                log_file.write(f"{stat.replace('_', ' ').capitalize()}: {value}\n")
+
+        log_file.write("+++++++++++++++++++++++++++++++++++++++++++++++++++++\n\n")
+
+
+def parse_and_score_drops_new(driver, drop_items):
+    loot_threshold = 10
+    print('--- Score Drops ---')
+
+    # Log file name
+    log_filename = "logs/itemDrops.txt"
+    
+    for item in drop_items:
+        parsed_item = hover_and_extract_item(driver, item)
+        if parsed_item:
+            print(f'parsed_item = {parsed_item}')
+            item_score = calculate_item_score(parsed_item['name'], parsed_item)
+            print('+++++++++++++++++++++++++++++++++++++++++++++++++++++')
+            print(f"Item: {parsed_item['name']}, Score: {item_score}")
+
+            # Log the item to file
+            log_item_to_file(parsed_item, item_score, log_filename)
+
+            # Decide if the item should be looted
+            if item_score > loot_threshold:
+                loot_item(driver, item)
+
+
+# Function to calculate the score of an item based on its name and modifiers
+def calculate_item_score(item_name, modifiers):
+    #print(f'-Scoring Modifiers- {modifiers}')
+    score = 0
+    if item_name in scoring_system:
+        score += scoring_system[item_name]["base_score"]
+        for mod in modifiers:
+            print(f"Mod: {mod}")
+            if mod in scoring_system[item_name]["modifiers"]:
+                score += scoring_system[item_name]["modifiers"][mod]
+    print('| *** Calculate Item Score ***')
+    print(f'| Item Name: {item_name}')
+    for mod in modifiers:
+        print(f'{mod}')
+    if "Enhanced Effect" in modifiers:
+        score += 100  # Example of boosting score based on a stat
+    if "Experience" in modifiers:
+        score += 50  # Example of boosting score based on a stat
+    if "Vitality" in modifiers:
+        score += 50
+    if "Max Life" in modifiers:
+        score += 50
+    if "Life Regen" in modifiers:
+        score += 10
+    if "Life Steal" in modifiers:
+        score += 50
+    if "Parry" in modifiers:
+        score += 50
+    if "Crit" in modifiers:
+        score += 50
+    if "Intelligence" in modifiers:
+        score += 50
+    if "Life per Attack" in modifiers:
+        score += 50
+    if "Reduction" in modifiers:
+        score += 50
+    if "Pierce" in modifiers:
+        score += 50
+
+    print(f'Score = {score}')
+    return score
+
+
+
+
+
+
 
 # Function to add an item to the inventory
 def add_item_to_inventory(driver, item):
@@ -515,8 +646,9 @@ def parse_and_score_drops(driver, drop_items):
         for item in drop_items:
             item_name_element = item.find_element(By.CSS_SELECTOR, "img")
             item_modifiers = item.find_elements(By.CSS_SELECTOR, ".ds2")
-            
-            hover_and_print_all_item_details(driver)
+            print(f'item_name_element: {item_name_element}')
+            print(f'item_modifiers: {item_modifiers}')
+            hover_and_print_item_details(driver, item_name_element)
             
             item_name = item_name_element.get_attribute("src").split("/")[-1].replace(".svg", "")
             iLvl = [mod.text for mod in item_modifiers]
@@ -542,16 +674,7 @@ def parse_and_score_drops(driver, drop_items):
         write_to_terminal(f"Error parsing and scoring drops: {e}")
         return []
 
-# Function to calculate the score of an item based on its name and modifiers
-def calculate_item_score(item_name, modifiers):
-    score = 0
-    if item_name in scoring_system:
-        score += scoring_system[item_name]["base_score"]
-        for mod in modifiers:
-            print(f"Mod: {mod}")
-            if mod in scoring_system[item_name]["modifiers"]:
-                score += scoring_system[item_name]["modifiers"][mod]
-    return score
+
 
 def is_leader(driver):
     return bool(driver.find_elements(By.CSS_SELECTOR, ".cName.gLeader"))
@@ -695,7 +818,7 @@ def automate_fighting(driver):
         drop_items = driver.find_elements(By.CSS_SELECTOR, ".dropItemsBox .itemBox")
         if drop_items:
             print('Found Items')
-            parse_and_score_drops(driver, drop_items)
+            parse_and_score_drops_new(driver, drop_items)
 
         overlay.after(1000, lambda: automate_fighting(driver))  # Adjust delay as needed
 

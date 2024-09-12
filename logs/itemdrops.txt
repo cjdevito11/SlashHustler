@@ -1,0 +1,3561 @@
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: focused heal I
+Item Details: {'name': 'focused heal I', 'focused_heal': 'I', 'heals': '5 to 6', 'mana_cost': '5'}
+Item Score: 0
+----- Stats -----
+Focused heal: I
+Heals: 5 to 6
+Mana cost: 5
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: focused heal IV
+Item Details: {'name': 'focused heal IV', 'focused_heal': 'IV', 'level_req': '5', 'heals': '23 to 27', 'mana_cost': '29'}
+Item Score: 0
+----- Stats -----
+Focused heal: IV
+Level req: 5
+Heals: 23 to 27
+Mana cost: 29
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: Magical rusted axe
+Item Details: {'name': 'Magical rusted axe', 'magical_rusted': 'axe', 'damage': '8 to 10', '+64_max': 'Mana'}
+Item Score: 0
+----- Stats -----
+Magical rusted: axe
+Damage: 8 to 10
++64 max: Mana
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: steel plate mail
+Item Details: {'name': 'steel plate mail', 'steel_plate': 'mail', 'level_req': '10', 'physical_defense': '18 to 55', 'magical_defense': '0 to 5'}
+Item Score: 0
+----- Stats -----
+Steel plate: mail
+Level req: 10
+Physical defense: 18 to 55
+Magical defense: 0 to 5
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: heal VI
+Item Details: {'name': 'heal VI', 'heal': 'VI', 'level_req': '15', 'heals': '20 to 55', 'mana_cost': '45'}
+Item Score: 0
+----- Stats -----
+Heal: VI
+Level req: 15
+Heals: 20 to 55
+Mana cost: 45
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: copper longsword
+Item Details: {'name': 'copper longsword', 'copper': 'longsword', 'damage': '7 to 78'}
+Item Score: 0
+----- Stats -----
+Copper: longsword
+Damage: 7 to 78
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: Magical heal II
+Item Details: {'name': 'Magical heal II', 'magical_heal': 'II', 'heals': '6 to 18', 'mana_cost': '13', 'Wind Mastery': '+2'}
+Item Score: 0
+----- Stats -----
+Magical heal: II
+Heals: 6 to 18
+Mana cost: 13
+Wind mastery: +2
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: cracked scale armor
+Item Details: {'name': 'cracked scale armor', 'cracked_scale': 'armor', 'physical_defense': '1 to 7', 'magical_defense': '1 to 3'}
+Item Score: 0
+----- Stats -----
+Cracked scale: armor
+Physical defense: 1 to 7
+Magical defense: 1 to 3
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: Magical heal II
+Item Details: {'name': 'Magical heal II', 'magical_heal': 'II', 'heals': '6 to 18', 'mana_cost': '13', 'Wind Mastery': '+2'}
+Item Score: 0
+----- Stats -----
+Magical heal: II
+Heals: 6 to 18
+Mana cost: 13
+Wind mastery: +2
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: copper longsword
+Item Details: {'name': 'copper longsword', 'copper': 'longsword', 'damage': '7 to 78'}
+Item Score: 0
+----- Stats -----
+Copper: longsword
+Damage: 7 to 78
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: Magical ice IV
+Item Details: {'name': 'Magical ice IV', 'magical_ice': 'IV', 'level_req': '5', 'damage': '23 to 27', 'mana_cost': '29', 'Life': '+1 to 1'}
+Item Score: 0
+----- Stats -----
+Magical ice: IV
+Level req: 5
+Damage: 23 to 27
+Mana cost: 29
+Life: +1 to 1
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: Magical ice IV
+Item Details: {'name': 'Magical ice IV', 'magical_ice': 'IV', 'level_req': '5', 'damage': '23 to 27', 'mana_cost': '29', 'Life': '+1 to 1'}
+Item Score: 0
+----- Stats -----
+Magical ice: IV
+Level req: 5
+Damage: 23 to 27
+Mana cost: 29
+Life: +1 to 1
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: Magical ice IV
+Item Details: {'name': 'Magical ice IV', 'magical_ice': 'IV', 'level_req': '5', 'damage': '23 to 27', 'mana_cost': '29', 'Life': '+1 to 1'}
+Item Score: 0
+----- Stats -----
+Magical ice: IV
+Level req: 5
+Damage: 23 to 27
+Mana cost: 29
+Life: +1 to 1
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: Magical ice IV
+Item Details: {'name': 'Magical ice IV', 'magical_ice': 'IV', 'level_req': '5', 'damage': '23 to 27', 'mana_cost': '29', 'Life': '+1 to 1'}
+Item Score: 0
+----- Stats -----
+Magical ice: IV
+Level req: 5
+Damage: 23 to 27
+Mana cost: 29
+Life: +1 to 1
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: Magical ice IV
+Item Details: {'name': 'Magical ice IV', 'magical_ice': 'IV', 'level_req': '5', 'damage': '23 to 27', 'mana_cost': '29', 'Life': '+1 to 1'}
+Item Score: 0
+----- Stats -----
+Magical ice: IV
+Level req: 5
+Damage: 23 to 27
+Mana cost: 29
+Life: +1 to 1
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: Magical ice IV
+Item Details: {'name': 'Magical ice IV', 'magical_ice': 'IV', 'level_req': '5', 'damage': '23 to 27', 'mana_cost': '29', 'Life': '+1 to 1'}
+Item Score: 0
+----- Stats -----
+Magical ice: IV
+Level req: 5
+Damage: 23 to 27
+Mana cost: 29
+Life: +1 to 1
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: Magical ice IV
+Item Details: {'name': 'Magical ice IV', 'magical_ice': 'IV', 'level_req': '5', 'damage': '23 to 27', 'mana_cost': '29', 'Life': '+1 to 1'}
+Item Score: 0
+----- Stats -----
+Magical ice: IV
+Level req: 5
+Damage: 23 to 27
+Mana cost: 29
+Life: +1 to 1
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: Magical ice IV
+Item Details: {'name': 'Magical ice IV', 'magical_ice': 'IV', 'level_req': '5', 'damage': '23 to 27', 'mana_cost': '29', 'Life': '+1 to 1'}
+Item Score: 0
+----- Stats -----
+Magical ice: IV
+Level req: 5
+Damage: 23 to 27
+Mana cost: 29
+Life: +1 to 1
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: wild heal II
+Item Details: {'name': 'wild heal II', 'wild_heal': 'II', 'heals': '2 to 23', 'mana_cost': '13'}
+Item Score: 0
+----- Stats -----
+Wild heal: II
+Heals: 2 to 23
+Mana cost: 13
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: wild heal II
+Item Details: {'name': 'wild heal II', 'wild_heal': 'II', 'heals': '2 to 23', 'mana_cost': '13'}
+Item Score: 0
+----- Stats -----
+Wild heal: II
+Heals: 2 to 23
+Mana cost: 13
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: wild heal II
+Item Details: {'name': 'wild heal II', 'wild_heal': 'II', 'heals': '2 to 23', 'mana_cost': '13'}
+Item Score: 0
+----- Stats -----
+Wild heal: II
+Heals: 2 to 23
+Mana cost: 13
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: wind V
+Item Details: {'name': 'wind V', 'wind': 'V', 'level_req': '10', 'damage': '11 to 51', 'mana_cost': '37'}
+Item Score: 0
+----- Stats -----
+Wind: V
+Level req: 10
+Damage: 11 to 51
+Mana cost: 37
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: rawhide leather armor
+Item Details: {'name': 'rawhide leather armor', 'rawhide_leather': 'armor', 'physical_defense': '3 to 11', 'magical_defense': '2 to 9'}
+Item Score: 0
+----- Stats -----
+Rawhide leather: armor
+Physical defense: 3 to 11
+Magical defense: 2 to 9
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: wind V
+Item Details: {'name': 'wind V', 'wind': 'V', 'level_req': '10', 'damage': '11 to 51', 'mana_cost': '37'}
+Item Score: 0
+----- Stats -----
+Wind: V
+Level req: 10
+Damage: 11 to 51
+Mana cost: 37
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: rawhide leather armor
+Item Details: {'name': 'rawhide leather armor', 'rawhide_leather': 'armor', 'physical_defense': '3 to 11', 'magical_defense': '2 to 9'}
+Item Score: 0
+----- Stats -----
+Rawhide leather: armor
+Physical defense: 3 to 11
+Magical defense: 2 to 9
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: wind V
+Item Details: {'name': 'wind V', 'wind': 'V', 'level_req': '10', 'damage': '11 to 51', 'mana_cost': '37'}
+Item Score: 0
+----- Stats -----
+Wind: V
+Level req: 10
+Damage: 11 to 51
+Mana cost: 37
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: rawhide leather armor
+Item Details: {'name': 'rawhide leather armor', 'rawhide_leather': 'armor', 'physical_defense': '3 to 11', 'magical_defense': '2 to 9'}
+Item Score: 0
+----- Stats -----
+Rawhide leather: armor
+Physical defense: 3 to 11
+Magical defense: 2 to 9
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: wind V
+Item Details: {'name': 'wind V', 'wind': 'V', 'level_req': '10', 'damage': '11 to 51', 'mana_cost': '37'}
+Item Score: 0
+----- Stats -----
+Wind: V
+Level req: 10
+Damage: 11 to 51
+Mana cost: 37
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: rawhide leather armor
+Item Details: {'name': 'rawhide leather armor', 'rawhide_leather': 'armor', 'physical_defense': '3 to 11', 'magical_defense': '2 to 9'}
+Item Score: 0
+----- Stats -----
+Rawhide leather: armor
+Physical defense: 3 to 11
+Magical defense: 2 to 9
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: wind V
+Item Details: {'name': 'wind V', 'wind': 'V', 'level_req': '10', 'damage': '11 to 51', 'mana_cost': '37'}
+Item Score: 0
+----- Stats -----
+Wind: V
+Level req: 10
+Damage: 11 to 51
+Mana cost: 37
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: rawhide leather armor
+Item Details: {'name': 'rawhide leather armor', 'rawhide_leather': 'armor', 'physical_defense': '3 to 11', 'magical_defense': '2 to 9'}
+Item Score: 0
+----- Stats -----
+Rawhide leather: armor
+Physical defense: 3 to 11
+Magical defense: 2 to 9
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: wind V
+Item Details: {'name': 'wind V', 'wind': 'V', 'level_req': '10', 'damage': '11 to 51', 'mana_cost': '37'}
+Item Score: 0
+----- Stats -----
+Wind: V
+Level req: 10
+Damage: 11 to 51
+Mana cost: 37
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: Angelic cotton padded robe
+Item Details: {'name': 'Angelic cotton padded robe', 'angelic_cotton_padded': 'robe', 'physical_defense': '0 to 7', 'magical_defense': '4 to 11', 'Ice Mastery': '+2', 'Fire Mastery': '+2', 'Lightning Mastery': '+4', 'Wind Mastery': '+3'}
+Item Score: 0
+----- Stats -----
+Angelic cotton padded: robe
+Physical defense: 0 to 7
+Magical defense: 4 to 11
+Ice mastery: +2
+Fire mastery: +2
+Lightning mastery: +4
+Wind mastery: +3
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: Angelic cotton padded robe
+Item Details: {'name': 'Angelic cotton padded robe', 'angelic_cotton_padded': 'robe', 'physical_defense': '0 to 7', 'magical_defense': '4 to 11', 'Ice Mastery': '+2', 'Fire Mastery': '+2', 'Lightning Mastery': '+4', 'Wind Mastery': '+3'}
+Item Score: 0
+----- Stats -----
+Angelic cotton padded: robe
+Physical defense: 0 to 7
+Magical defense: 4 to 11
+Ice mastery: +2
+Fire mastery: +2
+Lightning mastery: +4
+Wind mastery: +3
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: Angelic cotton padded robe
+Item Details: {'name': 'Angelic cotton padded robe', 'angelic_cotton_padded': 'robe', 'physical_defense': '0 to 7', 'magical_defense': '4 to 11', 'Ice Mastery': '+2', 'Fire Mastery': '+2', 'Lightning Mastery': '+4', 'Wind Mastery': '+3'}
+Item Score: 0
+----- Stats -----
+Angelic cotton padded: robe
+Physical defense: 0 to 7
+Magical defense: 4 to 11
+Ice mastery: +2
+Fire mastery: +2
+Lightning mastery: +4
+Wind mastery: +3
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: Mystical wild heal I
+Item Details: {'name': 'Mystical wild heal I', 'mystical_wild_heal': 'I', 'heals': '1 to 11', 'mana_cost': '5', 'Mana Consumption': '-1', 'Glancing Blow': '+1', 'Ice Mastery': '+1'}
+Item Score: 0
+----- Stats -----
+Mystical wild heal: I
+Heals: 1 to 11
+Mana cost: 5
+Mana consumption: -1
+Glancing blow: +1
+Ice mastery: +1
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: Mystical wild heal I
+Item Details: {'name': 'Mystical wild heal I', 'mystical_wild_heal': 'I', 'heals': '1 to 11', 'mana_cost': '5', 'Mana Consumption': '-1', 'Glancing Blow': '+1', 'Ice Mastery': '+1'}
+Item Score: 0
+----- Stats -----
+Mystical wild heal: I
+Heals: 1 to 11
+Mana cost: 5
+Mana consumption: -1
+Glancing blow: +1
+Ice mastery: +1
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: fire II
+Item Details: {'name': 'fire II', 'fire': 'II', 'damage': '6 to 18', 'mana_cost': '13'}
+Item Score: 0
+----- Stats -----
+Fire: II
+Damage: 6 to 18
+Mana cost: 13
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: fire II
+Item Details: {'name': 'fire II', 'fire': 'II', 'damage': '6 to 18', 'mana_cost': '13'}
+Item Score: 0
+----- Stats -----
+Fire: II
+Damage: 6 to 18
+Mana cost: 13
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: earth II
+Item Details: {'name': 'earth II', 'earth': 'II', 'damage': '9 to 16', 'mana_cost': '13'}
+Item Score: 0
+----- Stats -----
+Earth: II
+Damage: 9 to 16
+Mana cost: 13
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: earth II
+Item Details: {'name': 'earth II', 'earth': 'II', 'damage': '9 to 16', 'mana_cost': '13'}
+Item Score: 0
+----- Stats -----
+Earth: II
+Damage: 9 to 16
+Mana cost: 13
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: earth II
+Item Details: {'name': 'earth II', 'earth': 'II', 'damage': '9 to 16', 'mana_cost': '13'}
+Item Score: 0
+----- Stats -----
+Earth: II
+Damage: 9 to 16
+Mana cost: 13
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: earth II
+Item Details: {'name': 'earth II', 'earth': 'II', 'damage': '9 to 16', 'mana_cost': '13'}
+Item Score: 0
+----- Stats -----
+Earth: II
+Damage: 9 to 16
+Mana cost: 13
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: earth II
+Item Details: {'name': 'earth II', 'earth': 'II', 'damage': '9 to 16', 'mana_cost': '13'}
+Item Score: 0
+----- Stats -----
+Earth: II
+Damage: 9 to 16
+Mana cost: 13
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: earth II
+Item Details: {'name': 'earth II', 'earth': 'II', 'damage': '9 to 16', 'mana_cost': '13'}
+Item Score: 0
+----- Stats -----
+Earth: II
+Damage: 9 to 16
+Mana cost: 13
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: earth II
+Item Details: {'name': 'earth II', 'earth': 'II', 'damage': '9 to 16', 'mana_cost': '13'}
+Item Score: 0
+----- Stats -----
+Earth: II
+Damage: 9 to 16
+Mana cost: 13
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: Mythical double cured leather armor
+Item Details: {'name': 'Mythical double cured leather armor', 'mythical_double_cured_leather': 'armor', 'level_req': '15', 'physical_defense': '11 to 33', 'magical_defense': '6 to 27', '+17': 'Strength', '+3': 'Dexterity', '+1_magic': 'Luck', 'Armor Pierce': '+1', '+1': 'Jubilance'}
+Item Score: 0
+----- Stats -----
+Mythical double cured leather: armor
+Level req: 15
+Physical defense: 11 to 33
+Magical defense: 6 to 27
++17: Strength
++3: Dexterity
++1 magic: Luck
+Armor pierce: +1
++1: Jubilance
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: rusted axe
+Item Details: {'name': 'rusted axe', 'rusted': 'axe', 'damage': '8 to 10'}
+Item Score: 0
+----- Stats -----
+Rusted: axe
+Damage: 8 to 10
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: lightning I
+Item Details: {'name': 'lightning I', 'lightning': 'I', 'damage': '1 to 11', 'mana_cost': '5'}
+Item Score: 0
+----- Stats -----
+Lightning: I
+Damage: 1 to 11
+Mana cost: 5
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: rusted axe
+Item Details: {'name': 'rusted axe', 'rusted': 'axe', 'damage': '8 to 10'}
+Item Score: 0
+----- Stats -----
+Rusted: axe
+Damage: 8 to 10
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: lightning I
+Item Details: {'name': 'lightning I', 'lightning': 'I', 'damage': '1 to 11', 'mana_cost': '5'}
+Item Score: 0
+----- Stats -----
+Lightning: I
+Damage: 1 to 11
+Mana cost: 5
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: lightning III
+Item Details: {'name': 'lightning III', 'lightning': 'III', 'damage': '3 to 35', 'mana_cost': '21'}
+Item Score: 0
+----- Stats -----
+Lightning: III
+Damage: 3 to 35
+Mana cost: 21
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: lightning III
+Item Details: {'name': 'lightning III', 'lightning': 'III', 'damage': '3 to 35', 'mana_cost': '21'}
+Item Score: 0
+----- Stats -----
+Lightning: III
+Damage: 3 to 35
+Mana cost: 21
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: earth VII
+Item Details: {'name': 'earth VII', 'earth': 'VII', 'level_req': '20', 'damage': '32 to 56', 'mana_cost': '53'}
+Item Score: 0
+----- Stats -----
+Earth: VII
+Level req: 20
+Damage: 32 to 56
+Mana cost: 53
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: wild heal VI
+Item Details: {'name': 'wild heal VI', 'wild_heal': 'VI', 'level_req': '15', 'heals': '6 to 69', 'mana_cost': '45'}
+Item Score: 0
+----- Stats -----
+Wild heal: VI
+Level req: 15
+Heals: 6 to 69
+Mana cost: 45
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: Magical wind I
+Item Details: {'name': 'Magical wind I', 'magical_wind': 'I', 'damage': '2 to 10', 'mana_cost': '5', 'Heal Mastery': '+3'}
+Item Score: 0
+----- Stats -----
+Magical wind: I
+Damage: 2 to 10
+Mana cost: 5
+Heal mastery: +3
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: Magical wind I
+Item Details: {'name': 'Magical wind I', 'magical_wind': 'I', 'damage': '2 to 10', 'mana_cost': '5', 'Heal Mastery': '+3'}
+Item Score: 0
+----- Stats -----
+Magical wind: I
+Damage: 2 to 10
+Mana cost: 5
+Heal mastery: +3
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: Magical wind I
+Item Details: {'name': 'Magical wind I', 'magical_wind': 'I', 'damage': '2 to 10', 'mana_cost': '5', 'Heal Mastery': '+3'}
+Item Score: 0
+----- Stats -----
+Magical wind: I
+Damage: 2 to 10
+Mana cost: 5
+Heal mastery: +3
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: Magical wind I
+Item Details: {'name': 'Magical wind I', 'magical_wind': 'I', 'damage': '2 to 10', 'mana_cost': '5', 'Heal Mastery': '+3'}
+Item Score: 0
+----- Stats -----
+Magical wind: I
+Damage: 2 to 10
+Mana cost: 5
+Heal mastery: +3
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: Magical wind I
+Item Details: {'name': 'Magical wind I', 'magical_wind': 'I', 'damage': '2 to 10', 'mana_cost': '5', 'Heal Mastery': '+3'}
+Item Score: 0
+----- Stats -----
+Magical wind: I
+Damage: 2 to 10
+Mana cost: 5
+Heal mastery: +3
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: Magical wind I
+Item Details: {'name': 'Magical wind I', 'magical_wind': 'I', 'damage': '2 to 10', 'mana_cost': '5', 'Heal Mastery': '+3'}
+Item Score: 0
+----- Stats -----
+Magical wind: I
+Damage: 2 to 10
+Mana cost: 5
+Heal mastery: +3
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: Magical wind I
+Item Details: {'name': 'Magical wind I', 'magical_wind': 'I', 'damage': '2 to 10', 'mana_cost': '5', 'Heal Mastery': '+3'}
+Item Score: 0
+----- Stats -----
+Magical wind: I
+Damage: 2 to 10
+Mana cost: 5
+Heal mastery: +3
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: Magical wind I
+Item Details: {'name': 'Magical wind I', 'magical_wind': 'I', 'damage': '2 to 10', 'mana_cost': '5', 'Heal Mastery': '+3'}
+Item Score: 0
+----- Stats -----
+Magical wind: I
+Damage: 2 to 10
+Mana cost: 5
+Heal mastery: +3
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: Magical wind I
+Item Details: {'name': 'Magical wind I', 'magical_wind': 'I', 'damage': '2 to 10', 'mana_cost': '5', 'Heal Mastery': '+3'}
+Item Score: 0
+----- Stats -----
+Magical wind: I
+Damage: 2 to 10
+Mana cost: 5
+Heal mastery: +3
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: Magical wind I
+Item Details: {'name': 'Magical wind I', 'magical_wind': 'I', 'damage': '2 to 10', 'mana_cost': '5', 'Heal Mastery': '+3'}
+Item Score: 0
+----- Stats -----
+Magical wind: I
+Damage: 2 to 10
+Mana cost: 5
+Heal mastery: +3
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: Magical bone potion
+Item Details: {'name': 'Magical bone potion', 'magical_bone': 'potion', '+13_max': 'Mana'}
+Item Score: 0
+----- Stats -----
+Magical bone: potion
++13 max: Mana
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: Magical bone potion
+Item Details: {'name': 'Magical bone potion', 'magical_bone': 'potion', '+13_max': 'Mana'}
+Item Score: 0
+----- Stats -----
+Magical bone: potion
++13 max: Mana
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: copper axe
+Item Details: {'name': 'copper axe', 'copper': 'axe', 'damage': '17 to 21'}
+Item Score: 0
+----- Stats -----
+Copper: axe
+Damage: 17 to 21
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: copper axe
+Item Details: {'name': 'copper axe', 'copper': 'axe', 'damage': '17 to 21'}
+Item Score: 0
+----- Stats -----
+Copper: axe
+Damage: 17 to 21
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: copper axe
+Item Details: {'name': 'copper axe', 'copper': 'axe', 'damage': '17 to 21'}
+Item Score: 0
+----- Stats -----
+Copper: axe
+Damage: 17 to 21
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: rusted plate mail
+Item Details: {'name': 'rusted plate mail', 'rusted_plate': 'mail', 'physical_defense': '3 to 11', 'magical_defense': '0 to 1'}
+Item Score: 0
+----- Stats -----
+Rusted plate: mail
+Physical defense: 3 to 11
+Magical defense: 0 to 1
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: Mythical earth II
+Item Details: {'name': 'Mythical earth II', 'mythical_earth': 'II', 'damage': '9 to 16', 'mana_cost': '13', '+4': 'Intelligence', '+49_max': 'Life', '+1': 'Jubilance', 'Lightning Mastery': '+2', 'Earth Mastery': '+1'}
+Item Score: 0
+----- Stats -----
+Mythical earth: II
+Damage: 9 to 16
+Mana cost: 13
++4: Intelligence
++49 max: Life
++1: Jubilance
+Lightning mastery: +2
+Earth mastery: +1
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: rusted plate mail
+Item Details: {'name': 'rusted plate mail', 'rusted_plate': 'mail', 'physical_defense': '3 to 11', 'magical_defense': '0 to 1'}
+Item Score: 0
+----- Stats -----
+Rusted plate: mail
+Physical defense: 3 to 11
+Magical defense: 0 to 1
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: Mythical earth II
+Item Details: {'name': 'Mythical earth II', 'mythical_earth': 'II', 'damage': '9 to 16', 'mana_cost': '13', '+4': 'Intelligence', '+49_max': 'Life', '+1': 'Jubilance', 'Lightning Mastery': '+2', 'Earth Mastery': '+1'}
+Item Score: 0
+----- Stats -----
+Mythical earth: II
+Damage: 9 to 16
+Mana cost: 13
++4: Intelligence
++49 max: Life
++1: Jubilance
+Lightning mastery: +2
+Earth mastery: +1
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: rusted plate mail
+Item Details: {'name': 'rusted plate mail', 'rusted_plate': 'mail', 'physical_defense': '3 to 11', 'magical_defense': '0 to 1'}
+Item Score: 0
+----- Stats -----
+Rusted plate: mail
+Physical defense: 3 to 11
+Magical defense: 0 to 1
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: Magical lightning IV
+Item Details: {'name': 'Magical lightning IV', 'magical_lightning': 'IV', 'level_req': '5', 'damage': '4 to 47', 'mana_cost': '29', 'Critical Flux': '+1'}
+Item Score: 0
+----- Stats -----
+Magical lightning: IV
+Level req: 5
+Damage: 4 to 47
+Mana cost: 29
+Critical flux: +1
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: Magical lightning IV
+Item Details: {'name': 'Magical lightning IV', 'magical_lightning': 'IV', 'level_req': '5', 'damage': '4 to 47', 'mana_cost': '29', 'Critical Flux': '+1'}
+Item Score: 0
+----- Stats -----
+Magical lightning: IV
+Level req: 5
+Damage: 4 to 47
+Mana cost: 29
+Critical flux: +1
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: Magical lightning IV
+Item Details: {'name': 'Magical lightning IV', 'magical_lightning': 'IV', 'level_req': '5', 'damage': '4 to 47', 'mana_cost': '29', 'Critical Flux': '+1'}
+Item Score: 0
+----- Stats -----
+Magical lightning: IV
+Level req: 5
+Damage: 4 to 47
+Mana cost: 29
+Critical flux: +1
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: bronze axe
+Item Details: {'name': 'bronze axe', 'bronze': 'axe', 'damage': '26 to 31'}
+Item Score: 0
+----- Stats -----
+Bronze: axe
+Damage: 26 to 31
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: bronze axe
+Item Details: {'name': 'bronze axe', 'bronze': 'axe', 'damage': '26 to 31'}
+Item Score: 0
+----- Stats -----
+Bronze: axe
+Damage: 26 to 31
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: Magical elm club
+Item Details: {'name': 'Magical elm club', 'magical_elm': 'club', 'damage': '12 to 54', '+67_max': 'Life'}
+Item Score: 0
+----- Stats -----
+Magical elm: club
+Damage: 12 to 54
++67 max: Life
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: Magical heal V
+Item Details: {'name': 'Magical heal V', 'magical_heal': 'V', 'level_req': '10', 'heals': '17 to 46', 'mana_cost': '37', 'Heal Mastery': '+2'}
+Item Score: 0
+----- Stats -----
+Magical heal: V
+Level req: 10
+Heals: 17 to 46
+Mana cost: 37
+Heal mastery: +2
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: Magical elm club
+Item Details: {'name': 'Magical elm club', 'magical_elm': 'club', 'damage': '12 to 54', '+67_max': 'Life'}
+Item Score: 0
+----- Stats -----
+Magical elm: club
+Damage: 12 to 54
++67 max: Life
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: rusted chain mail
+Item Details: {'name': 'rusted chain mail', 'rusted_chain': 'mail', 'physical_defense': '3 to 9', 'magical_defense': '0 to 2'}
+Item Score: 0
+----- Stats -----
+Rusted chain: mail
+Physical defense: 3 to 9
+Magical defense: 0 to 2
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: Magical mithril plate mail
+Item Details: {'name': 'Magical mithril plate mail', 'magical_mithril_plate': 'mail', 'level_req': '25', 'physical_defense': '29 to 89', 'magical_defense': '0 to 9', '+7_life': 'Regen'}
+Item Score: 0
+----- Stats -----
+Magical mithril plate: mail
+Level req: 25
+Physical defense: 29 to 89
+Magical defense: 0 to 9
++7 life: Regen
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: rusted chain mail
+Item Details: {'name': 'rusted chain mail', 'rusted_chain': 'mail', 'physical_defense': '3 to 9', 'magical_defense': '0 to 2'}
+Item Score: 0
+----- Stats -----
+Rusted chain: mail
+Physical defense: 3 to 9
+Magical defense: 0 to 2
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: wild heal I
+Item Details: {'name': 'wild heal I', 'wild_heal': 'I', 'heals': '1 to 11', 'mana_cost': '5'}
+Item Score: 0
+----- Stats -----
+Wild heal: I
+Heals: 1 to 11
+Mana cost: 5
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: adamantium sword
+Item Details: {'name': 'adamantium sword', 'adamantium': 'sword', 'level_req': '35', 'damage': '20 to 201'}
+Item Score: 0
+----- Stats -----
+Adamantium: sword
+Level req: 35
+Damage: 20 to 201
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: Magical wild heal V
+Item Details: {'name': 'Magical wild heal V', 'magical_wild_heal': 'V', 'level_req': '10', 'heals': '5 to 57', 'mana_cost': '37', 'Parry': '+1'}
+Item Score: 50
+----- Stats -----
+Magical wild heal: V
+Level req: 10
+Heals: 5 to 57
+Mana cost: 37
+Parry: +1
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: focused heal II
+Item Details: {'name': 'focused heal II', 'focused_heal': 'II', 'heals': '11 to 13', 'mana_cost': '13'}
+Item Score: 0
+----- Stats -----
+Focused heal: II
+Heals: 11 to 13
+Mana cost: 13
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: Magical wind II
+Item Details: {'name': 'Magical wind II', 'magical_wind': 'II', 'damage': '4 to 20', 'mana_cost': '13', 'Glancing Blow': '+1'}
+Item Score: 0
+----- Stats -----
+Magical wind: II
+Damage: 4 to 20
+Mana cost: 13
+Glancing blow: +1
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: focused heal II
+Item Details: {'name': 'focused heal II', 'focused_heal': 'II', 'heals': '11 to 13', 'mana_cost': '13'}
+Item Score: 0
+----- Stats -----
+Focused heal: II
+Heals: 11 to 13
+Mana cost: 13
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: Magical wind II
+Item Details: {'name': 'Magical wind II', 'magical_wind': 'II', 'damage': '4 to 20', 'mana_cost': '13', 'Glancing Blow': '+1'}
+Item Score: 0
+----- Stats -----
+Magical wind: II
+Damage: 4 to 20
+Mana cost: 13
+Glancing blow: +1
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: wind III
+Item Details: {'name': 'wind III', 'wind': 'III', 'damage': '6 to 31', 'mana_cost': '21'}
+Item Score: 0
+----- Stats -----
+Wind: III
+Damage: 6 to 31
+Mana cost: 21
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: wind III
+Item Details: {'name': 'wind III', 'wind': 'III', 'damage': '6 to 31', 'mana_cost': '21'}
+Item Score: 0
+----- Stats -----
+Wind: III
+Damage: 6 to 31
+Mana cost: 21
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: wind III
+Item Details: {'name': 'wind III', 'wind': 'III', 'damage': '6 to 31', 'mana_cost': '21'}
+Item Score: 0
+----- Stats -----
+Wind: III
+Damage: 6 to 31
+Mana cost: 21
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: Magical rusted chain mail
+Item Details: {'name': 'Magical rusted chain mail', 'magical_rusted_chain': 'mail', 'physical_defense': '3 to 9', 'magical_defense': '0 to 2', '+1': 'Jubilance'}
+Item Score: 0
+----- Stats -----
+Magical rusted chain: mail
+Physical defense: 3 to 9
+Magical defense: 0 to 2
++1: Jubilance
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: Magical rusted chain mail
+Item Details: {'name': 'Magical rusted chain mail', 'magical_rusted_chain': 'mail', 'physical_defense': '3 to 9', 'magical_defense': '0 to 2', '+1': 'Jubilance'}
+Item Score: 0
+----- Stats -----
+Magical rusted chain: mail
+Physical defense: 3 to 9
+Magical defense: 0 to 2
++1: Jubilance
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: lightning III
+Item Details: {'name': 'lightning III', 'lightning': 'III', 'damage': '3 to 35', 'mana_cost': '21'}
+Item Score: 0
+----- Stats -----
+Lightning: III
+Damage: 3 to 35
+Mana cost: 21
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: lightning III
+Item Details: {'name': 'lightning III', 'lightning': 'III', 'damage': '3 to 35', 'mana_cost': '21'}
+Item Score: 0
+----- Stats -----
+Lightning: III
+Damage: 3 to 35
+Mana cost: 21
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: lightning III
+Item Details: {'name': 'lightning III', 'lightning': 'III', 'damage': '3 to 35', 'mana_cost': '21'}
+Item Score: 0
+----- Stats -----
+Lightning: III
+Damage: 3 to 35
+Mana cost: 21
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: Arcane copper chain mail
+Item Details: {'name': 'Arcane copper chain mail', 'arcane_copper_chain': 'mail', 'physical_defense': '7 to 18', 'magical_defense': '0 to 4', '+7': 'Intelligence', 'Mana': '+1 to 3', 'Armor Pierce': '+1', 'Heal Mastery': '+2', 'Ice Mastery': '+1', 'Fire Mastery': '+1'}
+Item Score: 0
+----- Stats -----
+Arcane copper chain: mail
+Physical defense: 7 to 18
+Magical defense: 0 to 4
++7: Intelligence
+Mana: +1 to 3
+Armor pierce: +1
+Heal mastery: +2
+Ice mastery: +1
+Fire mastery: +1
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: Arcane copper chain mail
+Item Details: {'name': 'Arcane copper chain mail', 'arcane_copper_chain': 'mail', 'physical_defense': '7 to 18', 'magical_defense': '0 to 4', '+7': 'Intelligence', 'Mana': '+1 to 3', 'Armor Pierce': '+1', 'Heal Mastery': '+2', 'Ice Mastery': '+1', 'Fire Mastery': '+1'}
+Item Score: 0
+----- Stats -----
+Arcane copper chain: mail
+Physical defense: 7 to 18
+Magical defense: 0 to 4
++7: Intelligence
+Mana: +1 to 3
+Armor pierce: +1
+Heal mastery: +2
+Ice mastery: +1
+Fire mastery: +1
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: Arcane copper chain mail
+Item Details: {'name': 'Arcane copper chain mail', 'arcane_copper_chain': 'mail', 'physical_defense': '7 to 18', 'magical_defense': '0 to 4', '+7': 'Intelligence', 'Mana': '+1 to 3', 'Armor Pierce': '+1', 'Heal Mastery': '+2', 'Ice Mastery': '+1', 'Fire Mastery': '+1'}
+Item Score: 0
+----- Stats -----
+Arcane copper chain: mail
+Physical defense: 7 to 18
+Magical defense: 0 to 4
++7: Intelligence
+Mana: +1 to 3
+Armor pierce: +1
+Heal mastery: +2
+Ice mastery: +1
+Fire mastery: +1
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: Mystical steel leaf scale armor
+Item Details: {'name': 'Mystical steel leaf scale armor', 'mystical_steel_leaf_scale': 'armor', 'physical_defense': '3 to 14', 'magical_defense': '2 to 6', 'Experience Gained': '+2', 'Mana': '+1 to 2', 'Glancing Blow': '+1'}
+Item Score: 0
+----- Stats -----
+Mystical steel leaf scale: armor
+Physical defense: 3 to 14
+Magical defense: 2 to 6
+Experience gained: +2
+Mana: +1 to 2
+Glancing blow: +1
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: Mystical steel leaf scale armor
+Item Details: {'name': 'Mystical steel leaf scale armor', 'mystical_steel_leaf_scale': 'armor', 'physical_defense': '3 to 14', 'magical_defense': '2 to 6', 'Experience Gained': '+2', 'Mana': '+1 to 2', 'Glancing Blow': '+1'}
+Item Score: 0
+----- Stats -----
+Mystical steel leaf scale: armor
+Physical defense: 3 to 14
+Magical defense: 2 to 6
+Experience gained: +2
+Mana: +1 to 2
+Glancing blow: +1
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: bronze axe
+Item Details: {'name': 'bronze axe', 'bronze': 'axe', 'damage': '26 to 31'}
+Item Score: 0
+----- Stats -----
+Bronze: axe
+Damage: 26 to 31
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: focused heal VI
+Item Details: {'name': 'focused heal VI', 'focused_heal': 'VI', 'level_req': '15', 'heals': '34 to 41', 'mana_cost': '45'}
+Item Score: 0
+----- Stats -----
+Focused heal: VI
+Level req: 15
+Heals: 34 to 41
+Mana cost: 45
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: linen padded robe
+Item Details: {'name': 'linen padded robe', 'linen_padded': 'robe', 'level_req': '5', 'physical_defense': '0 to 14', 'magical_defense': '9 to 23'}
+Item Score: 0
+----- Stats -----
+Linen padded: robe
+Level req: 5
+Physical defense: 0 to 14
+Magical defense: 9 to 23
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: linen padded robe
+Item Details: {'name': 'linen padded robe', 'linen_padded': 'robe', 'level_req': '5', 'physical_defense': '0 to 14', 'magical_defense': '9 to 23'}
+Item Score: 0
+----- Stats -----
+Linen padded: robe
+Level req: 5
+Physical defense: 0 to 14
+Magical defense: 9 to 23
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: Magical fire II
+Item Details: {'name': 'Magical fire II', 'magical_fire': 'II', 'damage': '6 to 18', 'mana_cost': '13', 'Glancing Blow': '+1'}
+Item Score: 0
+----- Stats -----
+Magical fire: II
+Damage: 6 to 18
+Mana cost: 13
+Glancing blow: +1
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: Magical lightning I
+Item Details: {'name': 'Magical lightning I', 'magical_lightning': 'I', 'damage': '1 to 12', 'mana_cost': '5', 'Enhanced Effect': '+3'}
+Item Score: 100
+----- Stats -----
+Magical lightning: I
+Damage: 1 to 12
+Mana cost: 5
+Enhanced effect: +3
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: Magical lightning I
+Item Details: {'name': 'Magical lightning I', 'magical_lightning': 'I', 'damage': '1 to 12', 'mana_cost': '5', 'Enhanced Effect': '+3'}
+Item Score: 100
+----- Stats -----
+Magical lightning: I
+Damage: 1 to 12
+Mana cost: 5
+Enhanced effect: +3
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: Magical lightning I
+Item Details: {'name': 'Magical lightning I', 'magical_lightning': 'I', 'damage': '1 to 12', 'mana_cost': '5', 'Enhanced Effect': '+3'}
+Item Score: 100
+----- Stats -----
+Magical lightning: I
+Damage: 1 to 12
+Mana cost: 5
+Enhanced effect: +3
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: Magical lightning I
+Item Details: {'name': 'Magical lightning I', 'magical_lightning': 'I', 'damage': '1 to 12', 'mana_cost': '5', 'Enhanced Effect': '+3'}
+Item Score: 100
+----- Stats -----
+Magical lightning: I
+Damage: 1 to 12
+Mana cost: 5
+Enhanced effect: +3
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: Magical lightning I
+Item Details: {'name': 'Magical lightning I', 'magical_lightning': 'I', 'damage': '1 to 12', 'mana_cost': '5', 'Enhanced Effect': '+3'}
+Item Score: 100
+----- Stats -----
+Magical lightning: I
+Damage: 1 to 12
+Mana cost: 5
+Enhanced effect: +3
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: Magical lightning I
+Item Details: {'name': 'Magical lightning I', 'magical_lightning': 'I', 'damage': '1 to 12', 'mana_cost': '5', 'Enhanced Effect': '+3'}
+Item Score: 100
+----- Stats -----
+Magical lightning: I
+Damage: 1 to 12
+Mana cost: 5
+Enhanced effect: +3
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: Magical lightning I
+Item Details: {'name': 'Magical lightning I', 'magical_lightning': 'I', 'damage': '1 to 12', 'mana_cost': '5', 'Enhanced Effect': '+3'}
+Item Score: 100
+----- Stats -----
+Magical lightning: I
+Damage: 1 to 12
+Mana cost: 5
+Enhanced effect: +3
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: Magical lightning I
+Item Details: {'name': 'Magical lightning I', 'magical_lightning': 'I', 'damage': '1 to 12', 'mana_cost': '5', 'Enhanced Effect': '+3'}
+Item Score: 100
+----- Stats -----
+Magical lightning: I
+Damage: 1 to 12
+Mana cost: 5
+Enhanced effect: +3
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: Magical lightning I
+Item Details: {'name': 'Magical lightning I', 'magical_lightning': 'I', 'damage': '1 to 12', 'mana_cost': '5', 'Enhanced Effect': '+3'}
+Item Score: 100
+----- Stats -----
+Magical lightning: I
+Damage: 1 to 12
+Mana cost: 5
+Enhanced effect: +3
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: Magical lightning I
+Item Details: {'name': 'Magical lightning I', 'magical_lightning': 'I', 'damage': '1 to 12', 'mana_cost': '5', 'Enhanced Effect': '+3'}
+Item Score: 100
+----- Stats -----
+Magical lightning: I
+Damage: 1 to 12
+Mana cost: 5
+Enhanced effect: +3
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: Magical lightning I
+Item Details: {'name': 'Magical lightning I', 'magical_lightning': 'I', 'damage': '1 to 12', 'mana_cost': '5', 'Enhanced Effect': '+3'}
+Item Score: 100
+----- Stats -----
+Magical lightning: I
+Damage: 1 to 12
+Mana cost: 5
+Enhanced effect: +3
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: Magical lightning I
+Item Details: {'name': 'Magical lightning I', 'magical_lightning': 'I', 'damage': '1 to 12', 'mana_cost': '5', 'Enhanced Effect': '+3'}
+Item Score: 100
+----- Stats -----
+Magical lightning: I
+Damage: 1 to 12
+Mana cost: 5
+Enhanced effect: +3
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: Rare earth II
+Item Details: {'name': 'Rare earth II', 'rare_earth': 'II', 'damage': '9 to 16', 'mana_cost': '13', 'Mana': '+1 to 18', 'Wind Mastery': '+2'}
+Item Score: 0
+----- Stats -----
+Rare earth: II
+Damage: 9 to 16
+Mana cost: 13
+Mana: +1 to 18
+Wind mastery: +2
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: Magical lightning I
+Item Details: {'name': 'Magical lightning I', 'magical_lightning': 'I', 'damage': '1 to 12', 'mana_cost': '5', 'Enhanced Effect': '+3'}
+Item Score: 100
+----- Stats -----
+Magical lightning: I
+Damage: 1 to 12
+Mana cost: 5
+Enhanced effect: +3
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: Rare earth II
+Item Details: {'name': 'Rare earth II', 'rare_earth': 'II', 'damage': '9 to 16', 'mana_cost': '13', 'Mana': '+1 to 18', 'Wind Mastery': '+2'}
+Item Score: 0
+----- Stats -----
+Rare earth: II
+Damage: 9 to 16
+Mana cost: 13
+Mana: +1 to 18
+Wind mastery: +2
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: Magical lightning I
+Item Details: {'name': 'Magical lightning I', 'magical_lightning': 'I', 'damage': '1 to 12', 'mana_cost': '5', 'Enhanced Effect': '+3'}
+Item Score: 100
+----- Stats -----
+Magical lightning: I
+Damage: 1 to 12
+Mana cost: 5
+Enhanced effect: +3
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: Rare earth II
+Item Details: {'name': 'Rare earth II', 'rare_earth': 'II', 'damage': '9 to 16', 'mana_cost': '13', 'Mana': '+1 to 18', 'Wind Mastery': '+2'}
+Item Score: 0
+----- Stats -----
+Rare earth: II
+Damage: 9 to 16
+Mana cost: 13
+Mana: +1 to 18
+Wind mastery: +2
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: Magical lightning I
+Item Details: {'name': 'Magical lightning I', 'magical_lightning': 'I', 'damage': '1 to 12', 'mana_cost': '5', 'Enhanced Effect': '+3'}
+Item Score: 100
+----- Stats -----
+Magical lightning: I
+Damage: 1 to 12
+Mana cost: 5
+Enhanced effect: +3
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: Rare earth II
+Item Details: {'name': 'Rare earth II', 'rare_earth': 'II', 'damage': '9 to 16', 'mana_cost': '13', 'Mana': '+1 to 18', 'Wind Mastery': '+2'}
+Item Score: 0
+----- Stats -----
+Rare earth: II
+Damage: 9 to 16
+Mana cost: 13
+Mana: +1 to 18
+Wind mastery: +2
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: Magical lightning I
+Item Details: {'name': 'Magical lightning I', 'magical_lightning': 'I', 'damage': '1 to 12', 'mana_cost': '5', 'Enhanced Effect': '+3'}
+Item Score: 100
+----- Stats -----
+Magical lightning: I
+Damage: 1 to 12
+Mana cost: 5
+Enhanced effect: +3
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: Rare earth II
+Item Details: {'name': 'Rare earth II', 'rare_earth': 'II', 'damage': '9 to 16', 'mana_cost': '13', 'Mana': '+1 to 18', 'Wind Mastery': '+2'}
+Item Score: 0
+----- Stats -----
+Rare earth: II
+Damage: 9 to 16
+Mana cost: 13
+Mana: +1 to 18
+Wind mastery: +2
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: Magical lightning I
+Item Details: {'name': 'Magical lightning I', 'magical_lightning': 'I', 'damage': '1 to 12', 'mana_cost': '5', 'Enhanced Effect': '+3'}
+Item Score: 100
+----- Stats -----
+Magical lightning: I
+Damage: 1 to 12
+Mana cost: 5
+Enhanced effect: +3
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: Rare earth II
+Item Details: {'name': 'Rare earth II', 'rare_earth': 'II', 'damage': '9 to 16', 'mana_cost': '13', 'Mana': '+1 to 18', 'Wind Mastery': '+2'}
+Item Score: 0
+----- Stats -----
+Rare earth: II
+Damage: 9 to 16
+Mana cost: 13
+Mana: +1 to 18
+Wind mastery: +2
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: Magical lightning I
+Item Details: {'name': 'Magical lightning I', 'magical_lightning': 'I', 'damage': '1 to 12', 'mana_cost': '5', 'Enhanced Effect': '+3'}
+Item Score: 100
+----- Stats -----
+Magical lightning: I
+Damage: 1 to 12
+Mana cost: 5
+Enhanced effect: +3
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: Rare earth II
+Item Details: {'name': 'Rare earth II', 'rare_earth': 'II', 'damage': '9 to 16', 'mana_cost': '13', 'Mana': '+1 to 18', 'Wind Mastery': '+2'}
+Item Score: 0
+----- Stats -----
+Rare earth: II
+Damage: 9 to 16
+Mana cost: 13
+Mana: +1 to 18
+Wind mastery: +2
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: bronze axe
+Item Details: {'name': 'bronze axe', 'bronze': 'axe', 'damage': '26 to 31'}
+Item Score: 0
+----- Stats -----
+Bronze: axe
+Damage: 26 to 31
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: Magical lightning I
+Item Details: {'name': 'Magical lightning I', 'magical_lightning': 'I', 'damage': '1 to 12', 'mana_cost': '5', 'Enhanced Effect': '+3'}
+Item Score: 100
+----- Stats -----
+Magical lightning: I
+Damage: 1 to 12
+Mana cost: 5
+Enhanced effect: +3
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: Rare earth II
+Item Details: {'name': 'Rare earth II', 'rare_earth': 'II', 'damage': '9 to 16', 'mana_cost': '13', 'Mana': '+1 to 18', 'Wind Mastery': '+2'}
+Item Score: 0
+----- Stats -----
+Rare earth: II
+Damage: 9 to 16
+Mana cost: 13
+Mana: +1 to 18
+Wind mastery: +2
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: bronze axe
+Item Details: {'name': 'bronze axe', 'bronze': 'axe', 'damage': '26 to 31'}
+Item Score: 0
+----- Stats -----
+Bronze: axe
+Damage: 26 to 31
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: Magical lightning I
+Item Details: {'name': 'Magical lightning I', 'magical_lightning': 'I', 'damage': '1 to 12', 'mana_cost': '5', 'Enhanced Effect': '+3'}
+Item Score: 100
+----- Stats -----
+Magical lightning: I
+Damage: 1 to 12
+Mana cost: 5
+Enhanced effect: +3
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: Rare earth II
+Item Details: {'name': 'Rare earth II', 'rare_earth': 'II', 'damage': '9 to 16', 'mana_cost': '13', 'Mana': '+1 to 18', 'Wind Mastery': '+2'}
+Item Score: 0
+----- Stats -----
+Rare earth: II
+Damage: 9 to 16
+Mana cost: 13
+Mana: +1 to 18
+Wind mastery: +2
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: bronze axe
+Item Details: {'name': 'bronze axe', 'bronze': 'axe', 'damage': '26 to 31'}
+Item Score: 0
+----- Stats -----
+Bronze: axe
+Damage: 26 to 31
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: Magical lightning I
+Item Details: {'name': 'Magical lightning I', 'magical_lightning': 'I', 'damage': '1 to 12', 'mana_cost': '5', 'Enhanced Effect': '+3'}
+Item Score: 100
+----- Stats -----
+Magical lightning: I
+Damage: 1 to 12
+Mana cost: 5
+Enhanced effect: +3
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: Rare earth II
+Item Details: {'name': 'Rare earth II', 'rare_earth': 'II', 'damage': '9 to 16', 'mana_cost': '13', 'Mana': '+1 to 18', 'Wind Mastery': '+2'}
+Item Score: 0
+----- Stats -----
+Rare earth: II
+Damage: 9 to 16
+Mana cost: 13
+Mana: +1 to 18
+Wind mastery: +2
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: bronze axe
+Item Details: {'name': 'bronze axe', 'bronze': 'axe', 'damage': '26 to 31'}
+Item Score: 0
+----- Stats -----
+Bronze: axe
+Damage: 26 to 31
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: Magical lightning I
+Item Details: {'name': 'Magical lightning I', 'magical_lightning': 'I', 'damage': '1 to 12', 'mana_cost': '5', 'Enhanced Effect': '+3'}
+Item Score: 100
+----- Stats -----
+Magical lightning: I
+Damage: 1 to 12
+Mana cost: 5
+Enhanced effect: +3
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: Rare earth II
+Item Details: {'name': 'Rare earth II', 'rare_earth': 'II', 'damage': '9 to 16', 'mana_cost': '13', 'Mana': '+1 to 18', 'Wind Mastery': '+2'}
+Item Score: 0
+----- Stats -----
+Rare earth: II
+Damage: 9 to 16
+Mana cost: 13
+Mana: +1 to 18
+Wind mastery: +2
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: bronze axe
+Item Details: {'name': 'bronze axe', 'bronze': 'axe', 'damage': '26 to 31'}
+Item Score: 0
+----- Stats -----
+Bronze: axe
+Damage: 26 to 31
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: Magical fire I
+Item Details: {'name': 'Magical fire I', 'magical_fire': 'I', 'damage': '3 to 9', 'mana_cost': '5', '+1_life': 'Regen'}
+Item Score: 0
+----- Stats -----
+Magical fire: I
+Damage: 3 to 9
+Mana cost: 5
++1 life: Regen
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: Magical lightning I
+Item Details: {'name': 'Magical lightning I', 'magical_lightning': 'I', 'damage': '1 to 12', 'mana_cost': '5', 'Enhanced Effect': '+3'}
+Item Score: 100
+----- Stats -----
+Magical lightning: I
+Damage: 1 to 12
+Mana cost: 5
+Enhanced effect: +3
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: Rare earth II
+Item Details: {'name': 'Rare earth II', 'rare_earth': 'II', 'damage': '9 to 16', 'mana_cost': '13', 'Mana': '+1 to 18', 'Wind Mastery': '+2'}
+Item Score: 0
+----- Stats -----
+Rare earth: II
+Damage: 9 to 16
+Mana cost: 13
+Mana: +1 to 18
+Wind mastery: +2
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: bronze axe
+Item Details: {'name': 'bronze axe', 'bronze': 'axe', 'damage': '26 to 31'}
+Item Score: 0
+----- Stats -----
+Bronze: axe
+Damage: 26 to 31
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: Magical fire I
+Item Details: {'name': 'Magical fire I', 'magical_fire': 'I', 'damage': '3 to 9', 'mana_cost': '5', '+1_life': 'Regen'}
+Item Score: 0
+----- Stats -----
+Magical fire: I
+Damage: 3 to 9
+Mana cost: 5
++1 life: Regen
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: Magical lightning I
+Item Details: {'name': 'Magical lightning I', 'magical_lightning': 'I', 'damage': '1 to 12', 'mana_cost': '5', 'Enhanced Effect': '+3'}
+Item Score: 100
+----- Stats -----
+Magical lightning: I
+Damage: 1 to 12
+Mana cost: 5
+Enhanced effect: +3
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: Rare earth II
+Item Details: {'name': 'Rare earth II', 'rare_earth': 'II', 'damage': '9 to 16', 'mana_cost': '13', 'Mana': '+1 to 18', 'Wind Mastery': '+2'}
+Item Score: 0
+----- Stats -----
+Rare earth: II
+Damage: 9 to 16
+Mana cost: 13
+Mana: +1 to 18
+Wind mastery: +2
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: bronze axe
+Item Details: {'name': 'bronze axe', 'bronze': 'axe', 'damage': '26 to 31'}
+Item Score: 0
+----- Stats -----
+Bronze: axe
+Damage: 26 to 31
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: Magical fire I
+Item Details: {'name': 'Magical fire I', 'magical_fire': 'I', 'damage': '3 to 9', 'mana_cost': '5', '+1_life': 'Regen'}
+Item Score: 0
+----- Stats -----
+Magical fire: I
+Damage: 3 to 9
+Mana cost: 5
++1 life: Regen
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: Rare earth IV
+Item Details: {'name': 'Rare earth IV', 'rare_earth': 'IV', 'level_req': '5', 'damage': '18 to 32', 'mana_cost': '29', 'Mana': '+1 to 7', 'Mind Numb': '+1'}
+Item Score: 0
+----- Stats -----
+Rare earth: IV
+Level req: 5
+Damage: 18 to 32
+Mana cost: 29
+Mana: +1 to 7
+Mind numb: +1
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: alloy chain mail
+Item Details: {'name': 'alloy chain mail', 'alloy_chain': 'mail', 'level_req': '15', 'physical_defense': '22 to 56', 'magical_defense': '0 to 13'}
+Item Score: 0
+----- Stats -----
+Alloy chain: mail
+Level req: 15
+Physical defense: 22 to 56
+Magical defense: 0 to 13
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: Rare earth IV
+Item Details: {'name': 'Rare earth IV', 'rare_earth': 'IV', 'level_req': '5', 'damage': '18 to 32', 'mana_cost': '29', 'Mana': '+1 to 7', 'Mind Numb': '+1'}
+Item Score: 0
+----- Stats -----
+Rare earth: IV
+Level req: 5
+Damage: 18 to 32
+Mana cost: 29
+Mana: +1 to 7
+Mind numb: +1
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: alloy chain mail
+Item Details: {'name': 'alloy chain mail', 'alloy_chain': 'mail', 'level_req': '15', 'physical_defense': '22 to 56', 'magical_defense': '0 to 13'}
+Item Score: 0
+----- Stats -----
+Alloy chain: mail
+Level req: 15
+Physical defense: 22 to 56
+Magical defense: 0 to 13
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: Rare earth IV
+Item Details: {'name': 'Rare earth IV', 'rare_earth': 'IV', 'level_req': '5', 'damage': '18 to 32', 'mana_cost': '29', 'Mana': '+1 to 7', 'Mind Numb': '+1'}
+Item Score: 0
+----- Stats -----
+Rare earth: IV
+Level req: 5
+Damage: 18 to 32
+Mana cost: 29
+Mana: +1 to 7
+Mind numb: +1
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: alloy chain mail
+Item Details: {'name': 'alloy chain mail', 'alloy_chain': 'mail', 'level_req': '15', 'physical_defense': '22 to 56', 'magical_defense': '0 to 13'}
+Item Score: 0
+----- Stats -----
+Alloy chain: mail
+Level req: 15
+Physical defense: 22 to 56
+Magical defense: 0 to 13
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: Rare earth IV
+Item Details: {'name': 'Rare earth IV', 'rare_earth': 'IV', 'level_req': '5', 'damage': '18 to 32', 'mana_cost': '29', 'Mana': '+1 to 7', 'Mind Numb': '+1'}
+Item Score: 0
+----- Stats -----
+Rare earth: IV
+Level req: 5
+Damage: 18 to 32
+Mana cost: 29
+Mana: +1 to 7
+Mind numb: +1
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: alloy chain mail
+Item Details: {'name': 'alloy chain mail', 'alloy_chain': 'mail', 'level_req': '15', 'physical_defense': '22 to 56', 'magical_defense': '0 to 13'}
+Item Score: 0
+----- Stats -----
+Alloy chain: mail
+Level req: 15
+Physical defense: 22 to 56
+Magical defense: 0 to 13
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: Rare earth IV
+Item Details: {'name': 'Rare earth IV', 'rare_earth': 'IV', 'level_req': '5', 'damage': '18 to 32', 'mana_cost': '29', 'Mana': '+1 to 7', 'Mind Numb': '+1'}
+Item Score: 0
+----- Stats -----
+Rare earth: IV
+Level req: 5
+Damage: 18 to 32
+Mana cost: 29
+Mana: +1 to 7
+Mind numb: +1
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: alloy chain mail
+Item Details: {'name': 'alloy chain mail', 'alloy_chain': 'mail', 'level_req': '15', 'physical_defense': '22 to 56', 'magical_defense': '0 to 13'}
+Item Score: 0
+----- Stats -----
+Alloy chain: mail
+Level req: 15
+Physical defense: 22 to 56
+Magical defense: 0 to 13
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: Rare earth IV
+Item Details: {'name': 'Rare earth IV', 'rare_earth': 'IV', 'level_req': '5', 'damage': '18 to 32', 'mana_cost': '29', 'Mana': '+1 to 7', 'Mind Numb': '+1'}
+Item Score: 0
+----- Stats -----
+Rare earth: IV
+Level req: 5
+Damage: 18 to 32
+Mana cost: 29
+Mana: +1 to 7
+Mind numb: +1
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: alloy chain mail
+Item Details: {'name': 'alloy chain mail', 'alloy_chain': 'mail', 'level_req': '15', 'physical_defense': '22 to 56', 'magical_defense': '0 to 13'}
+Item Score: 0
+----- Stats -----
+Alloy chain: mail
+Level req: 15
+Physical defense: 22 to 56
+Magical defense: 0 to 13
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: Rare earth IV
+Item Details: {'name': 'Rare earth IV', 'rare_earth': 'IV', 'level_req': '5', 'damage': '18 to 32', 'mana_cost': '29', 'Mana': '+1 to 7', 'Mind Numb': '+1'}
+Item Score: 0
+----- Stats -----
+Rare earth: IV
+Level req: 5
+Damage: 18 to 32
+Mana cost: 29
+Mana: +1 to 7
+Mind numb: +1
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: alloy chain mail
+Item Details: {'name': 'alloy chain mail', 'alloy_chain': 'mail', 'level_req': '15', 'physical_defense': '22 to 56', 'magical_defense': '0 to 13'}
+Item Score: 0
+----- Stats -----
+Alloy chain: mail
+Level req: 15
+Physical defense: 22 to 56
+Magical defense: 0 to 13
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: Rare earth IV
+Item Details: {'name': 'Rare earth IV', 'rare_earth': 'IV', 'level_req': '5', 'damage': '18 to 32', 'mana_cost': '29', 'Mana': '+1 to 7', 'Mind Numb': '+1'}
+Item Score: 0
+----- Stats -----
+Rare earth: IV
+Level req: 5
+Damage: 18 to 32
+Mana cost: 29
+Mana: +1 to 7
+Mind numb: +1
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: alloy chain mail
+Item Details: {'name': 'alloy chain mail', 'alloy_chain': 'mail', 'level_req': '15', 'physical_defense': '22 to 56', 'magical_defense': '0 to 13'}
+Item Score: 0
+----- Stats -----
+Alloy chain: mail
+Level req: 15
+Physical defense: 22 to 56
+Magical defense: 0 to 13
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: Rare earth IV
+Item Details: {'name': 'Rare earth IV', 'rare_earth': 'IV', 'level_req': '5', 'damage': '18 to 32', 'mana_cost': '29', 'Mana': '+1 to 7', 'Mind Numb': '+1'}
+Item Score: 0
+----- Stats -----
+Rare earth: IV
+Level req: 5
+Damage: 18 to 32
+Mana cost: 29
+Mana: +1 to 7
+Mind numb: +1
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: alloy chain mail
+Item Details: {'name': 'alloy chain mail', 'alloy_chain': 'mail', 'level_req': '15', 'physical_defense': '22 to 56', 'magical_defense': '0 to 13'}
+Item Score: 0
+----- Stats -----
+Alloy chain: mail
+Level req: 15
+Physical defense: 22 to 56
+Magical defense: 0 to 13
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: Rare earth IV
+Item Details: {'name': 'Rare earth IV', 'rare_earth': 'IV', 'level_req': '5', 'damage': '18 to 32', 'mana_cost': '29', 'Mana': '+1 to 7', 'Mind Numb': '+1'}
+Item Score: 0
+----- Stats -----
+Rare earth: IV
+Level req: 5
+Damage: 18 to 32
+Mana cost: 29
+Mana: +1 to 7
+Mind numb: +1
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: alloy chain mail
+Item Details: {'name': 'alloy chain mail', 'alloy_chain': 'mail', 'level_req': '15', 'physical_defense': '22 to 56', 'magical_defense': '0 to 13'}
+Item Score: 0
+----- Stats -----
+Alloy chain: mail
+Level req: 15
+Physical defense: 22 to 56
+Magical defense: 0 to 13
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: Rare earth IV
+Item Details: {'name': 'Rare earth IV', 'rare_earth': 'IV', 'level_req': '5', 'damage': '18 to 32', 'mana_cost': '29', 'Mana': '+1 to 7', 'Mind Numb': '+1'}
+Item Score: 0
+----- Stats -----
+Rare earth: IV
+Level req: 5
+Damage: 18 to 32
+Mana cost: 29
+Mana: +1 to 7
+Mind numb: +1
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: alloy chain mail
+Item Details: {'name': 'alloy chain mail', 'alloy_chain': 'mail', 'level_req': '15', 'physical_defense': '22 to 56', 'magical_defense': '0 to 13'}
+Item Score: 0
+----- Stats -----
+Alloy chain: mail
+Level req: 15
+Physical defense: 22 to 56
+Magical defense: 0 to 13
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: Rare earth IV
+Item Details: {'name': 'Rare earth IV', 'rare_earth': 'IV', 'level_req': '5', 'damage': '18 to 32', 'mana_cost': '29', 'Mana': '+1 to 7', 'Mind Numb': '+1'}
+Item Score: 0
+----- Stats -----
+Rare earth: IV
+Level req: 5
+Damage: 18 to 32
+Mana cost: 29
+Mana: +1 to 7
+Mind numb: +1
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: alloy chain mail
+Item Details: {'name': 'alloy chain mail', 'alloy_chain': 'mail', 'level_req': '15', 'physical_defense': '22 to 56', 'magical_defense': '0 to 13'}
+Item Score: 0
+----- Stats -----
+Alloy chain: mail
+Level req: 15
+Physical defense: 22 to 56
+Magical defense: 0 to 13
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: Rare earth IV
+Item Details: {'name': 'Rare earth IV', 'rare_earth': 'IV', 'level_req': '5', 'damage': '18 to 32', 'mana_cost': '29', 'Mana': '+1 to 7', 'Mind Numb': '+1'}
+Item Score: 0
+----- Stats -----
+Rare earth: IV
+Level req: 5
+Damage: 18 to 32
+Mana cost: 29
+Mana: +1 to 7
+Mind numb: +1
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: alloy chain mail
+Item Details: {'name': 'alloy chain mail', 'alloy_chain': 'mail', 'level_req': '15', 'physical_defense': '22 to 56', 'magical_defense': '0 to 13'}
+Item Score: 0
+----- Stats -----
+Alloy chain: mail
+Level req: 15
+Physical defense: 22 to 56
+Magical defense: 0 to 13
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: rusted sword
+Item Details: {'name': 'rusted sword', 'rusted': 'sword', 'damage': '2 to 20'}
+Item Score: 0
+----- Stats -----
+Rusted: sword
+Damage: 2 to 20
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: rusted sword
+Item Details: {'name': 'rusted sword', 'rusted': 'sword', 'damage': '2 to 20'}
+Item Score: 0
+----- Stats -----
+Rusted: sword
+Damage: 2 to 20
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: rusted sword
+Item Details: {'name': 'rusted sword', 'rusted': 'sword', 'damage': '2 to 20'}
+Item Score: 0
+----- Stats -----
+Rusted: sword
+Damage: 2 to 20
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: rusted sword
+Item Details: {'name': 'rusted sword', 'rusted': 'sword', 'damage': '2 to 20'}
+Item Score: 0
+----- Stats -----
+Rusted: sword
+Damage: 2 to 20
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: rusted sword
+Item Details: {'name': 'rusted sword', 'rusted': 'sword', 'damage': '2 to 20'}
+Item Score: 0
+----- Stats -----
+Rusted: sword
+Damage: 2 to 20
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: rusted sword
+Item Details: {'name': 'rusted sword', 'rusted': 'sword', 'damage': '2 to 20'}
+Item Score: 0
+----- Stats -----
+Rusted: sword
+Damage: 2 to 20
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: rusted sword
+Item Details: {'name': 'rusted sword', 'rusted': 'sword', 'damage': '2 to 20'}
+Item Score: 0
+----- Stats -----
+Rusted: sword
+Damage: 2 to 20
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: rusted sword
+Item Details: {'name': 'rusted sword', 'rusted': 'sword', 'damage': '2 to 20'}
+Item Score: 0
+----- Stats -----
+Rusted: sword
+Damage: 2 to 20
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: silk robe
+Item Details: {'name': 'silk robe', 'silk': 'robe', 'level_req': '15', 'physical_defense': '0 to 11', 'magical_defense': '13 to 41'}
+Item Score: 0
+----- Stats -----
+Silk: robe
+Level req: 15
+Physical defense: 0 to 11
+Magical defense: 13 to 41
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: rusted sword
+Item Details: {'name': 'rusted sword', 'rusted': 'sword', 'damage': '2 to 20'}
+Item Score: 0
+----- Stats -----
+Rusted: sword
+Damage: 2 to 20
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: silk robe
+Item Details: {'name': 'silk robe', 'silk': 'robe', 'level_req': '15', 'physical_defense': '0 to 11', 'magical_defense': '13 to 41'}
+Item Score: 0
+----- Stats -----
+Silk: robe
+Level req: 15
+Physical defense: 0 to 11
+Magical defense: 13 to 41
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: rusted sword
+Item Details: {'name': 'rusted sword', 'rusted': 'sword', 'damage': '2 to 20'}
+Item Score: 0
+----- Stats -----
+Rusted: sword
+Damage: 2 to 20
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: silk robe
+Item Details: {'name': 'silk robe', 'silk': 'robe', 'level_req': '15', 'physical_defense': '0 to 11', 'magical_defense': '13 to 41'}
+Item Score: 0
+----- Stats -----
+Silk: robe
+Level req: 15
+Physical defense: 0 to 11
+Magical defense: 13 to 41
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: rusted sword
+Item Details: {'name': 'rusted sword', 'rusted': 'sword', 'damage': '2 to 20'}
+Item Score: 0
+----- Stats -----
+Rusted: sword
+Damage: 2 to 20
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: silk robe
+Item Details: {'name': 'silk robe', 'silk': 'robe', 'level_req': '15', 'physical_defense': '0 to 11', 'magical_defense': '13 to 41'}
+Item Score: 0
+----- Stats -----
+Silk: robe
+Level req: 15
+Physical defense: 0 to 11
+Magical defense: 13 to 41
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: rusted sword
+Item Details: {'name': 'rusted sword', 'rusted': 'sword', 'damage': '2 to 20'}
+Item Score: 0
+----- Stats -----
+Rusted: sword
+Damage: 2 to 20
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: silk robe
+Item Details: {'name': 'silk robe', 'silk': 'robe', 'level_req': '15', 'physical_defense': '0 to 11', 'magical_defense': '13 to 41'}
+Item Score: 0
+----- Stats -----
+Silk: robe
+Level req: 15
+Physical defense: 0 to 11
+Magical defense: 13 to 41
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: Angelic bone scale armor
+Item Details: {'name': 'Angelic bone scale armor', 'angelic_bone_scale': 'armor', 'physical_defense': '5 to 22', 'magical_defense': '3 to 10', '+1': 'Dexterity', '+1_mana': 'Regen', 'Heal Mastery': '+5', 'Mana Skin': '+1'}
+Item Score: 0
+----- Stats -----
+Angelic bone scale: armor
+Physical defense: 5 to 22
+Magical defense: 3 to 10
++1: Dexterity
++1 mana: Regen
+Heal mastery: +5
+Mana skin: +1
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: Angelic bone scale armor
+Item Details: {'name': 'Angelic bone scale armor', 'angelic_bone_scale': 'armor', 'physical_defense': '5 to 22', 'magical_defense': '3 to 10', '+1': 'Dexterity', '+1_mana': 'Regen', 'Heal Mastery': '+5', 'Mana Skin': '+1'}
+Item Score: 0
+----- Stats -----
+Angelic bone scale: armor
+Physical defense: 5 to 22
+Magical defense: 3 to 10
++1: Dexterity
++1 mana: Regen
+Heal mastery: +5
+Mana skin: +1
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: Angelic bone scale armor
+Item Details: {'name': 'Angelic bone scale armor', 'angelic_bone_scale': 'armor', 'physical_defense': '5 to 22', 'magical_defense': '3 to 10', '+1': 'Dexterity', '+1_mana': 'Regen', 'Heal Mastery': '+5', 'Mana Skin': '+1'}
+Item Score: 0
+----- Stats -----
+Angelic bone scale: armor
+Physical defense: 5 to 22
+Magical defense: 3 to 10
++1: Dexterity
++1 mana: Regen
+Heal mastery: +5
+Mana skin: +1
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: Angelic bone scale armor
+Item Details: {'name': 'Angelic bone scale armor', 'angelic_bone_scale': 'armor', 'physical_defense': '5 to 22', 'magical_defense': '3 to 10', '+1': 'Dexterity', '+1_mana': 'Regen', 'Heal Mastery': '+5', 'Mana Skin': '+1'}
+Item Score: 0
+----- Stats -----
+Angelic bone scale: armor
+Physical defense: 5 to 22
+Magical defense: 3 to 10
++1: Dexterity
++1 mana: Regen
+Heal mastery: +5
+Mana skin: +1
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: Angelic bone scale armor
+Item Details: {'name': 'Angelic bone scale armor', 'angelic_bone_scale': 'armor', 'physical_defense': '5 to 22', 'magical_defense': '3 to 10', '+1': 'Dexterity', '+1_mana': 'Regen', 'Heal Mastery': '+5', 'Mana Skin': '+1'}
+Item Score: 0
+----- Stats -----
+Angelic bone scale: armor
+Physical defense: 5 to 22
+Magical defense: 3 to 10
++1: Dexterity
++1 mana: Regen
+Heal mastery: +5
+Mana skin: +1
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: Angelic bone scale armor
+Item Details: {'name': 'Angelic bone scale armor', 'angelic_bone_scale': 'armor', 'physical_defense': '5 to 22', 'magical_defense': '3 to 10', '+1': 'Dexterity', '+1_mana': 'Regen', 'Heal Mastery': '+5', 'Mana Skin': '+1'}
+Item Score: 0
+----- Stats -----
+Angelic bone scale: armor
+Physical defense: 5 to 22
+Magical defense: 3 to 10
++1: Dexterity
++1 mana: Regen
+Heal mastery: +5
+Mana skin: +1
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: Angelic bone scale armor
+Item Details: {'name': 'Angelic bone scale armor', 'angelic_bone_scale': 'armor', 'physical_defense': '5 to 22', 'magical_defense': '3 to 10', '+1': 'Dexterity', '+1_mana': 'Regen', 'Heal Mastery': '+5', 'Mana Skin': '+1'}
+Item Score: 0
+----- Stats -----
+Angelic bone scale: armor
+Physical defense: 5 to 22
+Magical defense: 3 to 10
++1: Dexterity
++1 mana: Regen
+Heal mastery: +5
+Mana skin: +1
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: Angelic bone scale armor
+Item Details: {'name': 'Angelic bone scale armor', 'angelic_bone_scale': 'armor', 'physical_defense': '5 to 22', 'magical_defense': '3 to 10', '+1': 'Dexterity', '+1_mana': 'Regen', 'Heal Mastery': '+5', 'Mana Skin': '+1'}
+Item Score: 0
+----- Stats -----
+Angelic bone scale: armor
+Physical defense: 5 to 22
+Magical defense: 3 to 10
++1: Dexterity
++1 mana: Regen
+Heal mastery: +5
+Mana skin: +1
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: Angelic bone scale armor
+Item Details: {'name': 'Angelic bone scale armor', 'angelic_bone_scale': 'armor', 'physical_defense': '5 to 22', 'magical_defense': '3 to 10', '+1': 'Dexterity', '+1_mana': 'Regen', 'Heal Mastery': '+5', 'Mana Skin': '+1'}
+Item Score: 0
+----- Stats -----
+Angelic bone scale: armor
+Physical defense: 5 to 22
+Magical defense: 3 to 10
++1: Dexterity
++1 mana: Regen
+Heal mastery: +5
+Mana skin: +1
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: Angelic bone scale armor
+Item Details: {'name': 'Angelic bone scale armor', 'angelic_bone_scale': 'armor', 'physical_defense': '5 to 22', 'magical_defense': '3 to 10', '+1': 'Dexterity', '+1_mana': 'Regen', 'Heal Mastery': '+5', 'Mana Skin': '+1'}
+Item Score: 0
+----- Stats -----
+Angelic bone scale: armor
+Physical defense: 5 to 22
+Magical defense: 3 to 10
++1: Dexterity
++1 mana: Regen
+Heal mastery: +5
+Mana skin: +1
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: Angelic bone scale armor
+Item Details: {'name': 'Angelic bone scale armor', 'angelic_bone_scale': 'armor', 'physical_defense': '5 to 22', 'magical_defense': '3 to 10', '+1': 'Dexterity', '+1_mana': 'Regen', 'Heal Mastery': '+5', 'Mana Skin': '+1'}
+Item Score: 0
+----- Stats -----
+Angelic bone scale: armor
+Physical defense: 5 to 22
+Magical defense: 3 to 10
++1: Dexterity
++1 mana: Regen
+Heal mastery: +5
+Mana skin: +1
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: Angelic bone scale armor
+Item Details: {'name': 'Angelic bone scale armor', 'angelic_bone_scale': 'armor', 'physical_defense': '5 to 22', 'magical_defense': '3 to 10', '+1': 'Dexterity', '+1_mana': 'Regen', 'Heal Mastery': '+5', 'Mana Skin': '+1'}
+Item Score: 0
+----- Stats -----
+Angelic bone scale: armor
+Physical defense: 5 to 22
+Magical defense: 3 to 10
++1: Dexterity
++1 mana: Regen
+Heal mastery: +5
+Mana skin: +1
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: fine alloy plate mail
+Item Details: {'name': 'fine alloy plate mail', 'fine_alloy_plate': 'mail', 'level_req': '20', 'physical_defense': '26 to 78', 'magical_defense': '0 to 8'}
+Item Score: 0
+----- Stats -----
+Fine alloy plate: mail
+Level req: 20
+Physical defense: 26 to 78
+Magical defense: 0 to 8
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: fine alloy plate mail
+Item Details: {'name': 'fine alloy plate mail', 'fine_alloy_plate': 'mail', 'level_req': '20', 'physical_defense': '26 to 78', 'magical_defense': '0 to 8'}
+Item Score: 0
+----- Stats -----
+Fine alloy plate: mail
+Level req: 20
+Physical defense: 26 to 78
+Magical defense: 0 to 8
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: fine alloy plate mail
+Item Details: {'name': 'fine alloy plate mail', 'fine_alloy_plate': 'mail', 'level_req': '20', 'physical_defense': '26 to 78', 'magical_defense': '0 to 8'}
+Item Score: 0
+----- Stats -----
+Fine alloy plate: mail
+Level req: 20
+Physical defense: 26 to 78
+Magical defense: 0 to 8
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: fine alloy plate mail
+Item Details: {'name': 'fine alloy plate mail', 'fine_alloy_plate': 'mail', 'level_req': '20', 'physical_defense': '26 to 78', 'magical_defense': '0 to 8'}
+Item Score: 0
+----- Stats -----
+Fine alloy plate: mail
+Level req: 20
+Physical defense: 26 to 78
+Magical defense: 0 to 8
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: fine alloy plate mail
+Item Details: {'name': 'fine alloy plate mail', 'fine_alloy_plate': 'mail', 'level_req': '20', 'physical_defense': '26 to 78', 'magical_defense': '0 to 8'}
+Item Score: 0
+----- Stats -----
+Fine alloy plate: mail
+Level req: 20
+Physical defense: 26 to 78
+Magical defense: 0 to 8
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: fine alloy plate mail
+Item Details: {'name': 'fine alloy plate mail', 'fine_alloy_plate': 'mail', 'level_req': '20', 'physical_defense': '26 to 78', 'magical_defense': '0 to 8'}
+Item Score: 0
+----- Stats -----
+Fine alloy plate: mail
+Level req: 20
+Physical defense: 26 to 78
+Magical defense: 0 to 8
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: fine alloy plate mail
+Item Details: {'name': 'fine alloy plate mail', 'fine_alloy_plate': 'mail', 'level_req': '20', 'physical_defense': '26 to 78', 'magical_defense': '0 to 8'}
+Item Score: 0
+----- Stats -----
+Fine alloy plate: mail
+Level req: 20
+Physical defense: 26 to 78
+Magical defense: 0 to 8
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: fine alloy plate mail
+Item Details: {'name': 'fine alloy plate mail', 'fine_alloy_plate': 'mail', 'level_req': '20', 'physical_defense': '26 to 78', 'magical_defense': '0 to 8'}
+Item Score: 0
+----- Stats -----
+Fine alloy plate: mail
+Level req: 20
+Physical defense: 26 to 78
+Magical defense: 0 to 8
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: fine alloy plate mail
+Item Details: {'name': 'fine alloy plate mail', 'fine_alloy_plate': 'mail', 'level_req': '20', 'physical_defense': '26 to 78', 'magical_defense': '0 to 8'}
+Item Score: 0
+----- Stats -----
+Fine alloy plate: mail
+Level req: 20
+Physical defense: 26 to 78
+Magical defense: 0 to 8
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: fine alloy plate mail
+Item Details: {'name': 'fine alloy plate mail', 'fine_alloy_plate': 'mail', 'level_req': '20', 'physical_defense': '26 to 78', 'magical_defense': '0 to 8'}
+Item Score: 0
+----- Stats -----
+Fine alloy plate: mail
+Level req: 20
+Physical defense: 26 to 78
+Magical defense: 0 to 8
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: fine alloy plate mail
+Item Details: {'name': 'fine alloy plate mail', 'fine_alloy_plate': 'mail', 'level_req': '20', 'physical_defense': '26 to 78', 'magical_defense': '0 to 8'}
+Item Score: 0
+----- Stats -----
+Fine alloy plate: mail
+Level req: 20
+Physical defense: 26 to 78
+Magical defense: 0 to 8
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: fine alloy plate mail
+Item Details: {'name': 'fine alloy plate mail', 'fine_alloy_plate': 'mail', 'level_req': '20', 'physical_defense': '26 to 78', 'magical_defense': '0 to 8'}
+Item Score: 0
+----- Stats -----
+Fine alloy plate: mail
+Level req: 20
+Physical defense: 26 to 78
+Magical defense: 0 to 8
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: fine alloy plate mail
+Item Details: {'name': 'fine alloy plate mail', 'fine_alloy_plate': 'mail', 'level_req': '20', 'physical_defense': '26 to 78', 'magical_defense': '0 to 8'}
+Item Score: 0
+----- Stats -----
+Fine alloy plate: mail
+Level req: 20
+Physical defense: 26 to 78
+Magical defense: 0 to 8
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: fine alloy plate mail
+Item Details: {'name': 'fine alloy plate mail', 'fine_alloy_plate': 'mail', 'level_req': '20', 'physical_defense': '26 to 78', 'magical_defense': '0 to 8'}
+Item Score: 0
+----- Stats -----
+Fine alloy plate: mail
+Level req: 20
+Physical defense: 26 to 78
+Magical defense: 0 to 8
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: fine alloy plate mail
+Item Details: {'name': 'fine alloy plate mail', 'fine_alloy_plate': 'mail', 'level_req': '20', 'physical_defense': '26 to 78', 'magical_defense': '0 to 8'}
+Item Score: 0
+----- Stats -----
+Fine alloy plate: mail
+Level req: 20
+Physical defense: 26 to 78
+Magical defense: 0 to 8
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: fine alloy plate mail
+Item Details: {'name': 'fine alloy plate mail', 'fine_alloy_plate': 'mail', 'level_req': '20', 'physical_defense': '26 to 78', 'magical_defense': '0 to 8'}
+Item Score: 0
+----- Stats -----
+Fine alloy plate: mail
+Level req: 20
+Physical defense: 26 to 78
+Magical defense: 0 to 8
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: embossed leather armor
+Item Details: {'name': 'embossed leather armor', 'embossed_leather': 'armor', 'level_req': '25', 'physical_defense': '14 to 44', 'magical_defense': '9 to 36'}
+Item Score: 0
+----- Stats -----
+Embossed leather: armor
+Level req: 25
+Physical defense: 14 to 44
+Magical defense: 9 to 36
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: fine alloy plate mail
+Item Details: {'name': 'fine alloy plate mail', 'fine_alloy_plate': 'mail', 'level_req': '20', 'physical_defense': '26 to 78', 'magical_defense': '0 to 8'}
+Item Score: 0
+----- Stats -----
+Fine alloy plate: mail
+Level req: 20
+Physical defense: 26 to 78
+Magical defense: 0 to 8
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: iron chain mail
+Item Details: {'name': 'iron chain mail', 'iron_chain': 'mail', 'level_req': '5', 'physical_defense': '14 to 37', 'magical_defense': '0 to 9'}
+Item Score: 0
+----- Stats -----
+Iron chain: mail
+Level req: 5
+Physical defense: 14 to 37
+Magical defense: 0 to 9
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: iron chain mail
+Item Details: {'name': 'iron chain mail', 'iron_chain': 'mail', 'level_req': '5', 'physical_defense': '14 to 37', 'magical_defense': '0 to 9'}
+Item Score: 0
+----- Stats -----
+Iron chain: mail
+Level req: 5
+Physical defense: 14 to 37
+Magical defense: 0 to 9
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: iron chain mail
+Item Details: {'name': 'iron chain mail', 'iron_chain': 'mail', 'level_req': '5', 'physical_defense': '14 to 37', 'magical_defense': '0 to 9'}
+Item Score: 0
+----- Stats -----
+Iron chain: mail
+Level req: 5
+Physical defense: 14 to 37
+Magical defense: 0 to 9
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: Rare lightning II
+Item Details: {'name': 'Rare lightning II', 'rare_lightning': 'II', 'damage': '2 to 23', 'mana_cost': '13', 'Mana': '+1 to 2', 'Earth Mastery': '+2'}
+Item Score: 0
+----- Stats -----
+Rare lightning: II
+Damage: 2 to 23
+Mana cost: 13
+Mana: +1 to 2
+Earth mastery: +2
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: patched leather armor
+Item Details: {'name': 'patched leather armor', 'patched_leather': 'armor', 'physical_defense': '1 to 5', 'magical_defense': '1 to 4'}
+Item Score: 0
+----- Stats -----
+Patched leather: armor
+Physical defense: 1 to 5
+Magical defense: 1 to 4
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: ice II
+Item Details: {'name': 'ice II', 'ice': 'II', 'damage': '11 to 13', 'mana_cost': '13'}
+Item Score: 0
+----- Stats -----
+Ice: II
+Damage: 11 to 13
+Mana cost: 13
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: ice II
+Item Details: {'name': 'ice II', 'ice': 'II', 'damage': '11 to 13', 'mana_cost': '13'}
+Item Score: 0
+----- Stats -----
+Ice: II
+Damage: 11 to 13
+Mana cost: 13
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: ice II
+Item Details: {'name': 'ice II', 'ice': 'II', 'damage': '11 to 13', 'mana_cost': '13'}
+Item Score: 0
+----- Stats -----
+Ice: II
+Damage: 11 to 13
+Mana cost: 13
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: patched leather armor
+Item Details: {'name': 'patched leather armor', 'patched_leather': 'armor', 'physical_defense': '1 to 5', 'magical_defense': '1 to 4'}
+Item Score: 0
+----- Stats -----
+Patched leather: armor
+Physical defense: 1 to 5
+Magical defense: 1 to 4
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: patched leather armor
+Item Details: {'name': 'patched leather armor', 'patched_leather': 'armor', 'physical_defense': '1 to 5', 'magical_defense': '1 to 4'}
+Item Score: 0
+----- Stats -----
+Patched leather: armor
+Physical defense: 1 to 5
+Magical defense: 1 to 4
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: earth II
+Item Details: {'name': 'earth II', 'earth': 'II', 'damage': '9 to 16', 'mana_cost': '13'}
+Item Score: 0
+----- Stats -----
+Earth: II
+Damage: 9 to 16
+Mana cost: 13
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: patched leather armor
+Item Details: {'name': 'patched leather armor', 'patched_leather': 'armor', 'physical_defense': '1 to 5', 'magical_defense': '1 to 4'}
+Item Score: 0
+----- Stats -----
+Patched leather: armor
+Physical defense: 1 to 5
+Magical defense: 1 to 4
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: earth II
+Item Details: {'name': 'earth II', 'earth': 'II', 'damage': '9 to 16', 'mana_cost': '13'}
+Item Score: 0
+----- Stats -----
+Earth: II
+Damage: 9 to 16
+Mana cost: 13
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: patched leather armor
+Item Details: {'name': 'patched leather armor', 'patched_leather': 'armor', 'physical_defense': '1 to 5', 'magical_defense': '1 to 4'}
+Item Score: 0
+----- Stats -----
+Patched leather: armor
+Physical defense: 1 to 5
+Magical defense: 1 to 4
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: Rare copper chain mail
+Item Details: {'name': 'Rare copper chain mail', 'rare_copper_chain': 'mail', 'physical_defense': '7 to 18', 'magical_defense': '0 to 4', '+85_max': 'Life', '+132_max': 'Mana'}
+Item Score: 0
+----- Stats -----
+Rare copper chain: mail
+Physical defense: 7 to 18
+Magical defense: 0 to 4
++85 max: Life
++132 max: Mana
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: Rare copper chain mail
+Item Details: {'name': 'Rare copper chain mail', 'rare_copper_chain': 'mail', 'physical_defense': '7 to 18', 'magical_defense': '0 to 4', '+85_max': 'Life', '+132_max': 'Mana'}
+Item Score: 0
+----- Stats -----
+Rare copper chain: mail
+Physical defense: 7 to 18
+Magical defense: 0 to 4
++85 max: Life
++132 max: Mana
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: Rare copper chain mail
+Item Details: {'name': 'Rare copper chain mail', 'rare_copper_chain': 'mail', 'physical_defense': '7 to 18', 'magical_defense': '0 to 4', '+85_max': 'Life', '+132_max': 'Mana'}
+Item Score: 0
+----- Stats -----
+Rare copper chain: mail
+Physical defense: 7 to 18
+Magical defense: 0 to 4
++85 max: Life
++132 max: Mana
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: Rare copper chain mail
+Item Details: {'name': 'Rare copper chain mail', 'rare_copper_chain': 'mail', 'physical_defense': '7 to 18', 'magical_defense': '0 to 4', '+85_max': 'Life', '+132_max': 'Mana'}
+Item Score: 0
+----- Stats -----
+Rare copper chain: mail
+Physical defense: 7 to 18
+Magical defense: 0 to 4
++85 max: Life
++132 max: Mana
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: Rare copper chain mail
+Item Details: {'name': 'Rare copper chain mail', 'rare_copper_chain': 'mail', 'physical_defense': '7 to 18', 'magical_defense': '0 to 4', '+85_max': 'Life', '+132_max': 'Mana'}
+Item Score: 0
+----- Stats -----
+Rare copper chain: mail
+Physical defense: 7 to 18
+Magical defense: 0 to 4
++85 max: Life
++132 max: Mana
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: Rare copper chain mail
+Item Details: {'name': 'Rare copper chain mail', 'rare_copper_chain': 'mail', 'physical_defense': '7 to 18', 'magical_defense': '0 to 4', '+85_max': 'Life', '+132_max': 'Mana'}
+Item Score: 0
+----- Stats -----
+Rare copper chain: mail
+Physical defense: 7 to 18
+Magical defense: 0 to 4
++85 max: Life
++132 max: Mana
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: Rare copper chain mail
+Item Details: {'name': 'Rare copper chain mail', 'rare_copper_chain': 'mail', 'physical_defense': '7 to 18', 'magical_defense': '0 to 4', '+85_max': 'Life', '+132_max': 'Mana'}
+Item Score: 0
+----- Stats -----
+Rare copper chain: mail
+Physical defense: 7 to 18
+Magical defense: 0 to 4
++85 max: Life
++132 max: Mana
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: Rare copper chain mail
+Item Details: {'name': 'Rare copper chain mail', 'rare_copper_chain': 'mail', 'physical_defense': '7 to 18', 'magical_defense': '0 to 4', '+85_max': 'Life', '+132_max': 'Mana'}
+Item Score: 0
+----- Stats -----
+Rare copper chain: mail
+Physical defense: 7 to 18
+Magical defense: 0 to 4
++85 max: Life
++132 max: Mana
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: Rare copper chain mail
+Item Details: {'name': 'Rare copper chain mail', 'rare_copper_chain': 'mail', 'physical_defense': '7 to 18', 'magical_defense': '0 to 4', '+85_max': 'Life', '+132_max': 'Mana'}
+Item Score: 0
+----- Stats -----
+Rare copper chain: mail
+Physical defense: 7 to 18
+Magical defense: 0 to 4
++85 max: Life
++132 max: Mana
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: wind I
+Item Details: {'name': 'wind I', 'wind': 'I', 'damage': '2 to 10', 'mana_cost': '5'}
+Item Score: 0
+----- Stats -----
+Wind: I
+Damage: 2 to 10
+Mana cost: 5
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: wind I
+Item Details: {'name': 'wind I', 'wind': 'I', 'damage': '2 to 10', 'mana_cost': '5'}
+Item Score: 0
+----- Stats -----
+Wind: I
+Damage: 2 to 10
+Mana cost: 5
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: wind I
+Item Details: {'name': 'wind I', 'wind': 'I', 'damage': '2 to 10', 'mana_cost': '5'}
+Item Score: 0
+----- Stats -----
+Wind: I
+Damage: 2 to 10
+Mana cost: 5
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: wind I
+Item Details: {'name': 'wind I', 'wind': 'I', 'damage': '2 to 10', 'mana_cost': '5'}
+Item Score: 0
+----- Stats -----
+Wind: I
+Damage: 2 to 10
+Mana cost: 5
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: wind I
+Item Details: {'name': 'wind I', 'wind': 'I', 'damage': '2 to 10', 'mana_cost': '5'}
+Item Score: 0
+----- Stats -----
+Wind: I
+Damage: 2 to 10
+Mana cost: 5
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: wind I
+Item Details: {'name': 'wind I', 'wind': 'I', 'damage': '2 to 10', 'mana_cost': '5'}
+Item Score: 0
+----- Stats -----
+Wind: I
+Damage: 2 to 10
+Mana cost: 5
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: wind I
+Item Details: {'name': 'wind I', 'wind': 'I', 'damage': '2 to 10', 'mana_cost': '5'}
+Item Score: 0
+----- Stats -----
+Wind: I
+Damage: 2 to 10
+Mana cost: 5
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: wind I
+Item Details: {'name': 'wind I', 'wind': 'I', 'damage': '2 to 10', 'mana_cost': '5'}
+Item Score: 0
+----- Stats -----
+Wind: I
+Damage: 2 to 10
+Mana cost: 5
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: wind I
+Item Details: {'name': 'wind I', 'wind': 'I', 'damage': '2 to 10', 'mana_cost': '5'}
+Item Score: 0
+----- Stats -----
+Wind: I
+Damage: 2 to 10
+Mana cost: 5
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: wind I
+Item Details: {'name': 'wind I', 'wind': 'I', 'damage': '2 to 10', 'mana_cost': '5'}
+Item Score: 0
+----- Stats -----
+Wind: I
+Damage: 2 to 10
+Mana cost: 5
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: wind I
+Item Details: {'name': 'wind I', 'wind': 'I', 'damage': '2 to 10', 'mana_cost': '5'}
+Item Score: 0
+----- Stats -----
+Wind: I
+Damage: 2 to 10
+Mana cost: 5
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: Magical comfrey
+Item Details: {'name': 'Magical comfrey', 'magical': 'comfrey', 'recovers_902': 'Mana'}
+Item Score: 0
+----- Stats -----
+Magical: comfrey
+Recovers 902: Mana
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: Mythical tattered padded robe
+Item Details: {'name': 'Mythical tattered padded robe', 'mythical_tattered_padded': 'robe', 'physical_defense': '0 to 4', 'magical_defense': '2 to 6', 'Enhanced Effect': '+11', 'Mind Numb': '+1', 'Glancing Blow': '+1', '+1': 'Jubilance', 'Ice Mastery': '+2'}
+Item Score: 100
+----- Stats -----
+Mythical tattered padded: robe
+Physical defense: 0 to 4
+Magical defense: 2 to 6
+Enhanced effect: +11
+Mind numb: +1
+Glancing blow: +1
++1: Jubilance
+Ice mastery: +2
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: linen padded robe
+Item Details: {'name': 'linen padded robe', 'linen_padded': 'robe', 'level_req': '5', 'physical_defense': '0 to 14', 'magical_defense': '9 to 23'}
+Item Score: 0
+----- Stats -----
+Linen padded: robe
+Level req: 5
+Physical defense: 0 to 14
+Magical defense: 9 to 23
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: Mythical tattered padded robe
+Item Details: {'name': 'Mythical tattered padded robe', 'mythical_tattered_padded': 'robe', 'physical_defense': '0 to 4', 'magical_defense': '2 to 6', 'Enhanced Effect': '+11', 'Mind Numb': '+1', 'Glancing Blow': '+1', '+1': 'Jubilance', 'Ice Mastery': '+2'}
+Item Score: 100
+----- Stats -----
+Mythical tattered padded: robe
+Physical defense: 0 to 4
+Magical defense: 2 to 6
+Enhanced effect: +11
+Mind numb: +1
+Glancing blow: +1
++1: Jubilance
+Ice mastery: +2
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: Rare copper axe
+Item Details: {'name': 'Rare copper axe', 'rare_copper': 'axe', 'damage': '17 to 21', 'Mind Numb': '+1', 'Fire Mastery': '+2'}
+Item Score: 0
+----- Stats -----
+Rare copper: axe
+Damage: 17 to 21
+Mind numb: +1
+Fire mastery: +2
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: Rare copper axe
+Item Details: {'name': 'Rare copper axe', 'rare_copper': 'axe', 'damage': '17 to 21', 'Mind Numb': '+1', 'Fire Mastery': '+2'}
+Item Score: 0
+----- Stats -----
+Rare copper: axe
+Damage: 17 to 21
+Mind numb: +1
+Fire mastery: +2
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: Rare copper axe
+Item Details: {'name': 'Rare copper axe', 'rare_copper': 'axe', 'damage': '17 to 21', 'Mind Numb': '+1', 'Fire Mastery': '+2'}
+Item Score: 0
+----- Stats -----
+Rare copper: axe
+Damage: 17 to 21
+Mind numb: +1
+Fire mastery: +2
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: Rare copper axe
+Item Details: {'name': 'Rare copper axe', 'rare_copper': 'axe', 'damage': '17 to 21', 'Mind Numb': '+1', 'Fire Mastery': '+2'}
+Item Score: 0
+----- Stats -----
+Rare copper: axe
+Damage: 17 to 21
+Mind numb: +1
+Fire mastery: +2
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: Rare copper axe
+Item Details: {'name': 'Rare copper axe', 'rare_copper': 'axe', 'damage': '17 to 21', 'Mind Numb': '+1', 'Fire Mastery': '+2'}
+Item Score: 0
+----- Stats -----
+Rare copper: axe
+Damage: 17 to 21
+Mind numb: +1
+Fire mastery: +2
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: splintered club
+Item Details: {'name': 'splintered club', 'splintered': 'club', 'damage': '4 to 18'}
+Item Score: 0
+----- Stats -----
+Splintered: club
+Damage: 4 to 18
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: Rare copper axe
+Item Details: {'name': 'Rare copper axe', 'rare_copper': 'axe', 'damage': '17 to 21', 'Mind Numb': '+1', 'Fire Mastery': '+2'}
+Item Score: 0
+----- Stats -----
+Rare copper: axe
+Damage: 17 to 21
+Mind numb: +1
+Fire mastery: +2
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: splintered club
+Item Details: {'name': 'splintered club', 'splintered': 'club', 'damage': '4 to 18'}
+Item Score: 0
+----- Stats -----
+Splintered: club
+Damage: 4 to 18
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: wild heal II
+Item Details: {'name': 'wild heal II', 'wild_heal': 'II', 'heals': '2 to 23', 'mana_cost': '13'}
+Item Score: 0
+----- Stats -----
+Wild heal: II
+Heals: 2 to 23
+Mana cost: 13
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: Magical focused heal I
+Item Details: {'name': 'Magical focused heal I', 'magical_focused_heal': 'I', 'heals': '5 to 7', 'mana_cost': '5', 'Enhanced Effect': '+2'}
+Item Score: 100
+----- Stats -----
+Magical focused heal: I
+Heals: 5 to 7
+Mana cost: 5
+Enhanced effect: +2
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: steel chain mail
+Item Details: {'name': 'steel chain mail', 'steel_chain': 'mail', 'level_req': '10', 'physical_defense': '18 to 46', 'magical_defense': '0 to 11'}
+Item Score: 0
+----- Stats -----
+Steel chain: mail
+Level req: 10
+Physical defense: 18 to 46
+Magical defense: 0 to 11
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: alloy axe
+Item Details: {'name': 'alloy axe', 'alloy': 'axe', 'level_req': '15', 'damage': '53 to 63'}
+Item Score: 0
+----- Stats -----
+Alloy: axe
+Level req: 15
+Damage: 53 to 63
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: steel chain mail
+Item Details: {'name': 'steel chain mail', 'steel_chain': 'mail', 'level_req': '10', 'physical_defense': '18 to 46', 'magical_defense': '0 to 11'}
+Item Score: 0
+----- Stats -----
+Steel chain: mail
+Level req: 10
+Physical defense: 18 to 46
+Magical defense: 0 to 11
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: wild heal IV
+Item Details: {'name': 'wild heal IV', 'wild_heal': 'IV', 'level_req': '5', 'heals': '4 to 46', 'mana_cost': '29'}
+Item Score: 0
+----- Stats -----
+Wild heal: IV
+Level req: 5
+Heals: 4 to 46
+Mana cost: 29
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: wild heal IV
+Item Details: {'name': 'wild heal IV', 'wild_heal': 'IV', 'level_req': '5', 'heals': '4 to 46', 'mana_cost': '29'}
+Item Score: 0
+----- Stats -----
+Wild heal: IV
+Level req: 5
+Heals: 4 to 46
+Mana cost: 29
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: wild heal IV
+Item Details: {'name': 'wild heal IV', 'wild_heal': 'IV', 'level_req': '5', 'heals': '4 to 46', 'mana_cost': '29'}
+Item Score: 0
+----- Stats -----
+Wild heal: IV
+Level req: 5
+Heals: 4 to 46
+Mana cost: 29
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: wild heal IV
+Item Details: {'name': 'wild heal IV', 'wild_heal': 'IV', 'level_req': '5', 'heals': '4 to 46', 'mana_cost': '29'}
+Item Score: 0
+----- Stats -----
+Wild heal: IV
+Level req: 5
+Heals: 4 to 46
+Mana cost: 29
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: wild heal IV
+Item Details: {'name': 'wild heal IV', 'wild_heal': 'IV', 'level_req': '5', 'heals': '4 to 46', 'mana_cost': '29'}
+Item Score: 0
+----- Stats -----
+Wild heal: IV
+Level req: 5
+Heals: 4 to 46
+Mana cost: 29
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: wild heal IV
+Item Details: {'name': 'wild heal IV', 'wild_heal': 'IV', 'level_req': '5', 'heals': '4 to 46', 'mana_cost': '29'}
+Item Score: 0
+----- Stats -----
+Wild heal: IV
+Level req: 5
+Heals: 4 to 46
+Mana cost: 29
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: wild heal IV
+Item Details: {'name': 'wild heal IV', 'wild_heal': 'IV', 'level_req': '5', 'heals': '4 to 46', 'mana_cost': '29'}
+Item Score: 0
+----- Stats -----
+Wild heal: IV
+Level req: 5
+Heals: 4 to 46
+Mana cost: 29
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: wild heal IV
+Item Details: {'name': 'wild heal IV', 'wild_heal': 'IV', 'level_req': '5', 'heals': '4 to 46', 'mana_cost': '29'}
+Item Score: 0
+----- Stats -----
+Wild heal: IV
+Level req: 5
+Heals: 4 to 46
+Mana cost: 29
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: wild heal IV
+Item Details: {'name': 'wild heal IV', 'wild_heal': 'IV', 'level_req': '5', 'heals': '4 to 46', 'mana_cost': '29'}
+Item Score: 0
+----- Stats -----
+Wild heal: IV
+Level req: 5
+Heals: 4 to 46
+Mana cost: 29
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: wild heal IV
+Item Details: {'name': 'wild heal IV', 'wild_heal': 'IV', 'level_req': '5', 'heals': '4 to 46', 'mana_cost': '29'}
+Item Score: 0
+----- Stats -----
+Wild heal: IV
+Level req: 5
+Heals: 4 to 46
+Mana cost: 29
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: wild heal IV
+Item Details: {'name': 'wild heal IV', 'wild_heal': 'IV', 'level_req': '5', 'heals': '4 to 46', 'mana_cost': '29'}
+Item Score: 0
+----- Stats -----
+Wild heal: IV
+Level req: 5
+Heals: 4 to 46
+Mana cost: 29
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: rawhide leather armor
+Item Details: {'name': 'rawhide leather armor', 'rawhide_leather': 'armor', 'physical_defense': '3 to 11', 'magical_defense': '2 to 9'}
+Item Score: 0
+----- Stats -----
+Rawhide leather: armor
+Physical defense: 3 to 11
+Magical defense: 2 to 9
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: rawhide leather armor
+Item Details: {'name': 'rawhide leather armor', 'rawhide_leather': 'armor', 'physical_defense': '3 to 11', 'magical_defense': '2 to 9'}
+Item Score: 0
+----- Stats -----
+Rawhide leather: armor
+Physical defense: 3 to 11
+Magical defense: 2 to 9
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: cotton robe
+Item Details: {'name': 'cotton robe', 'cotton': 'robe', 'physical_defense': '0 to 3', 'magical_defense': '4 to 13'}
+Item Score: 0
+----- Stats -----
+Cotton: robe
+Physical defense: 0 to 3
+Magical defense: 4 to 13
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: cotton robe
+Item Details: {'name': 'cotton robe', 'cotton': 'robe', 'physical_defense': '0 to 3', 'magical_defense': '4 to 13'}
+Item Score: 0
+----- Stats -----
+Cotton: robe
+Physical defense: 0 to 3
+Magical defense: 4 to 13
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: cotton robe
+Item Details: {'name': 'cotton robe', 'cotton': 'robe', 'physical_defense': '0 to 3', 'magical_defense': '4 to 13'}
+Item Score: 0
+----- Stats -----
+Cotton: robe
+Physical defense: 0 to 3
+Magical defense: 4 to 13
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: cotton robe
+Item Details: {'name': 'cotton robe', 'cotton': 'robe', 'physical_defense': '0 to 3', 'magical_defense': '4 to 13'}
+Item Score: 0
+----- Stats -----
+Cotton: robe
+Physical defense: 0 to 3
+Magical defense: 4 to 13
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: cotton robe
+Item Details: {'name': 'cotton robe', 'cotton': 'robe', 'physical_defense': '0 to 3', 'magical_defense': '4 to 13'}
+Item Score: 0
+----- Stats -----
+Cotton: robe
+Physical defense: 0 to 3
+Magical defense: 4 to 13
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: cotton robe
+Item Details: {'name': 'cotton robe', 'cotton': 'robe', 'physical_defense': '0 to 3', 'magical_defense': '4 to 13'}
+Item Score: 0
+----- Stats -----
+Cotton: robe
+Physical defense: 0 to 3
+Magical defense: 4 to 13
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: cotton robe
+Item Details: {'name': 'cotton robe', 'cotton': 'robe', 'physical_defense': '0 to 3', 'magical_defense': '4 to 13'}
+Item Score: 0
+----- Stats -----
+Cotton: robe
+Physical defense: 0 to 3
+Magical defense: 4 to 13
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: cotton robe
+Item Details: {'name': 'cotton robe', 'cotton': 'robe', 'physical_defense': '0 to 3', 'magical_defense': '4 to 13'}
+Item Score: 0
+----- Stats -----
+Cotton: robe
+Physical defense: 0 to 3
+Magical defense: 4 to 13
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: fire I
+Item Details: {'name': 'fire I', 'fire': 'I', 'damage': '3 to 9', 'mana_cost': '5'}
+Item Score: 0
+----- Stats -----
+Fire: I
+Damage: 3 to 9
+Mana cost: 5
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: fire I
+Item Details: {'name': 'fire I', 'fire': 'I', 'damage': '3 to 9', 'mana_cost': '5'}
+Item Score: 0
+----- Stats -----
+Fire: I
+Damage: 3 to 9
+Mana cost: 5
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: Magical alloy sword
+Item Details: {'name': 'Magical alloy sword', 'magical_alloy': 'sword', 'level_req': '15', 'damage': '12 to 120', 'Lightning Mastery': '+2'}
+Item Score: 0
+----- Stats -----
+Magical alloy: sword
+Level req: 15
+Damage: 12 to 120
+Lightning mastery: +2
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: Magical alloy sword
+Item Details: {'name': 'Magical alloy sword', 'magical_alloy': 'sword', 'level_req': '15', 'damage': '12 to 120', 'Lightning Mastery': '+2'}
+Item Score: 0
+----- Stats -----
+Magical alloy: sword
+Level req: 15
+Damage: 12 to 120
+Lightning mastery: +2
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: Magical alloy sword
+Item Details: {'name': 'Magical alloy sword', 'magical_alloy': 'sword', 'level_req': '15', 'damage': '12 to 120', 'Lightning Mastery': '+2'}
+Item Score: 0
+----- Stats -----
+Magical alloy: sword
+Level req: 15
+Damage: 12 to 120
+Lightning mastery: +2
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: Magical alloy sword
+Item Details: {'name': 'Magical alloy sword', 'magical_alloy': 'sword', 'level_req': '15', 'damage': '12 to 120', 'Lightning Mastery': '+2'}
+Item Score: 0
+----- Stats -----
+Magical alloy: sword
+Level req: 15
+Damage: 12 to 120
+Lightning mastery: +2
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: Magical alloy sword
+Item Details: {'name': 'Magical alloy sword', 'magical_alloy': 'sword', 'level_req': '15', 'damage': '12 to 120', 'Lightning Mastery': '+2'}
+Item Score: 0
+----- Stats -----
+Magical alloy: sword
+Level req: 15
+Damage: 12 to 120
+Lightning mastery: +2
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: Magical alloy sword
+Item Details: {'name': 'Magical alloy sword', 'magical_alloy': 'sword', 'level_req': '15', 'damage': '12 to 120', 'Lightning Mastery': '+2'}
+Item Score: 0
+----- Stats -----
+Magical alloy: sword
+Level req: 15
+Damage: 12 to 120
+Lightning mastery: +2
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: splintered fishing rod
+Item Details: {'name': 'splintered fishing rod', 'splintered_fishing': 'rod'}
+Item Score: 0
+----- Stats -----
+Splintered fishing: rod
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: splintered fishing rod
+Item Details: {'name': 'splintered fishing rod', 'splintered_fishing': 'rod'}
+Item Score: 0
+----- Stats -----
+Splintered fishing: rod
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: splintered fishing rod
+Item Details: {'name': 'splintered fishing rod', 'splintered_fishing': 'rod'}
+Item Score: 0
+----- Stats -----
+Splintered fishing: rod
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: Magical rusted plate mail
+Item Details: {'name': 'Magical rusted plate mail', 'magical_rusted_plate': 'mail', 'physical_defense': '3 to 11', 'magical_defense': '0 to 1', 'Earth Mastery': '+2'}
+Item Score: 0
+----- Stats -----
+Magical rusted plate: mail
+Physical defense: 3 to 11
+Magical defense: 0 to 1
+Earth mastery: +2
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: Magical rusted plate mail
+Item Details: {'name': 'Magical rusted plate mail', 'magical_rusted_plate': 'mail', 'physical_defense': '3 to 11', 'magical_defense': '0 to 1', 'Earth Mastery': '+2'}
+Item Score: 0
+----- Stats -----
+Magical rusted plate: mail
+Physical defense: 3 to 11
+Magical defense: 0 to 1
+Earth mastery: +2
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: Magical rusted plate mail
+Item Details: {'name': 'Magical rusted plate mail', 'magical_rusted_plate': 'mail', 'physical_defense': '3 to 11', 'magical_defense': '0 to 1', 'Earth Mastery': '+2'}
+Item Score: 0
+----- Stats -----
+Magical rusted plate: mail
+Physical defense: 3 to 11
+Magical defense: 0 to 1
+Earth mastery: +2
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: Mystical rusted chain mail
+Item Details: {'name': 'Mystical rusted chain mail', 'mystical_rusted_chain': 'mail', 'physical_defense': '3 to 9', 'magical_defense': '0 to 2', '+2': 'Strength', 'Glancing Blow': '+1', 'Earth Mastery': '+1'}
+Item Score: 0
+----- Stats -----
+Mystical rusted chain: mail
+Physical defense: 3 to 9
+Magical defense: 0 to 2
++2: Strength
+Glancing blow: +1
+Earth mastery: +1
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: Magical focused heal X
+Item Details: {'name': 'Magical focused heal X', 'magical_focused_heal': 'X', 'level_req': '35', 'heals': '58 to 69', 'mana_cost': '77', 'Power Shot': '+1'}
+Item Score: 0
+----- Stats -----
+Magical focused heal: X
+Level req: 35
+Heals: 58 to 69
+Mana cost: 77
+Power shot: +1
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: Mystical rusted chain mail
+Item Details: {'name': 'Mystical rusted chain mail', 'mystical_rusted_chain': 'mail', 'physical_defense': '3 to 9', 'magical_defense': '0 to 2', '+2': 'Strength', 'Glancing Blow': '+1', 'Earth Mastery': '+1'}
+Item Score: 0
+----- Stats -----
+Mystical rusted chain: mail
+Physical defense: 3 to 9
+Magical defense: 0 to 2
++2: Strength
+Glancing blow: +1
+Earth mastery: +1
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: Mystical rawhide leather armor
+Item Details: {'name': 'Mystical rawhide leather armor', 'mystical_rawhide_leather': 'armor', 'physical_defense': '3 to 11', 'magical_defense': '2 to 9', 'Life': '+1 to 1', 'Glancing Blow': '+1', 'Wind Mastery': '+1'}
+Item Score: 0
+----- Stats -----
+Mystical rawhide leather: armor
+Physical defense: 3 to 11
+Magical defense: 2 to 9
+Life: +1 to 1
+Glancing blow: +1
+Wind mastery: +1
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: Mystical rawhide leather armor
+Item Details: {'name': 'Mystical rawhide leather armor', 'mystical_rawhide_leather': 'armor', 'physical_defense': '3 to 11', 'magical_defense': '2 to 9', 'Life': '+1 to 1', 'Glancing Blow': '+1', 'Wind Mastery': '+1'}
+Item Score: 0
+----- Stats -----
+Mystical rawhide leather: armor
+Physical defense: 3 to 11
+Magical defense: 2 to 9
+Life: +1 to 1
+Glancing blow: +1
+Wind mastery: +1
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item Name: rawhide leather armor
+Item Details: {'name': 'rawhide leather armor', 'rawhide_leather': 'armor', 'physical_defense': '3 to 11', 'magical_defense': '2 to 9'}
+Item Score: 0
+----- Stats -----
+Rawhide leather: armor
+Physical defense: 3 to 11
+Magical defense: 2 to 9
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
