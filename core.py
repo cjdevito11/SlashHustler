@@ -345,12 +345,15 @@ def parse_and_score_drops_new(driver, drop_items):
             item_score = calculate_item_score(parsed_item['name'], parsed_item)
             print('+++++++++++++++++++++++++++++++++++++++++++++++++++++')
             print(f"Item: {parsed_item['name']}, Score: {item_score}")
-
+            print('+++++++++++++++++++++++++++++++++++++++++++++++++++++')
             # Log the item to file
             log_item_to_file(parsed_item, item_score, log_filename)
 
+
+            print(f'Check if item_score > loot_threshold -------------- {item_score} > {loot_threshold}')
             # Decide if the item should be looted
             if item_score > loot_threshold:
+                print('TRY TO LOOT ITEM')
                 loot_item(driver, item)
 
 
@@ -630,7 +633,7 @@ def resetDungeon(driver):
                                     if btn.text == 'Leave Group':
                                         time.sleep(2)
                                         btn.click()
-                                        time.sleep(560)
+                                        time.sleep(180)
                         
         #Create Group
         #Leave Group
@@ -754,12 +757,15 @@ def attack_nearest_monster(driver):
         if len(monsters) > 4:
             print("Too many monsters")
             resetDungeon(driver)
+            return
         
         send_keystrokes(driver, 'Q')
         if attack_counter % 17 == 0:
             actions = ActionChains(driver).key_down(Keys.CONTROL).key_up(Keys.CONTROL).perform()
         elif attack_counter % 19 == 0:
             actions = ActionChains(driver).key_down(Keys.ALT).key_up(Keys.ALT).perform()
+        elif attack_counter % 13 == 0:
+            actions = ActionChains(driver).key_down('R').key_up('R').perform()
         for monster in monsters:
             attack_monster(driver, monster)
             break
@@ -800,26 +806,28 @@ def automate_fighting(driver):
     #update_overlay_position()
     
     if fighting:
-        isLeader = is_leader(driver)
-        print(f'Is Leader: {isLeader}')
-        if is_in_town(driver):
-            select_catacombs(driver)
-    
-        checkHealth(driver)
-            #Print group health/mana data
-            
-        if not isLeader:
-            wait_for_monsters()
-        else:
-            engage_if_leader(driver)
-            
-        fight_based_on_role(driver, role)
-        print('Check Items')
-        drop_items = driver.find_elements(By.CSS_SELECTOR, ".dropItemsBox .itemBox")
-        if drop_items:
-            print('Found Items')
-            parse_and_score_drops_new(driver, drop_items)
-
+        try:
+            isLeader = is_leader(driver)
+            print(f'Is Leader: {isLeader}')
+            if is_in_town(driver):
+                select_catacombs(driver)
+        
+            checkHealth(driver)
+                #Print group health/mana data
+                
+            if not isLeader:
+                wait_for_monsters()
+            else:
+                engage_if_leader(driver)
+                
+            fight_based_on_role(driver, role)
+            print('Check Items')
+            drop_items = driver.find_elements(By.CSS_SELECTOR, ".dropItemsBox .itemBox")
+            if drop_items:
+                print('Found Items')
+                parse_and_score_drops_new(driver, drop_items)
+        except:
+            print('In Automate Fighting - Fighting Exception')
         overlay.after(1000, lambda: automate_fighting(driver))  # Adjust delay as needed
 
 def checkHealth(driver):
