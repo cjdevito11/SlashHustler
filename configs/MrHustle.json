@@ -5,49 +5,102 @@
     "whistle": false,
     "inventory": [
         {
-            "html": "<div title=\"\" class=\"tipBox tbItemDesc\" style=\"left: 1107px; top: 251px;\"><div title=\"\" class=\"itemDescBox\"><img title=\"\" src=\"svg/iconMap.svg\" class=\"itemDescImg\" width=\"40\" height=\"40\"><div title=\"\" class=\"fcb fwb\">Rare patched volcano map</div><div title=\"\" class=\"fcGray\">Use Item to Receive Effect</div><div title=\"\" class=\"fcb\">+1 Evil Presences</div><div title=\"\" class=\"fcb\">Quantity: 4 </div><div title=\"\" class=\"fcBlue1\">Ctrl-Click to Use this item</div></div></div>"
+            "magic_level": "+1",
+            "quality_level": "I",
+            "name": "Legendary ice VII",
+            "level_req": "20",
+            "damage": "40 to 48",
+            "life": "+1 to 3",
+            "life steal": "2",
+            "armor pierce": "1",
+            "lightning mastery": "4",
+            "score": 5,
+            "action": "sell"
         },
         {
-            "html": "<div title=\"\" class=\"tipBox tbItemDesc\" style=\"left: 1131px; top: 251px;\"><div title=\"\" class=\"itemDescBox\"><img title=\"\" src=\"svg/iconMap.svg\" class=\"itemDescImg\" width=\"40\" height=\"40\"><div title=\"\" class=\"fcb fwb\">Rare rawhide arctic map</div><div title=\"\" class=\"fcGray\">Use Item to Receive Effect</div><div title=\"\" class=\"fcb\">+3 Warm Lights</div><div title=\"\" class=\"fcb\">Quantity: 2 </div><div title=\"\" class=\"fcBlue1\">Ctrl-Click to Use this item</div></div></div>"
+            "magic_level": "+5",
+            "quality_level": "I",
+            "name": "Legendary ice VII",
+            "level_req": "20",
+            "damage": "40 to 48",
+            "life": "+1 to 3",
+            "life steal": "2",
+            "armor pierce": "1",
+            "lightning mastery": "4",
+            "score": 5,
+            "action": "sell"
         },
         {
-            "html": "<div title=\"\" class=\"tipBox tbItemDesc\" style=\"left: 1154px; top: 251px;\"><div title=\"\" class=\"itemDescBox\"><img title=\"\" src=\"svg/iconMap.svg\" class=\"itemDescImg\" width=\"40\" height=\"40\"><div title=\"\" class=\"fcb fwb\">Rare rawhide beach map</div><div title=\"\" class=\"fcGray\">Use Item to Receive Effect</div><div title=\"\" class=\"fcb\">+1 Warm Lights</div><div title=\"\" class=\"fcb\">Quantity: 5 </div><div title=\"\" class=\"fcBlue1\">Ctrl-Click to Use this item</div></div></div>"
+            "magic_level": "+4",
+            "quality_level": "X",
+            "name": "Magical tempered diamond chain mail",
+            "level_req": "45",
+            "physical_defense": "81 to 204",
+            "magical_defense": "0 to 53",
+            "enhanced effect": "95",
+            "score": 20,
+            "action": "sell"
         },
         {
-            "html": "<div title=\"\" class=\"tipBox tbItemDesc\" style=\"left: 1178px; top: 251px;\"><div title=\"\" class=\"itemDescBox\"><img title=\"\" src=\"svg/iconFish.svg\" class=\"itemDescImg\" width=\"40\" height=\"40\"><div title=\"\" class=\"fcb fwb\">Magical sardine fish</div><div title=\"\" class=\"fcGray\">Use Item to Receive Effect</div><div title=\"\" class=\"fcb\">Heals 64 Life</div><div title=\"\" class=\"fcb\">Quantity: 25 </div><div title=\"\" class=\"fcBlue1\">Ctrl-Click to Use this item</div></div></div>"
+            "magic_level": "+3",
+            "quality_level": "XI",
+            "name": "Magical tempered diamond sword",
+            "level_req": "45",
+            "damage": "32 to 327",
+            "enhanced effect": "45",
+            "score": 10,
+            "action": "sell"
         },
         {
-            "html": "<div title=\"\" class=\"tipBox tbItemDesc\" style=\"left: 1201px; top: 251px;\"><div title=\"\" class=\"itemDescBox\"><img title=\"\" src=\"svg/iconFish.svg\" class=\"itemDescImg\" width=\"40\" height=\"40\"><div title=\"\" class=\"fcb fwb\">Magical sardine fish</div><div title=\"\" class=\"fcGray\">Use Item to Receive Effect</div><div title=\"\" class=\"fcb\">Heals 48 Life</div><div title=\"\" class=\"fcb\">Recovers 20 Mana</div><div title=\"\" class=\"fcb\">Quantity: 47 </div><div title=\"\" class=\"fcBlue1\">Ctrl-Click to Use this item</div></div></div>"
-        },
-        {
-            "html": "<div title=\"\" class=\"tipBox tbItemDesc\" style=\"left: 1225px; top: 251px;\"><div title=\"\" class=\"itemDescBox\"><img title=\"\" src=\"svg/iconFish.svg\" class=\"itemDescImg\" width=\"40\" height=\"40\"><div title=\"\" class=\"fcb fwb\">Magical sardine fish</div><div title=\"\" class=\"fcGray\">Use Item to Receive Effect</div><div title=\"\" class=\"fcb\">Heals 55 Life</div><div title=\"\" class=\"fcb\">Recovers 2 Mana</div><div title=\"\" class=\"fcb\">Quantity: 12 </div><div title=\"\" class=\"fcBlue1\">Ctrl-Click to Use this item</div></div></div>"
-        },
-        {
-            "html": "<div title=\"\" class=\"tipBox tbItemDesc\" style=\"left: 1220px; top: 251px;\"><div title=\"\" class=\"itemDescBox\"><img title=\"\" src=\"svg/iconMap.svg\" class=\"itemDescImg\" width=\"40\" height=\"40\"><div title=\"\" class=\"fcb fwb\">Mystical rawhide volcano map</div><div title=\"\" class=\"fcGray\">Use Item to Receive Effect</div><div title=\"\" class=\"fcb\">+1 Warm Lights</div><div title=\"\" class=\"fcb\">+95% Warm Light Effectiveness</div><div title=\"\" class=\"fcb\">Quantity: 2 </div><div title=\"\" class=\"fcBlue1\">Ctrl-Click to Use this item</div></div></div>"
-        },
-        {
-            "html": "<div title=\"\" class=\"tipBox tbItemDesc\" style=\"left: 1224px; top: 251px;\"><div title=\"\" class=\"itemDescBox\"><img title=\"\" src=\"svg/iconMap.svg\" class=\"itemDescImg\" width=\"40\" height=\"40\"><div title=\"\" class=\"fcb fwb\">Rare rawhide mountain map</div><div title=\"\" class=\"fcGray\">Use Item to Receive Effect</div><div title=\"\" class=\"fcb\">+149% Warm Light Effectiveness</div><div title=\"\" class=\"fcb\">Quantity: 4 </div><div title=\"\" class=\"fcBlue1\">Ctrl-Click to Use this item</div></div></div>"
-        },
-        {
-            "html": "<div title=\"\" class=\"tipBox tbItemDesc\" style=\"left: 1107px; top: 274px;\"><div title=\"\" class=\"itemDescBox\"><img title=\"\" src=\"svg/iconComfrey.svg\" class=\"itemDescImg\" width=\"40\" height=\"40\"><div title=\"\" class=\"fcb fwb\">Magical comfrey</div><div title=\"\" class=\"fcGray\">Use Item to Receive Effect</div><div title=\"\" class=\"fcb\">Recovers 861 Mana</div><div title=\"\" class=\"fcBlue1\">Ctrl-Click to Use this item</div></div></div>"
-        },
-        {
-            "html": "<div title=\"\" class=\"tipBox tbItemDesc\" style=\"left: 1131px; top: 274px;\"><div title=\"\" class=\"itemDescBox\"><img title=\"\" src=\"svg/iconPole.svg\" class=\"itemDescImg\" width=\"40\" height=\"40\"><div title=\"\" class=\"fcb fwb\">Magical heartwood fishing rod</div><div title=\"\" class=\"fcb\">Skill Rank Req: 25</div><div title=\"\" class=\"fcb\">+17 Durability</div></div></div>"
-        },
-        {
-            "html": "<div title=\"\" class=\"tipBox tbItemDesc\" style=\"left: 1154px; top: 274px;\"><div title=\"\" class=\"itemDescBox\"><img title=\"\" src=\"svg/iconFish.svg\" class=\"itemDescImg\" width=\"40\" height=\"40\"><div title=\"\" class=\"fcb fwb\">Magical sardine fish</div><div title=\"\" class=\"fcGray\">Use Item to Receive Effect</div><div title=\"\" class=\"fcb\">Recovers 86 Mana</div><div title=\"\" class=\"fcBlue1\">Ctrl-Click to Use this item</div></div></div>"
-        },
-        {
-            "html": "<div title=\"\" class=\"tipBox tbItemDesc\" style=\"left: 1178px; top: 274px;\"><div title=\"\" class=\"itemDescBox\"><img title=\"\" src=\"svg/iconComfrey.svg\" class=\"itemDescImg\" width=\"40\" height=\"40\"><div title=\"\" class=\"fcb fwb\">Magical comfrey</div><div title=\"\" class=\"fcGray\">Use Item to Receive Effect</div><div title=\"\" class=\"fcb\">Heals 997 Life</div><div title=\"\" class=\"fcBlue1\">Ctrl-Click to Use this item</div></div></div>"
-        },
-        {
-            "html": "<div title=\"\" class=\"tipBox tbItemDesc\" style=\"left: 1201px; top: 274px;\"><div title=\"\" class=\"itemDescBox\"><img title=\"\" src=\"svg/iconPole.svg\" class=\"itemDescImg\" width=\"40\" height=\"40\"><div title=\"\" class=\"fcb fwb\">pine fishing rod</div><div title=\"\" class=\"fcb\">Skill Rank Req: 5</div></div></div>"
+            "magic_level": "+2",
+            "quality_level": "XIV",
+            "name": "Magical tempered diamond chain mail",
+            "level_req": "45",
+            "physical_defense": "81 to 204",
+            "magical_defense": "0 to 53",
+            "enhanced effect": "95",
+            "score": 20,
+            "action": "sell"
         }
     ],
     "equipment": {
-        "weapon": {},
-        "armor": {},
-        "charms": [],
-        "glyphs": []
+        "weapon": {
+            "type": "iconSword",
+            "magic_level": "+1",
+            "quality_level": "XII",
+            "name": "Magical tempered diamond sword",
+            "level_req": "45",
+            "damage": "32 to 327",
+            "enhanced effect": "45",
+            "score": 10,
+            "action": "fight_with"
+        },
+        "armor": {
+            "type": "iconChainmail",
+            "magic_level": "+1",
+            "quality_level": "XII",
+            "name": "Magical tempered diamond chain mail",
+            "level_req": "45",
+            "physical_defense": "81 to 204",
+            "magical_defense": "0 to 53",
+            "enhanced effect": "95",
+            "score": 20,
+            "action": "fight_with"
+        },
+        "charm": {
+            "type": "iconIceCharm",
+            "magic_level": "+7",
+            "quality_level": "VII",
+            "name": "Legendary ice VII",
+            "level_req": "20",
+            "damage": "40 to 48",
+            "life": "+1 to 3",
+            "life steal": "2",
+            "armor pierce": "1",
+            "lightning mastery": "4",
+            "score": 5,
+            "action": "fight_with"
+        },
+        "acc._charm": null
     }
 }
