@@ -176,48 +176,114 @@ def ensure_position(driver, expected_position):
 
 
 def scan_inventory(driver):
-    inventory_items = driver.find_elements(By.CSS_SELECTOR, ".invEqBox .itemBox")
+    inventory_items = driver.find_elements(By.CSS_SELECTOR, ".invEqBox .itemSlotBox .itemBox")
     inventory = []
-    
+
     for item in inventory_items:
-        hover_and_print_item_details(driver, item)
-        time.sleep(0.5)  # Allow time for the hover popup to appear
-        item_details = driver.find_element(By.CSS_SELECTOR, ".tipBox.tbItemDesc").get_attribute('outerHTML')
-        parsed_item = parse_gear_details(item_details)
-        print(f"parsed_item: {parsed_item}")
-        inventory.append(parsed_item)
-        #inventory.append(parse_item_details(item_details))
-    
+        item_details = {}
+        # Extract basic item info
+        img_element = item.find_element(By.CSS_SELECTOR, "img")
+        item_details['type'] = img_element.get_attribute('src').split('/')[-1].replace('.svg', '')
+
+        # Extract magic level
+        try:
+            iMag = item.find_element(By.CSS_SELECTOR, ".iMag").text.strip()
+            item_details['magic_level'] = iMag
+        except:
+            item_details['magic_level'] = None
+
+        # Extract quality level
+        try:
+            iQual = item.find_element(By.CSS_SELECTOR, ".iQual").text.strip()
+            item_details['quality_level'] = iQual
+        except:
+            item_details['quality_level'] = None
+
+        # Hover to get detailed stats
+        detailed_item = hover_and_extract_item(driver, item)
+        if detailed_item:
+            item_details.update(detailed_item)
+
+        # Ensure the item has a name
+        if 'name' not in item_details:
+            print("Item does not have a name, skipping...")
+            continue  # Skip items without a name
+
+        # Calculate item score
+        item_score = calculate_item_score(item_details['name'], item_details)
+
+        # Decide action based on score
+        # Define thresholds
+        fight_threshold = 100
+        keep_threshold = 80
+        shrine_threshold = 50
+
+        if item_score >= fight_threshold:
+            action = 'fight_with'
+        elif item_score >= keep_threshold:
+            action = 'keep'
+        elif item_score >= shrine_threshold:
+            action = 'shrine'
+        else:
+            action = 'sell'
+
+        item_details['score'] = item_score
+        item_details['action'] = action
+
+        inventory.append(item_details)
+        time.sleep(.3)
+
     return inventory
 
+
 def scan_equipment(driver):
-    equipped_items = driver.find_elements(By.CSS_SELECTOR, ".invEquipped .itemBox")
-    equipment = {
-        "weapon": {},
-        "armor": {},
-        "charms": [],
-        "glyphs": []
-    }
-    
-    for item in equipped_items:
-        slot = item.get_attribute("data-slot")
-        hover_and_print_item_details(driver, item)
-        time.sleep(0.3)  # Allow time for the hover popup to appear
-        item_details = driver.find_element(By.CSS_SELECTOR, ".tipBox.tbItemDesc").get_attribute('outerHTML')
-        print(f'********')
-        print(f'Item Details: {item_details}')
-        #parsed_item = parse_item_details(item_details)
-        parsed_item = parse_gear_details(item_details)
-        print(f"parsed_item: {parsed_item}")
-        if slot == "weapon":
-            equipment["weapon"] = parsed_item
-        elif slot == "armor":
-            equipment["armor"] = parsed_item
-      #  elif "charm" in slot:
-      #      equipment["charms"].append(parsed_item)
-      #  elif "glyph" in slot:
-      #      equipment["glyphs"].append(parsed_item)
-    
+    equipped_slots = driver.find_elements(By.CSS_SELECTOR, ".invEquipped .invEqWrap")
+    equipment = {}
+
+    for slot in equipped_slots:
+        slot_label = slot.find_element(By.CSS_SELECTOR, ".invEqLabel").text.strip().lower().replace(' ', '_')
+        try:
+            item_element = slot.find_element(By.CSS_SELECTOR, ".itemBox")
+            item_details = {}
+
+            # Extract basic item info
+            img_element = item_element.find_element(By.CSS_SELECTOR, "img")
+            item_details['type'] = img_element.get_attribute('src').split('/')[-1].replace('.svg', '')
+
+            # Extract magic level
+            try:
+                iMag = item_element.find_element(By.CSS_SELECTOR, ".iMag").text.strip()
+                item_details['magic_level'] = iMag
+            except:
+                item_details['magic_level'] = None
+
+            # Extract quality level
+            try:
+                iQual = item_element.find_element(By.CSS_SELECTOR, ".iQual").text.strip()
+                item_details['quality_level'] = iQual
+            except:
+                item_details['quality_level'] = None
+
+            # Hover to get detailed stats
+            detailed_item = hover_and_extract_item(driver, item_element)
+            if detailed_item:
+                item_details.update(detailed_item)
+
+            # Calculate item score
+            item_score = calculate_item_score(item_details['name'], item_details)
+
+            # Decide action based on score
+            action = 'fight_with'  # For equipped items, we assume 'fight_with'
+
+            item_details['score'] = item_score
+            item_details['action'] = action
+
+            equipment[slot_label] = item_details
+
+        except:
+            # No item equipped in this slot
+            equipment[slot_label] = None
+
     return equipment
 
 def parse_item_details(item_html):
@@ -229,52 +295,59 @@ def parse_gear_details(html):
     soup = BeautifulSoup(html, 'html.parser')
     item_details = {}
 
-    # Try to locate the first `itemdescBox`
+    # Find the item description box
     item_box = soup.find('div', class_='itemDescBox')
 
     if not item_box:
         print("Item_box not found")
         return None
 
-    # Continue parsing if found
-    item_name = item_box.find('div', class_='fcb fwb').text.strip()
-    item_details['name'] = item_name
-    print(f'item_details -- {item_details}')
+    # Extract the item name
+    item_name_div = item_box.find('div', class_='fcb fwb')
+    if item_name_div:
+        item_details['name'] = item_name_div.text.strip()
+    else:
+        print("Item name not found")
+        return None
 
-    # Find all stats inside this specific itemdescBox
-    stats = item_box.find_all('div', class_='fcb')
+    # Extract all stats
+    stat_divs = item_box.find_all('div', class_='fcb')
 
-    for stat in stats:
-        text = stat.text.strip()
-        if 'Level Req' in text:
-            item_details['level_req'] = text.split(': ')[1]
-        elif 'Damage' in text:
-            item_details['damage'] = text.split(': ')[1]
-        elif 'Defense' in text:
-            defense_type = 'physical_defense' if 'Physical' in text else 'magical_defense'
-            item_details[defense_type] = text.split(': ')[1]
-        elif 'Mana Cost' in text:
-            item_details['mana_cost'] = text.split(': ')[1]
-        elif 'Heals' in text:
-            item_details['heals'] = text.split(': ')[1]
-        elif '%' in text:
-            item_details[text.split('% ')[1]] = text.split('% ')[0]
-        elif ' to ' in text:
-            wrongName = text.split(' to ')[1]
-            newName = wrongName.split(' ')[1]
-            leftStat = text.split(' to ')[0]
-            rightStat = wrongName.split(' ')[0]
-            newStat = leftStat + ' to ' + rightStat
-            item_details[newName] = newStat
+    for stat_div in stat_divs:
+        text = stat_div.text.strip()
+
+        # Skip the item name if it's included again
+        if text == item_details['name']:
+            continue
+
+        # Handle "Key: Value" pairs
+        if ': ' in text:
+            key, value = text.split(': ', 1)
+            item_details[key.lower().replace(' ', '_')] = value.strip()
+        # Handle modifiers like "+X% Stat" or "+X to Y Stat"
+        elif text.startswith('+') or text.startswith('-'):
+            # Handle "+X% Stat"
+            if '%' in text:
+                parts = text.split('%', 1)
+                value = parts[0] + '%'
+                key = parts[1].strip()
+                item_details[key.lower().replace(' ', '_')] = value.strip()
+            # Handle "+X to Y"
+            elif ' to ' in text:
+                value, key = text.split(' to ', 1)
+                item_details[key.lower().replace(' ', '_')] = value.strip()
+            else:
+                # Handle "+X Stat"
+                parts = text.split(' ', 1)
+                if len(parts) == 2:
+                    value, key = parts
+                    item_details[key.lower().replace(' ', '_')] = value.strip()
         else:
-            # General attribute handling
-            parts = text.split(' ')
-            if len(parts) > 1:
-                stat_name = ' '.join(parts[:-1])
-                stat_value = parts[-1]
-                item_details[stat_name.lower().replace(' ', '_')] = stat_value
+            # Handle other stats
+            item_details[text.lower().replace(' ', '_')] = True
 
     return item_details
+
    
 def hover_and_print_item_details(driver, item_element):
     try:
@@ -310,11 +383,16 @@ def hover_and_extract_item(driver, item_element):
         item_html = popup.get_attribute('outerHTML')
         parsed_item = parse_gear_details(item_html)
 
-        return parsed_item
+        if parsed_item and 'name' in parsed_item:
+            return parsed_item
+        else:
+            print("Failed to extract item name")
+            return {}
 
     except Exception as e:
         print(f"Error hovering over item: {e}")
-        return None
+        return {}
+
 
 def log_item_to_file(item_details, item_score, filename="logs/itemDrops.txt"):
     with open(filename, 'a') as log_file:
@@ -357,52 +435,29 @@ def parse_and_score_drops_new(driver, drop_items):
                 loot_item(driver, item)
 
 
-# Function to calculate the score of an item based on its name and modifiers
-def calculate_item_score(item_name, modifiers):
-    #print(f'-Scoring Modifiers- {modifiers}')
+def calculate_item_score(item_name, item_details):
     score = 0
     if item_name in scoring_system:
         score += scoring_system[item_name]["base_score"]
-        for mod in modifiers:
-            print(f"Mod: {mod}")
-            if mod in scoring_system[item_name]["modifiers"]:
-                score += scoring_system[item_name]["modifiers"][mod]
-    print('| *** Calculate Item Score ***')
-    print(f'| Item Name: {item_name}')
-    for mod in modifiers:
-        print(f'{mod}')
-    if "Enhanced Effect" in modifiers:
-        score += 100  # Example of boosting score based on a stat
-    if "Experience" in modifiers:
-        score += 50  # Example of boosting score based on a stat
-    if "Vitality" in modifiers:
-        score += 50
-    if "Max Life" in modifiers:
-        score += 50
-    if "Life Regen" in modifiers:
-        score += 10
-    if "Life Steal" in modifiers:
-        score += 50
-    if "Parry" in modifiers:
-        score += 50
-    if "Crit" in modifiers:
-        score += 50
-    if "Intelligence" in modifiers:
-        score += 50
-    if "Life per Attack" in modifiers:
-        score += 50
-    if "Reduction" in modifiers:
-        score += 50
-    if "Pierce" in modifiers:
-        score += 50
+        for stat, value in item_details.items():
+            if stat in scoring_system[item_name]["modifiers"]:
+                # Add the score for this stat
+                try:
+                    stat_value = int(value.strip('+%'))  # Remove '+' or '%' and convert to int
+                except:
+                    stat_value = 1  # Default value if conversion fails
+                score += scoring_system[item_name]["modifiers"][stat] * stat_value
+    else:
+        # If item name not in scoring system, use default scoring
+        for stat, value in item_details.items():
+            if stat in scoring_system.get("default_modifiers", {}):
+                try:
+                    stat_value = int(value.strip('+%'))
+                except:
+                    stat_value = 1
+                score += scoring_system["default_modifiers"][stat] * stat_value
 
-    print(f'Score = {score}')
     return score
-
-
-
-
-
 
 
 # Function to add an item to the inventory
@@ -925,7 +980,7 @@ def fight():
     role = CONFIG['class']
     
     # Scan inventory and equipment at the start
-    #update_character_json(driver)
+    update_character_json(driver)
     
     write_to_terminal("Fight!... ")
     automate_fighting(driver)
