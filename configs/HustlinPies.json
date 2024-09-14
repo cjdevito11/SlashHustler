@@ -1,0 +1,61 @@
+{
+    "name": "HustlinPies",
+    "class": "tank",
+    "leader": true,
+    "whistle": false,
+    "inventory": [],
+    "equipment": {
+        "weapon": {
+            "type": "iconSword",
+            "magic_level": "+4",
+            "quality_level": "X",
+            "name": "Angelic adamantium sword",
+            "level_req": "35",
+            "damage": "30 to 309",
+            "enhanced effect": "59",
+            "life": "+1 to 5",
+            "critical flux": "1",
+            "score": 11,
+            "action": "fight_with"
+        },
+        "armor": {
+            "type": "iconPlatemail",
+            "magic_level": "+1",
+            "quality_level": "XIII",
+            "name": "Magical tintitanium plate mail",
+            "level_req": "50",
+            "physical_defense": "76 to 230",
+            "magical_defense": "0 to 23",
+            "enhanced effect": "69",
+            "score": 15,
+            "action": "fight_with"
+        },
+        "charm": {
+            "type": "iconIceCharm",
+            "magic_level": "+5",
+            "quality_level": "VII",
+            "name": "Mythical ice VII",
+            "level_req": "20",
+            "damage": "36 to 44",
+            "life": "+1 to 1",
+            "mind numb": "1",
+            "mana syphon": "4",
+            "score": 4,
+            "action": "fight_with"
+        },
+        "acc._charm": {
+            "type": "iconIceCharm",
+            "magic_level": "+7",
+            "quality_level": "I",
+            "name": "Legendary ice I",
+            "damage": "5 to 6",
+            "parry": "1",
+            "quick draw": "1",
+            "ice mastery": "2",
+            "wind mastery": "2",
+            "earth mastery": "2",
+            "score": 4,
+            "action": "fight_with"
+        }
+    }
+}
