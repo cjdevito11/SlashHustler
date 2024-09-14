@@ -59,8 +59,7 @@ CONFIG = {
 }
 
 equipped = {}
-inventory = {}
-
+inventory = []
 
 def load_scoring_system():
     with open('jsons/itemScore.json', 'r') as file:
@@ -159,18 +158,15 @@ def saveConfig():
         print(f"Error saving CONFIG to {CHARACTER_JSON_PATH}: {e}")
 
 def update_character_json(driver):
-    global CONFIG
+    global CONFIG, equipped, inventory
     try:
         print("Updating character JSON...")
 
-        # Parse equipped gear first to get the equipped item types
-        equipment, equipped_items = parse_equipped_gear(driver)
-
-        # Parse inventory and drops, excluding equipped items
-        inventory = parse_inventory(driver, equipped_items)
+        scanEquippedItems(driver)
+        scanInventoryItems(driver)
 
         CONFIG["inventory"] = inventory
-        CONFIG["equipment"] = equipment
+        CONFIG["equipment"] = equipped
 
         print(f"New Inventory: {CONFIG['inventory']}")
         print(f"New Equipment: {CONFIG['equipment']}")
@@ -200,330 +196,6 @@ def ensure_position(driver, expected_position):
                 move_to_position(driver, 'moveR')
     except Exception as e:
         write_to_terminal(f"Error ensuring position: {e}")
-
-
-
-
-## DELETE
-def scan_inventory(driver, equipped_items):
-    inventory_items = driver.find_elements(By.CSS_SELECTOR, ".invEqBox .itemSlotBox .itemBox")
-    inventory = []
-
-    for item in inventory_items:
-        time.sleep(0.3)
-        item_details = {}
-        img_element = item.find_element(By.CSS_SELECTOR, "img")
-        item_type = img_element.get_attribute('src').split('/')[-1].replace('.svg', '')
-
-        # Skip adding to inventory if it's already equipped
-        if item_type in equipped_items:
-            print(f"Skipping equipped item: {item_type}")
-            continue
-
-        # Extract magic level
-        try:
-            iMag = item.find_element(By.CSS_SELECTOR, ".iMag").text.strip()
-            item_details['magic_level'] = iMag
-        except:
-            item_details['magic_level'] = None
-
-        # Extract quality level
-        try:
-            iQual = item.find_element(By.CSS_SELECTOR, ".iQual").text.strip()
-            item_details['quality_level'] = iQual
-        except:
-            item_details['quality_level'] = None
-
-        # Hover to get detailed stats
-        detailed_item = hover_and_extract_item(driver, item)
-        if detailed_item:
-            item_details.update(detailed_item)
-
-        print(f'~~~~ Item Details: {item_details}')
-        # Ensure the item has a name
-        if 'name' not in item_details:
-            print("Item does not have a name, skipping...")
-            continue  # Skip items without a name
-
-        # Calculate item score
-        item_score = calculate_item_score(item_details['name'], item_details)
-        print(f'ITEM SCORE : {item_score}')
-
-        # Define thresholds and actions
-        fight_threshold = 100
-        keep_threshold = 80
-        shrine_threshold = 50
-
-        if item_score >= fight_threshold:
-            action = 'fight_with'
-        elif item_score >= keep_threshold:
-            action = 'keep'
-        elif item_score >= shrine_threshold:
-            action = 'shrine'
-        else:
-            action = 'sell'
-
-        item_details['score'] = item_score
-        item_details['action'] = action
-
-        inventory.append(item_details)
-        time.sleep(0.3)
-
-    return inventory
-
-def scan_equipment(driver):
-    equipped_slots = driver.find_elements(By.CSS_SELECTOR, ".invEquipped .invEqWrap")
-    equipment = {}
-    equipped_items = set()  # Track equipped items by their type
-
-    for slot in equipped_slots:
-        time.sleep(.3)
-        slot_label = slot.find_element(By.CSS_SELECTOR, ".invEqLabel").text.strip().lower().replace(' ', '_')
-        try:
-            # Try to locate the item in the slot
-            item_element = slot.find_element(By.CSS_SELECTOR, ".itemBox")
-            item_details = {}
-
-            # Extract basic item info
-            img_element = item_element.find_element(By.CSS_SELECTOR, "img")
-            item_type = img_element.get_attribute('src').split('/')[-1].replace('.svg', '')
-            item_details['type'] = item_type
-            equipped_items.add(item_type)  # Track the item type to exclude from inventory
-
-            # Extract magic level
-            try:
-                iMag = item_element.find_element(By.CSS_SELECTOR, ".iMag").text.strip()
-                item_details['magic_level'] = iMag
-            except:
-                item_details['magic_level'] = None
-
-            # Extract quality level
-            try:
-                iQual = item_element.find_element(By.CSS_SELECTOR, ".iQual").text.strip()
-                item_details['quality_level'] = iQual
-            except:
-                item_details['quality_level'] = None
-
-            # Hover to get detailed stats
-            detailed_item = hover_and_extract_item(driver, item_element)
-            if detailed_item:
-                item_details.update(detailed_item)
-
-            # Ensure the item has a name
-            if 'name' not in item_details:
-                print(f"Equipped item in slot '{slot_label}' does not have a name, skipping...")
-                continue
-
-            # Calculate item score
-            item_score = calculate_item_score(item_details['name'], item_details)
-            item_details['score'] = item_score
-            item_details['action'] = 'fight_with'  # Equipped items are used for fighting
-
-            # Add item to the equipment dictionary
-            equipment[slot_label] = item_details
-
-        except Exception as e:
-            # Handle the case where the slot is empty or there's an error
-            print(f"Error processing slot '{slot_label}': {e}")
-            equipment[slot_label] = None
-
-    return equipment, equipped_items  # Return both equipment and the set of equipped items
-
-def parse_item_details(item_html):
-    # Implement your logic to parse item details from the HTML
-    # Return a dictionary with item details
-    return {"html": item_html}  # Placeholder, replace with actual parsing logic
-
-def parse_gear_details(html):
-    soup = BeautifulSoup(html, 'html.parser')
-    item_details = {}
-
-    # Handle equipped item
-    equipped_item = soup.find('div', class_='iEquipped')
-
-    if equipped_item:
-        print("Parsing equipped item details.")
-        item_name_div = equipped_item.find('div', class_='fcb fwb')
-        item_details['name'] = item_name_div.text.strip() if item_name_div else "Unnamed Item"
-
-        # Extract stats
-        stat_divs = equipped_item.find_all('div', class_='fcb')
-    else:
-        print("No equipped item found, trying regular item parsing.")
-        item_name_div = soup.find('div', class_='fcb fwb')
-        item_details['name'] = item_name_div.text.strip() if item_name_div else "Unnamed Item"
-        stat_divs = soup.find_all('div', class_='fcb')
-
-    # Parse stats
-    for stat_div in stat_divs:
-        text = stat_div.text.strip()
-        try:
-            if 'Level Req' in text:
-                item_details['level_req'] = text.split(': ')[1]
-            elif 'Damage' in text:
-                item_details['damage'] = text.split(': ')[1]
-            elif 'Defense' in text:
-                defense_type = 'physical_defense' if 'Physical' in text else 'magical_defense'
-                item_details[defense_type] = text.split(': ')[1]
-            elif '%' in text:
-                value, key = text.split('% ')
-                item_details[key.strip().lower()] = value.strip().replace('+', '')
-            elif ' to ' in text:
-                parts = text.split(' to ')
-                if len(parts) == 2:
-                    left_part = parts[0].strip()
-                    right_part = parts[1].split(' ')[0].strip()
-                    stat_name = parts[1].split(' ')[1].strip()
-                    item_details[stat_name.lower()] = f"{left_part} to {right_part}"
-            else:
-                print(f"Unknown stat format, skipping: {text}")
-        except Exception as e:
-            print(f"Error parsing stat '{text}': {e}")
-
-    print(f"Final parsed item details: {item_details}")
-    return item_details
-
-def parse_inventory(driver, equipped_items):
-    inventory_items = driver.find_elements(By.CSS_SELECTOR, ".invEqBox .itemSlotBox .itemBox")
-    inventory = []
-
-    for item in inventory_items:
-        time.sleep(0.3)
-        item_details = {}
-        img_element = item.find_element(By.CSS_SELECTOR, "img")
-        item_type = img_element.get_attribute('src').split('/')[-1].replace('.svg', '')
-
-        # Ignore items that are equipped
-        if item_type in equipped_items:
-            print(f"Skipping equipped item: {item_type}")
-            continue
-
-        # Extract magic level
-        try:
-            iMag = item.find_element(By.CSS_SELECTOR, ".iMag").text.strip()
-            item_details['magic_level'] = iMag
-        except:
-            item_details['magic_level'] = None
-
-        # Extract quality level
-        try:
-            iQual = item.find_element(By.CSS_SELECTOR, ".iQual").text.strip()
-            item_details['quality_level'] = iQual
-        except:
-            item_details['quality_level'] = None
-
-        # Hover to get detailed stats
-        detailed_item = hover_and_extract_item(driver, item, is_equipped=False)
-        if detailed_item:
-            item_details.update(detailed_item)
-
-        # Ensure the item has a name
-        if 'name' not in item_details:
-            print("Item does not have a name, skipping...")
-            continue
-
-        # Calculate item score
-        item_score = calculate_item_score(item_details['name'], item_details)
-        print(f'ITEM SCORE : {item_score}')
-
-        # Define thresholds and actions
-        fight_threshold = 100
-        keep_threshold = 80
-        shrine_threshold = 50
-
-        if item_score >= fight_threshold:
-            action = 'fight_with'
-        elif item_score >= keep_threshold:
-            action = 'keep'
-        elif item_score >= shrine_threshold:
-            action = 'shrine'
-        else:
-            action = 'sell'
-
-        item_details['score'] = item_score
-        item_details['action'] = action
-
-        inventory.append(item_details)
-        time.sleep(0.3)
-
-    return inventory
-
-def parse_equipped_gear(driver):
-    equipped_slots = driver.find_elements(By.CSS_SELECTOR, ".invEquipped .invEqWrap")
-    equipment = {}
-    equipped_items = set()  # Store equipped item types for reference later
-
-    for slot in equipped_slots:
-        time.sleep(0.3)
-        slot_label = slot.find_element(By.CSS_SELECTOR, ".invEqLabel").text.strip().lower().replace(' ', '_')
-        try:
-            item_element = slot.find_element(By.CSS_SELECTOR, ".itemBox")
-            item_details = {}
-
-            img_element = item_element.find_element(By.CSS_SELECTOR, "img")
-            item_type = img_element.get_attribute('src').split('/')[-1].replace('.svg', '')
-            item_details['type'] = item_type
-            equipped_items.add(item_type)  # Add to equipped items set
-
-            # Extract magic and quality level
-            try:
-                iMag = item_element.find_element(By.CSS_SELECTOR, ".iMag").text.strip()
-                item_details['magic_level'] = iMag
-            except:
-                item_details['magic_level'] = None
-
-            try:
-                iQual = item_element.find_element(By.CSS_SELECTOR, ".iQual").text.strip()
-                item_details['quality_level'] = iQual
-            except:
-                item_details['quality_level'] = None
-
-            # Hover to get detailed stats
-            detailed_item = hover_and_extract_item(driver, item_element, is_equipped=True)
-            if detailed_item:
-                item_details.update(detailed_item)
-
-            # Ensure the item has a name
-            if 'name' not in item_details:
-                print(f"Equipped item in slot '{slot_label}' does not have a name, skipping...")
-                continue
-
-            # Calculate item score
-            item_score = calculate_item_score(item_details['name'], item_details)
-            item_details['score'] = item_score
-            item_details['action'] = 'fight_with'  # Equipped items are used for fighting
-
-            # Add item to the equipment dictionary
-            equipment[slot_label] = item_details
-
-        except Exception as e:
-            print(f"Error processing slot '{slot_label}': {e}")
-            equipment[slot_label] = None
-
-    return equipment, equipped_items  # Return equipped items list to ignore in inventory and drops
-
-def hover_and_print_item_details(driver, item_element):
-    try:
-        time.sleep(.5)
-        # Move to the item to trigger the hover effect
-        actions = ActionChains(driver)
-        actions.move_to_element(item_element).perform()
-
-        # Pause for a moment to allow the popup to appear
-        time.sleep(0.5)
-
-        # Locate the popup div that appears when hovering
-        popup = driver.find_element(By.CSS_SELECTOR, ".tipBox.tbItemDesc")
-
-        # Print the popup's HTML content
-        print('--------------*****----***----***---------------')
-        print(popup.get_attribute('outerHTML'))
-
-    except Exception as e:
-        write_to_terminal(f"Error while hovering and printing item details: {e}")
-
-## DELETE
-
 
 
 #####################################
@@ -724,14 +396,17 @@ def scanEquippedItems(driver):
 
 
 def scanInventoryItems(driver):
-    
+    global inventory
     inventory_items = driver.find_elements(By.CSS_SELECTOR, ".invEqBox .itemSlotBox .itemBox")
-    inventory = []
+            # Define thresholds and actions
+    fight_threshold = 10
+    keep_threshold = 5
+    shrine_threshold = 2
 
     for item in inventory_items:
         time.sleep(0.3)
         item_details = {}
-        img_element = item.find_element(By.CSS_SELECTOR, "img")
+        #img_element = item.find_element(By.CSS_SELECTOR, "img")
         #item_type = img_element.get_attribute('src').split('/')[-1].replace('.svg', '')
 
         # Hover to get detailed stats
@@ -748,10 +423,6 @@ def scanInventoryItems(driver):
         item_score = calculate_item_score(item_details['name'], item_details)
         print(f'ITEM SCORE : {item_score}')
 
-        # Define thresholds and actions
-        fight_threshold = 20
-        keep_threshold = 10
-        shrine_threshold = 5
 
         if item_score >= fight_threshold:
             action = 'fight_with'
@@ -767,8 +438,6 @@ def scanInventoryItems(driver):
 
         inventory.append(item_details)
         time.sleep(0.3)
-
-    return inventory
 
 
 def scanDroppedItems(driver, drop_items):
@@ -798,8 +467,6 @@ def scanDroppedItems(driver, drop_items):
             if item_score > loot_threshold:
                 print('TRY TO LOOT ITEM: {item}')
                 loot_item(driver, item)
-
-
 
 
 def hover_and_extract_item(driver, item, is_equipped=False):
@@ -878,10 +545,10 @@ def log_item_to_file(item_details, item_score, filename="logs/itemDrops.txt"):
 
         log_file.write("+++++++++++++++++++++++++++++++++++++++++++++++++++++\n\n")
 
-# Function to add an item to the inventory
 def add_item_to_inventory(driver, item):
-    CONFIG["inventory"].append(parse_item_details(item.get_attribute('outerHTML')))
-    saveConfig()
+    #CONFIG["inventory"].append(parse_item_details(item.get_attribute('outerHTML')))
+    #saveConfig()
+    pass
 
 # Function to remove an item from the inventory
 def remove_item_from_inventory(item_id):
@@ -1058,10 +725,10 @@ def loot_item(driver, item):
     try:
         print(f"Looting item: {item}")
         item.click()
-        add_item_to_inventory(driver, item)
+        time.sleep(.2)
+        update_character_json(driver)
     except Exception as e:
         print(f"Error looting item: {e}")
-        
         
 #Too many monsters, reset dungeon
 def resetDungeon(driver):
