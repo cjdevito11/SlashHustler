@@ -58,7 +58,7 @@ CONFIG = {
     }
 }
 
-equipped = {}
+equipped = []
 inventory = []
 
 def load_scoring_system():
@@ -162,8 +162,10 @@ def update_character_json(driver):
     try:
         print("Updating character JSON...")
 
-        scanEquippedItems(driver)
-        scanInventoryItems(driver)
+        print('Scan Equipment Next')
+        equipped = scanEquippedItems(driver)
+        print('Scan Inventory Next')
+        inventory = scanInventoryItems(driver)
 
         CONFIG["inventory"] = inventory
         CONFIG["equipment"] = equipped
@@ -359,12 +361,12 @@ def hoverExtractParse(driver, item, is_equipped=False):
 ###################################################
 
 def scanEquippedItems(driver):
-    global equipped
+    equipped = {}
     equipped_slots = driver.find_elements(By.CSS_SELECTOR, ".invEquipped .invEqWrap") 
 
     for slot in equipped_slots:
         time.sleep(0.3)
-        slot_label = slot.find_element(By.CSS_SELECTOR, ".invEqLabel")
+        slot_label = slot.find_element(By.CSS_SELECTOR, ".invEqLabel").text.strip().lower().replace(' ', '_')  # Use the slot label as the key
         try:
             item_element = slot.find_element(By.CSS_SELECTOR, ".itemBox")
             img_element = item_element.find_element(By.CSS_SELECTOR, "img")
@@ -387,23 +389,30 @@ def scanEquippedItems(driver):
             item_details['score'] = item_score
             item_details['action'] = 'fight_with'  # Equipped items are used for fighting
 
-            # Add item to the equipment dictionary
+            # Add item to the equipment dictionary using slot_label as key instead of WebElement
             equipped[slot_label] = item_details
+            print('Appended Equipped')
 
         except Exception as e:
             print(f"Error processing slot '{slot_label}': {e}")
             equipped[slot_label] = None
+    return equipped
 
 
 def scanInventoryItems(driver):
-    global inventory
+    inventory = {}
+    invItemNumber = 0
+    print('Scan Inventory')
     inventory_items = driver.find_elements(By.CSS_SELECTOR, ".invEqBox .itemSlotBox .itemBox")
             # Define thresholds and actions
     fight_threshold = 10
     keep_threshold = 5
     shrine_threshold = 2
 
+    print(f'inventory_items: {inventory_items}')
+
     for item in inventory_items:
+        invItemNumber += 1
         time.sleep(0.3)
         item_details = {}
         #img_element = item.find_element(By.CSS_SELECTOR, "img")
@@ -436,8 +445,10 @@ def scanInventoryItems(driver):
         item_details['score'] = item_score
         item_details['action'] = action
 
-        inventory.append(item_details)
+        inventory[invItemNumber] = item_details
         time.sleep(0.3)
+        print('Appended Inventory')
+    return inventory
 
 
 def scanDroppedItems(driver, drop_items):
