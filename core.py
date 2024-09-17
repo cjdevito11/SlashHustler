@@ -69,6 +69,132 @@ def load_scoring_system():
 
 scoring_system = load_scoring_system()
 
+def check_snag(driver):
+    try:
+        print('check_snag')
+        # Check if the Snag element is present
+        snag_element = driver.find_element(By.CLASS_NAME, "damageText")
+        print('Found Snag')
+        return True
+    except:
+        return False
+
+def check_rod_health(driver):
+    try:
+        print('check_rod_health')
+        # Get the width of the Rod Health meter
+        rod_health_element = driver.find_element(By.CSS_SELECTOR, ".meterBox .meterBoxProg")
+        rod_health_width = int(rod_health_element.get_attribute("style").split('width: ')[1].split('%')[0])
+        print(f'rod_health_width: {rod_health_width}')
+        return rod_health_width
+    except:
+        return 100  # Assume full health if there's an issue
+
+def click_snag_counter(driver):
+    try:
+        print('click_snag')
+        # Find and click the Snag Counter button
+        snag_button = driver.find_element(By.XPATH, "//a[text()='Snag Counter']")
+        snag_button.click()
+        time.sleep(.3)
+    except:
+        pass
+
+def check_reel_progress(driver):
+    try:
+        print('check_reel_progress')
+        # Get the width of the Reel Progress meter
+        reel_progress_element = driver.find_element(By.CSS_SELECTOR, ".meterBox .meterBoxProg")
+        reel_progress_width = int(reel_progress_element.get_attribute("style").split('width: ')[1].split('%')[0])
+        print(f'reel_progress_width: {reel_progress_width}')
+        return reel_progress_width
+    except:
+        return 100  # Assume full reel progress if there's an issue
+
+def click_reel(driver):
+    try:
+        print('click_reel')
+        # Find and click the Reel button
+        reel_button = driver.find_element(By.XPATH, "//a[text()='Reel']")
+        reel_button.click()
+        time.sleep(.3)
+    except:
+        pass
+
+def click_recast(driver):
+    try:
+        print('click_recast')
+        # Find and click the Recast Line button
+        recast_button = driver.find_element(By.XPATH, "//a[text()='Recast Line']")
+        recast_button.click()
+        print('Recasted')
+        time.sleep(.3)
+    except:
+        pass
+
+def click_fish(driver):
+    try:
+        print('click_fish')
+        fishButton = driver.find_element(By.LINK_TEXT, "Fish")
+        fishButton.click()
+        time.sleep(.3)
+    except:
+        print('failed to click fish button')
+
+def fishing_loop(driver):
+    try:
+        print(' - Fishing Loop - ')
+        while True:
+            time.sleep(.5)
+            # Check if a snag occurred and click Snag Counter if necessary
+            if check_snag(driver):
+                print("Snag detected, clicking Snag Counter")
+                click_snag_counter(driver)
+
+                # Wait for the rod or reel progress to change before continuing to reel
+                #reel_progress = check_reel_progress(driver)
+                #while reel_progress == 100:  # Wait until reel progress changes
+                #    print('Waiting for reel progress to change...')
+                #    time.sleep(0.5)
+                #    reel_progress = check_reel_progress(driver)
+                
+                #print('Reel progress changed, switching back to Reel')
+            
+            # Check Rod health and ensure it's not going to break
+            #rod_health = check_rod_health(driver)
+            #if rod_health < 10:  # If rod health is below 10%, stop reeling
+            #    print(f"Rod health low! - {rod_health} - Stopping reel...")
+            #    continue  # Skip the reel click to avoid breaking the rod
+            
+            # Click Reel button to reel in the fish
+            print(' - Fishing Loop - click_reel')
+            click_reel(driver)
+
+            # Check if the fish has escaped and needs recasting
+            try:
+                #escape_text = driver.find_element(By.XPATH, "//div[contains(text(), 'Escaped the Hook')]")
+                print("Trying to Recast line...")
+                click_recast(driver)
+            except:
+                pass  # Ignore if the fish hasn't escaped
+
+            # Small delay to avoid spamming
+            time.sleep(0.3)
+    except Exception as e:
+        print(f'Failed fishing_loop : {e}')
+
+
+def startFishing(driver):
+    try:
+        if is_in_town(driver):
+            selectFishingPond(driver)
+        click_fish(driver)
+        fishing_loop(driver)
+        print('Done Fishing')
+    except:
+        pass
+
+
 # Function to update overlay position
 def update_overlay_position():
     global fighting
@@ -452,7 +578,7 @@ def scanInventoryItems(driver):
 
 
 def scanDroppedItems(driver, drop_items):
-    loot_threshold = 1
+    loot_threshold = 9
     print('--- Score Drops ---')
 
     # Log file name
@@ -731,6 +857,18 @@ def select_catacombs(driver):
     except Exception as e:
         write_to_terminal(f"Error selecting catacombs: {e}")
 
+# Function to select catacombs when in town
+def selectFishingPond(driver):
+    try:
+        town_elements = driver.find_elements(By.CSS_SELECTOR, ".townOption .townOLabel")
+        for element in town_elements:
+            if "Fishing Pond" in element.text:
+                element.click()
+                time.sleep(2)  # Adjust as needed for the game to load
+                return
+    except Exception as e:
+        write_to_terminal(f"Error selecting fishing pond: {e}")
+
 # Function to loot an item
 def loot_item(driver, item):
     try:
@@ -784,7 +922,7 @@ def resetDungeon(driver):
                                     if btn.text == 'Leave Group':
                                         time.sleep(2)
                                         btn.click()
-                                        time.sleep(180)
+                                        time.sleep(30)
                         
         #Create Group
         #Leave Group
@@ -971,11 +1109,19 @@ def checkHealth(driver):
     except Exception as e:
         print(f"Error in checkHealthAndReact: {e}")
 
+def fish():
+    driver = setup_browser()
+    startFishing(driver)
+
+
 # Function to start fighting
 def fight():
     global fighting, role
     
     driver = setup_browser()
+
+    
+
     fighting = True
     print("Get Character Config")
     getCharacter(driver)
@@ -1001,7 +1147,7 @@ overlay.title("Slash Hustler")
 overlay.geometry("400x500+1450+530")
 #overlay.attributes('-topmost', True)
 overlay.attributes('-alpha', 0.7)
-overlay.overrideredirect(True)
+#overlay.overrideredirect(True)
 
 fight_button = tk.Button(overlay, bg='black', fg='white', font=('exocet', 9), text="Fight", command=fight)
 fight_button.pack()
@@ -1012,6 +1158,9 @@ stop_button.pack()
 whistle_var = tk.BooleanVar(value=False)  # Set initial value to False
 whistle_checkbox = tk.Checkbutton(overlay, text="Whistle", variable=whistle_var, bg='black', fg='white', font=('exocet', 9))
 whistle_checkbox.pack()
+
+fish_button = tk.Button(overlay, bg='black', fg='white', font=('exocet', 9), text="Fish", command=fish)
+fish_button.pack()
 
 terminal_output = tk.Text(overlay, bg='black', fg='white', font=('exocet', 9), wrap='word')
 terminal_output.pack(expand=True, fill='both')
