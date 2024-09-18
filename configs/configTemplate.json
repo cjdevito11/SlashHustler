@@ -3,6 +3,7 @@
     "class": "tank",
     "leader": true,
     "whistle": false,
+    "loot_threshold": 9,
     "inventory": [],
     "equipment": {
         "weapon": {},

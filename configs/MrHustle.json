@@ -3,104 +3,88 @@
     "class": "tank",
     "leader": true,
     "whistle": false,
-    "inventory": [
-        {
-            "magic_level": "+1",
-            "quality_level": "I",
-            "name": "Legendary ice VII",
-            "level_req": "20",
-            "damage": "40 to 48",
-            "life": "+1 to 3",
-            "life steal": "2",
-            "armor pierce": "1",
-            "lightning mastery": "4",
-            "score": 5,
-            "action": "sell"
-        },
-        {
-            "magic_level": "+5",
-            "quality_level": "I",
-            "name": "Legendary ice VII",
-            "level_req": "20",
-            "damage": "40 to 48",
-            "life": "+1 to 3",
-            "life steal": "2",
-            "armor pierce": "1",
-            "lightning mastery": "4",
-            "score": 5,
-            "action": "sell"
-        },
-        {
-            "magic_level": "+4",
-            "quality_level": "X",
-            "name": "Magical tempered diamond chain mail",
-            "level_req": "45",
-            "physical_defense": "81 to 204",
-            "magical_defense": "0 to 53",
-            "enhanced effect": "95",
+    "loot_threshold": 9,
+    "inventory": {
+        "1": {
+            "name": "Magical encrested leather armor",
+            "magic_level": null,
+            "quality_level": null,
+            "level_req": "50",
+            "physical_defense": "42 to 127",
+            "magical_defense": "28 to 115",
+            "Enhanced Effect": "+93",
             "score": 20,
-            "action": "sell"
+            "action": "fight_with"
         },
-        {
-            "magic_level": "+3",
-            "quality_level": "XI",
-            "name": "Magical tempered diamond sword",
-            "level_req": "45",
-            "damage": "32 to 327",
-            "enhanced effect": "45",
-            "score": 10,
-            "action": "sell"
-        },
-        {
-            "magic_level": "+2",
-            "quality_level": "XIV",
-            "name": "Magical tempered diamond chain mail",
-            "level_req": "45",
-            "physical_defense": "81 to 204",
-            "magical_defense": "0 to 53",
-            "enhanced effect": "95",
+        "2": {
+            "name": "Magical mithril sword",
+            "magic_level": null,
+            "quality_level": null,
+            "level_req": "25",
+            "damage": "28 to 282",
+            "Enhanced Effect": "+75",
             "score": 20,
-            "action": "sell"
+            "action": "fight_with"
+        },
+        "3": {
+            "name": "Mystical hard leather armor",
+            "magic_level": null,
+            "quality_level": null,
+            "level_req": "10",
+            "physical_defense": "15 to 45",
+            "magical_defense": "10 to 41",
+            "Enhanced Effect": "+80",
+            "Life Steal": "+3",
+            "Critical Flux": "+1",
+            "score": 24,
+            "action": "fight_with"
         }
-    ],
+    },
     "equipment": {
         "weapon": {
             "type": "iconSword",
-            "magic_level": "+1",
-            "quality_level": "XII",
             "name": "Magical tempered diamond sword",
+            "magic_level": null,
+            "quality_level": null,
             "level_req": "45",
-            "damage": "32 to 327",
+            "damage": "35 to 353",
             "enhanced effect": "45",
-            "score": 10,
+            "score": 15,
             "action": "fight_with"
         },
         "armor": {
             "type": "iconChainmail",
-            "magic_level": "+1",
-            "quality_level": "XII",
             "name": "Magical tempered diamond chain mail",
+            "magic_level": null,
+            "quality_level": null,
             "level_req": "45",
-            "physical_defense": "81 to 204",
+            "physical_defense": "79 to 198",
             "magical_defense": "0 to 53",
             "enhanced effect": "95",
             "score": 20,
             "action": "fight_with"
         },
         "charm": {
-            "type": "iconIceCharm",
-            "magic_level": "+7",
-            "quality_level": "VII",
-            "name": "Legendary ice VII",
-            "level_req": "20",
-            "damage": "40 to 48",
-            "life": "+1 to 3",
+            "type": "iconFocusedHealCharm",
+            "name": "Mythical focused heal II",
+            "magic_level": null,
+            "quality_level": null,
+            "experience gained": "2",
             "life steal": "2",
-            "armor pierce": "1",
-            "lightning mastery": "4",
-            "score": 5,
+            "critical flux": "1",
+            "wind mastery": "2",
+            "score": 4,
             "action": "fight_with"
         },
-        "acc._charm": null
+        "acc._charm": {
+            "type": "iconWindCharm",
+            "name": "Mystical wind II",
+            "magic_level": null,
+            "quality_level": null,
+            "damage": "4 to 21",
+            "life steal": "1",
+            "score": 1,
+            "action": "fight_with"
+        }
     }
 }

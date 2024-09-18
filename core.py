@@ -41,6 +41,7 @@ fighting = False
 fight_state = 0
 role = ''
 attack_counter = 0
+loot_threshold = 4
 
 CHARACTER_JSON_PATH = 'configs/MrHustle.json'  # Update this to get character name
 
@@ -49,6 +50,7 @@ CONFIG = {
     "class": "dps",
     "leader": False,
     "whistle": False,
+    "lootThreshold": 4,
     "inventory": [],
     "equipment": {
         "weapon": {},
@@ -256,7 +258,7 @@ def write_to_terminal(message):
     terminal_output.see(tk.END)
 
 def getCharacter(driver):
-    global CHARACTER_JSON_PATH, CONFIG
+    global CHARACTER_JSON_PATH, CONFIG, loot_threshold
     characterName = driver.find_element(By.CSS_SELECTOR, ".cName").text
     print(f'characterName: {characterName}')
     charJsonPath = 'configs/' + characterName
@@ -264,6 +266,7 @@ def getCharacter(driver):
     print(f'charJsonPath: {charJsonPath}')
     CHARACTER_JSON_PATH = charJsonPath
     CONFIG = loadConfig()
+    loot_threshold = CONFIG["loot_threshold"]
     return
 
 # Load character data from JSON
@@ -578,7 +581,8 @@ def scanInventoryItems(driver):
 
 
 def scanDroppedItems(driver, drop_items):
-    loot_threshold = 9
+    global loot_threshold
+
     print('--- Score Drops ---')
 
     # Log file name
@@ -1130,6 +1134,8 @@ def fight():
     # Scan inventory and equipment at the start
     update_character_json(driver)
     
+    loot_threshold = loot_textbox.get() #Set loot threshold
+
     write_to_terminal("Fight!... ")
     automate_fighting(driver)
 
@@ -1161,6 +1167,10 @@ whistle_checkbox.pack()
 
 fish_button = tk.Button(overlay, bg='black', fg='white', font=('exocet', 9), text="Fish", command=fish)
 fish_button.pack()
+
+tk.Label(overlay, text="Loot Threshold", bg='black', fg='white').pack(pady=1)
+loot_textbox = tk.Entry(overlay, bg='black', fg='white')
+loot_textbox.pack(pady=1)
 
 terminal_output = tk.Text(overlay, bg='black', fg='white', font=('exocet', 9), wrap='word')
 terminal_output.pack(expand=True, fill='both')
