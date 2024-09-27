@@ -278,7 +278,8 @@ def click_snag_counter(driver):
         # Find and click the Snag Counter button
         snag_button = driver.find_element(By.XPATH, "//a[text()='Snag Counter']")
         snag_button.click()
-        time.sleep(.3)
+        time.sleep(.2)
+        snag_button.click()
     except:
         pass
 
@@ -323,40 +324,40 @@ def click_fish(driver):
     except:
         print('failed to click fish button')
 
-def fishing_loop(driver):
+def fishing_loop(driver, townHeal=False):
     try:
         print(' - Fishing Loop - ')
         while True:
-            time.sleep(.5)
-            # Check if a snag occurred and click Snag Counter if necessary
-            if check_snag(driver):
-                print("Snag detected, clicking Snag Counter")
-                click_snag_counter(driver)
+            x=0
+            while x <= 10:
+                time.sleep(.3)
+                # Check if a snag occurred and click Snag Counter if necessary
+                if check_snag(driver):
+                    print("Snag detected, clicking Snag Counter")
+                    click_snag_counter(driver)
+                print(' - Fishing Loop - click_reel')
+                click_reel(driver)
+                x += 1
 
-                # Wait for the rod or reel progress to change before continuing to reel
-                #reel_progress = check_reel_progress(driver)
-                #while reel_progress == 100:  # Wait until reel progress changes
-                #    print('Waiting for reel progress to change...')
-                #    time.sleep(0.5)
-                #    reel_progress = check_reel_progress(driver)
+            #reel_progress = check_reel_progress(driver)
+            #while reel_progress == 100:  # Wait until reel progress changes
+            #    print('Waiting for reel progress to change...')
+            #    time.sleep(0.5)
+            #    reel_progress = check_reel_progress(driver)
                 
-                #print('Reel progress changed, switching back to Reel')
+            #print('Reel progress changed, switching back to Reel')
             
-            # Check Rod health and ensure it's not going to break
             #rod_health = check_rod_health(driver)
             #if rod_health < 10:  # If rod health is below 10%, stop reeling
             #    print(f"Rod health low! - {rod_health} - Stopping reel...")
-            #    continue  # Skip the reel click to avoid breaking the rod
+            #    continue  
             
-            # Click Reel button to reel in the fish
-            print(' - Fishing Loop - click_reel')
-            click_reel(driver)
-
-            # Check if the fish has escaped and needs recasting
             try:
                 #escape_text = driver.find_element(By.XPATH, "//div[contains(text(), 'Escaped the Hook')]")
                 print("Trying to Recast line...")
                 click_recast(driver)
+                if townHeal & isHealthBelow(driver,90) == False:
+                    return
             except:
                 pass  # Ignore if the fish hasn't escaped
 
@@ -366,15 +367,18 @@ def fishing_loop(driver):
         print(f'Failed fishing_loop : {e}')
 
 
-def startFishing(driver):
+def startFishing(driver, townHeal = False):
     try:
+        time.sleep(1)
         if is_in_town(driver):
             selectFishingPond(driver)
         click_fish(driver)
-        fishing_loop(driver)
+        fishing_loop(driver, townHeal)
         print('Done Fishing')
+        time.sleep(1)
+        fishingToTown(driver)
     except:
-        pass
+        print('Failed to click Fish to town button')
 
 
 # Function to update overlay position
@@ -876,6 +880,21 @@ def remove_item_from_inventory(item_id):
     CONFIG["inventory"] = [item for item in CONFIG["inventory"] if item["id"] != item_id]
     saveConfig()
 
+def isHealthBelow(driver,testhp):
+    try:
+        health_mana_data = get_health_mana(driver)
+        if health_mana_data:
+            hp = health_mana_data['hp']
+            print(' * - - isHealthBelow {testhp}? ')
+            if hp >= testhp:
+                print('- No. HP = {hp}')
+                return False
+            else:
+                print('- Yes. HP = {hp}')
+                return True
+    except:
+        pass
+
 # Function to get player's health and mana
 def get_health_mana(driver):
     try:
@@ -963,12 +982,13 @@ def send_keystrokes(driver, keys):
 def town_heal(driver):
     try:
         try:
-            town_button = driver.find_element(By.CSS_SELECTOR, ".abutGradBl.gradRed")  # Adjust selector as needed
+            town_button = driver.find_element(By.CSS_SELECTOR, ".abutGradBl.gradRed")
             town_button.click()
         finally:
             print(" - Talking to Akara - ")
             write_to_terminal("Talking to Akara")
             time.sleep(5)  # Adjust healing time as needed
+            #startFishing(driver, True)
             health_mana_data = get_health_mana(driver)
             if health_mana_data:
                 hp = health_mana_data['hp']
@@ -977,14 +997,12 @@ def town_heal(driver):
                 write_to_terminal(f"~Town Stats~")
                 write_to_terminal(f"-HP: {hp}")
                 write_to_terminal(f"-MP: {mp}")
-                print(f"~Town Stats~")
-                print(f"~HP: {hp}")
-                print(f"-MP: {mp}")
-                
-                if hp < 100:
+
+                if hp < 90:
                     print("~~ Loop TownHeal ~~")
                     town_heal(driver)
                     return
+                    
         
     except Exception as e:
         write_to_terminal(f"Error going to town: {e}")
@@ -1065,6 +1083,17 @@ def selectFishingPond(driver):
                 return
     except Exception as e:
         write_to_terminal(f"Error selecting fishing pond: {e}")
+
+def fishingToTown(driver):
+    try:
+        fishToTownButton = driver.find_element(By.CSS_SELECTOR, ".abutGradBl .fishBTT")
+        if fishToTownButton:
+            fishToTownButton.click()
+        time.sleep(2)
+        return
+    except Exception as e:
+        write_to_terminal(f"Error rowing boat to town: {e}")
+
 
 # Function to loot an item
 def loot_item(driver, item):
@@ -1262,7 +1291,6 @@ def automate_fighting(driver):
                 select_catacombs(driver)
         
             checkHealth(driver)
-                #Print group health/mana data
                 
             if not isLeader:
                 wait_for_monsters()
@@ -1294,8 +1322,8 @@ def checkHealth(driver):
             print(f"-MP: {mp}")
             
             if hp < 40:
-                print("Fight: ~> Town Heal <~")
-                write_to_terminal("Fight: ~> Town Heal <~")
+                print("Fight: To ~> Town Heal <~")
+                write_to_terminal("Fight: To ~> Town Heal <~")
                 town_heal(driver)
                 
             #if hp < 60:
