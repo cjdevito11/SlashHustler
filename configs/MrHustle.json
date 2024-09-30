@@ -7,6 +7,26 @@
     "auto_stat": true,
     "inventory": {
         "1": {
+            "name": "Magical stonewood club",
+            "magic_level": null,
+            "quality_level": null,
+            "level_req": "25",
+            "damage": "35 to 160",
+            "Wind Mastery": "+1",
+            "score": 0,
+            "action": "sell"
+        },
+        "3": {
+            "name": "Magical tempered diamond chain mail",
+            "magic_level": null,
+            "quality_level": null,
+            "level_req": "45",
+            "physical_defense": "42 to 107",
+            "magical_defense": "0 to 27",
+            "score": 0,
+            "action": "sell"
+        },
+        "4": {
             "name": "Angelic hard leather armor",
             "magic_level": null,
             "quality_level": null,
@@ -19,7 +39,7 @@
             "score": 13,
             "action": "fight_with"
         },
-        "2": {
+        "5": {
             "name": "Legendary heal II",
             "magic_level": null,
             "quality_level": null,
@@ -32,37 +52,17 @@
             "score": 14,
             "action": "fight_with"
         },
-        "3": {
+        "6": {
             "name": "Rare bine scale armor",
             "magic_level": null,
             "quality_level": null,
             "level_req": "5",
-            "physical_defense": "8 to 35",
+            "physical_defense": "9 to 36",
             "magical_defense": "5 to 17",
             "Enhanced Effect": "+27",
             "Life": "+1 to 10",
             "score": 12,
             "action": "fight_with"
-        },
-        "4": {
-            "name": "Magical stonewood club",
-            "magic_level": null,
-            "quality_level": null,
-            "level_req": "25",
-            "damage": "35 to 160",
-            "Wind Mastery": "+1",
-            "score": 0,
-            "action": "sell"
-        },
-        "5": {
-            "name": "Magical tempered diamond chain mail",
-            "magic_level": null,
-            "quality_level": null,
-            "level_req": "45",
-            "physical_defense": "42 to 105",
-            "magical_defense": "0 to 27",
-            "score": 0,
-            "action": "sell"
         }
     },
     "equipment": {
@@ -83,7 +83,7 @@
             "magic_level": null,
             "quality_level": null,
             "level_req": "45",
-            "physical_defense": "81 to 204",
+            "physical_defense": "83 to 209",
             "magical_defense": "0 to 53",
             "enhanced effect": "95",
             "score": 20,

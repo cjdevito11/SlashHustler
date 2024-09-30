@@ -1,0 +1,11 @@
+{
+    "stats": {
+        "vitality": 80,
+        "strength": 140
+    },
+    "skills":{
+        "retribution": 60,
+        "powerstrike": 60,
+        "multistrike": 10
+    }
+}

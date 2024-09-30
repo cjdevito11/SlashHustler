@@ -1,0 +1,135 @@
+{
+    "name": "TigBittyBroad",
+    "class": "tank",
+    "leader": true,
+    "whistle": false,
+    "loot_threshold": 9,
+    "auto_stat": true,
+    "inventory": {
+        "1": {
+            "name": "Magical pine club",
+            "magic_level": null,
+            "quality_level": null,
+            "damage": "5 to 24",
+            "Experience Gained": "+1",
+            "score": 0,
+            "action": "sell"
+        },
+        "2": {
+            "name": "Legendary splintered club",
+            "magic_level": null,
+            "quality_level": null,
+            "damage": "2 to 13",
+            "Enhanced Effect": "+10",
+            "Experience Gained": "+2",
+            "Mana Syphon": "+2",
+            "Power Shot": "+1",
+            "Glancing Blow": "+1",
+            "Lightning Mastery": "+1",
+            "score": 10,
+            "action": "fight_with"
+        },
+        "3": {
+            "name": "Arcane cotton robe",
+            "magic_level": null,
+            "quality_level": null,
+            "physical_defense": "0 to 3",
+            "magical_defense": "5 to 15",
+            "Experience Gained": "+1",
+            "Mind Numb": "+1",
+            "Glancing Blow": "+1",
+            "Wind Mastery": "+1",
+            "Earth Mastery": "+1",
+            "score": 1,
+            "action": "sell"
+        },
+        "4": {
+            "name": "Angelic pine staff",
+            "magic_level": null,
+            "quality_level": null,
+            "damage": "9 to 26",
+            "Life": "+1 to 2",
+            "Wind Mastery": "+1",
+            "score": 0,
+            "action": "sell"
+        },
+        "5": {
+            "name": "Mythical elm staff",
+            "magic_level": null,
+            "quality_level": null,
+            "damage": "20 to 54",
+            "Enhanced Effect": "+40",
+            "Life": "+1 to 3",
+            "Armor Pierce": "+3",
+            "Power Shot": "+1",
+            "Fire Mastery": "+6",
+            "score": 18,
+            "action": "fight_with"
+        },
+        "6": {
+            "name": "Angelic pine club",
+            "magic_level": null,
+            "quality_level": null,
+            "damage": "7 to 32",
+            "Enhanced Effect": "+33",
+            "Lightning Mastery": "+1",
+            "score": 13,
+            "action": "fight_with"
+        },
+        "8": {
+            "name": "Angelic double cured leather armor",
+            "magic_level": null,
+            "quality_level": null,
+            "level_req": "15",
+            "physical_defense": "9 to 28",
+            "magical_defense": "7 to 30",
+            "Mana": "+1 to 3",
+            "Life Steal": "+1",
+            "score": 1,
+            "action": "sell"
+        }
+    },
+    "equipment": {
+        "weapon": {
+            "type": "iconSpear",
+            "name": "Angelic bronze spear",
+            "magic_level": null,
+            "quality_level": null,
+            "damage": "58 to 102",
+            "enhanced effect": "44",
+            "mana": "+1 to 1",
+            "fire mastery": "3",
+            "score": 15,
+            "action": "fight_with"
+        },
+        "armor": {
+            "type": "iconRobe",
+            "name": "Godly woolen robe",
+            "magic_level": null,
+            "quality_level": null,
+            "physical_defense": "0 to 7",
+            "magical_defense": "11 to 35",
+            "enhanced effect": "52",
+            "life": "+1 to 23",
+            "mind numb": "2",
+            "glancing blow": "1",
+            "wind mastery": "1",
+            "score": 17,
+            "action": "fight_with"
+        },
+        "charm": {
+            "type": "iconWildHealCharm",
+            "name": "Legendary wild heal II",
+            "magic_level": null,
+            "quality_level": null,
+            "mind numb": "1",
+            "parry": "1",
+            "mana syphon": "3",
+            "power shot": "1",
+            "ice mastery": "2",
+            "score": 4,
+            "action": "fight_with"
+        },
+        "acc._charm": null
+    }
+}
