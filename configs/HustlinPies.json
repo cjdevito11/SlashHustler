@@ -1,63 +1,32 @@
 {
     "name": "HustlinPies",
     "class": "tank",
+    "build": "Samurai",
     "leader": true,
     "whistle": false,
     "loot_threshold": 9,
     "auto_stat": true,
     "inventory": {
         "1": {
-            "name": "Mystical bronze sword",
+            "name": "Rare rusted chain mail",
             "magic_level": null,
             "quality_level": null,
-            "damage": "6 to 63",
-            "Enhanced Effect": "+7",
-            "score": 5,
-            "action": "keep"
-        },
-        "2": {
-            "name": "rusted chain mail",
-            "magic_level": null,
-            "quality_level": null,
-            "physical_defense": "3 to 8",
+            "physical_defense": "4 to 11",
             "magical_defense": "0 to 2",
-            "score": 0,
-            "action": "sell"
-        },
-        "4": {
-            "name": "Angelic steel chain mail",
-            "magic_level": null,
-            "quality_level": null,
-            "level_req": "10",
-            "physical_defense": "18 to 45",
-            "magical_defense": "0 to 10",
-            "Enhanced Effect": "+3",
-            "Critical Flux": "+4",
-            "Mana Syphon": "+2",
-            "Glancing Blow": "+1",
-            "score": 10,
+            "Enhanced Effect": "+20",
+            "score": 11,
             "action": "fight_with"
-        },
-        "5": {
-            "name": "rusted chain mail",
-            "magic_level": null,
-            "quality_level": null,
-            "physical_defense": "3 to 8",
-            "magical_defense": "0 to 2",
-            "score": 0,
-            "action": "sell"
         }
     },
     "equipment": {
         "weapon": {
             "type": "iconSword",
-            "name": "Magical tintitanium plate mail",
+            "name": "Magical tempered diamond sword",
             "magic_level": null,
             "quality_level": null,
-            "level_req": "50",
-            "physical_defense": "76 to 230",
-            "magical_defense": "0 to 23",
-            "enhanced effect": "69",
+            "level_req": "45",
+            "damage": "40 to 403",
+            "enhanced effect": "64",
             "score": 20,
             "action": "fight_with"
         },
@@ -67,7 +36,7 @@
             "magic_level": null,
             "quality_level": null,
             "level_req": "50",
-            "physical_defense": "76 to 230",
+            "physical_defense": "83 to 249",
             "magical_defense": "0 to 23",
             "enhanced effect": "69",
             "score": 20,
@@ -75,15 +44,14 @@
         },
         "charm": {
             "type": "iconIceCharm",
-            "name": "Legendary ice I",
+            "name": "Angelic ice IX",
             "magic_level": null,
             "quality_level": null,
-            "damage": "6 to 7",
-            "enhanced effect": "20",
-            "mind numb": "1",
-            "heal mastery": "4",
-            "glancing blow": "1",
-            "score": 12,
+            "level_req": "30",
+            "damage": "58 to 70",
+            "enhanced effect": "24",
+            "experience gained": "12",
+            "score": 17,
             "action": "fight_with"
         },
         "acc._charm": {
