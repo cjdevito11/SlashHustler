@@ -43,8 +43,10 @@ fight_state = 0
 role = ''
 attack_counter = 0
 loot_threshold = 4
+whistle = False
+autoStat = False
 
-CHARACTER_JSON_PATH = 'configs/HustlinPies.json'  # Update this to get character name
+CHARACTER_JSON_PATH = 'configs/MrHustle.json'  # Update this to get character name
 
 CONFIG = {
     "name": "CharacterName",
@@ -71,6 +73,15 @@ def load_scoring_system():
         return scoring_system
 
 scoring_system = load_scoring_system()
+
+
+#### AUTO STAT ####
+
+
+
+
+#### AUTO STAT ####
+
 
  ### COOKING ###
 
@@ -442,15 +453,24 @@ def write_to_terminal(message):
     terminal_output.see(tk.END)
 
 def getCharacter(driver):
-    global CHARACTER_JSON_PATH, CONFIG, loot_threshold
+    global CHARACTER_JSON_PATH, CONFIG, loot_threshold, whistle, autoStat
     characterName = driver.find_element(By.CSS_SELECTOR, ".cName").text
     print(f'characterName: {characterName}')
     charJsonPath = 'configs/' + characterName
     charJsonPath = charJsonPath + '.json'
     print(f'charJsonPath: {charJsonPath}')
     CHARACTER_JSON_PATH = charJsonPath
+
+    ## SET GLOBAL CONFIG VARIABLES ##
     CONFIG = loadConfig()
     loot_threshold = CONFIG["loot_threshold"]
+    whistle = CONFIG["whistle"]
+    autoStat = CONFIG["auto_stat"]
+
+    print('* - * - * - READ CONFIG - SETTING GLOBAL VARIABLES = ')
+    print(f'autoStat : {autoStat}')
+    print(f'whistle : {whistle}')
+    print(f'loot_threshold : {loot_threshold}')
     return
 
 # Load character data from JSON
