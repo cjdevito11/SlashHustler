@@ -808,7 +808,6 @@ def get_class(driver):
         print(f"class_name = {class_name} ---GET CLASS INFO---")
         STAT_JSON_PATH = f'configs/autoStat/{class_name}/basic.json'
         print(f'----------={STAT_JSON_PATH}---------------')
-        time.sleep(10)
         return class_name
     except Exception as e:
         print(f"Error getting class!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! {e}")
