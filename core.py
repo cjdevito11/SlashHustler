@@ -21,6 +21,7 @@ from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.keys import Keys
 import pygetwindow as gw
 import threading
+from collections import deque
 
 # Redirect print function
 class StdoutRedirector:
@@ -71,6 +72,315 @@ def load_scoring_system():
         return scoring_system
 
 scoring_system = load_scoring_system()
+
+
+def reset_maze(driver):
+    """
+    Resets the maze by going back to town and re-entering the catacombs.
+    """
+    town_heal(driver)  # Go back to town for healing
+    select_catacombs(driver)  # Re-enter the catacombs to reset the maze
+    time.sleep(2)
+
+### NAVIGATION ###
+
+
+def parse_maze(driver):
+    """
+    Parses the maze structure from the game's HTML.
+    """
+    maze_grid = {}  # A dictionary to store tile positions and their statuses
+    svg_elements = driver.find_elements(By.CSS_SELECTOR, ".mapSVG rect")
+
+    for element in svg_elements:
+        x = int(element.get_attribute('x'))
+        y = int(element.get_attribute('y'))
+        status = element.get_attribute('fill')
+        if status == '#22AA22':  # Assuming this color represents 'open' tiles
+            maze_grid[(x, y)] = 'open'
+        else:
+            maze_grid[(x, y)] = 'blocked'
+
+    return maze_grid
+
+
+
+def move_in_maze(direction):
+    time.sleep(random.uniform(0.5, 1.5))
+
+    if direction == 'up':
+        pyautogui.press('w')
+    elif direction == 'down':
+        pyautogui.press('s')
+    elif direction == 'left':
+        pyautogui.press('a')
+    elif direction == 'right':
+        pyautogui.press('d')
+        
+    time.sleep(random.uniform(0.5, 1.5))
+
+def get_direction(current_tile, next_tile):
+    """
+    Returns the direction to move from current_tile to next_tile.
+    """
+    current_x, current_y = current_tile
+    next_x, next_y = next_tile
+
+    if next_y < current_y:
+        return 'up'
+    elif next_y > current_y:
+        return 'down'
+    elif next_x < current_x:
+        return 'left'
+    elif next_x > current_x:
+        return 'right'
+
+
+def explore_and_fight(driver, maze_grid, start_position):
+    """
+    Explore the maze, fight monsters, and click 'engage' to return to the maze after each fight.
+    """
+    visited = set()
+    unexplored = deque([start_position])  # Queue to track unexplored tiles
+    print(f"Starting exploration at position: {start_position}")
+    
+    while unexplored:
+        current_tile = unexplored.popleft()  # Get the next tile to explore
+        visited.add(current_tile)
+        print(f"Exploring tile: {current_tile} | Visited: {len(visited)} | Unexplored: {len(unexplored)}")
+        
+        # Check neighbors
+        neighbors = [
+            (current_tile[0], current_tile[1] + 8),  # Move up
+            (current_tile[0], current_tile[1] - 8),  # Move down
+            (current_tile[0] + 8, current_tile[1]),  # Move right
+            (current_tile[0] - 8, current_tile[1])   # Move left
+        ]
+        
+        # Filter out blocked or already visited tiles
+        valid_neighbors = [
+            neighbor for neighbor in neighbors 
+            if neighbor in maze_grid and maze_grid[neighbor] == 'open' and neighbor not in visited
+        ]
+        
+        if valid_neighbors:
+            for neighbor in valid_neighbors:
+                unexplored.append(neighbor)
+                direction = get_direction(current_tile, neighbor)
+                print(f"Moving from {current_tile} to {neighbor} in direction: {direction}")
+                move_in_maze(direction)
+                break  # Move in only one direction per loop iteration
+
+        # If no valid neighbors, the current tile is a dead end
+        if not valid_neighbors:
+            print(f"Dead end at {current_tile}, backtracking...")
+
+        log_maze_state(maze_grid, visited)
+
+        # If the entire maze is explored, reset and start again
+        if len(visited) == len([tile for tile, status in maze_grid.items() if status == 'open']):
+            print("Maze fully explored, resetting maze.")
+            reset_maze(driver)  # Reset the maze and start again
+            return True
+
+def trigger_fight(driver):
+    monsters = get_monsters(driver)  # Get the list of monsters on screen
+    while monsters:
+        fight_based_on_role(driver,role)
+        #attack_monster(driver, monster)
+
+        health_mana_data = get_health_mana(driver)
+        if health_mana_data['hp'] < 40:
+            fight_heal(driver, health_mana_data['hp'], health_mana_data['mp'])
+
+        monsters = get_monsters(driver) 
+
+    if is_engage_button_visible(driver):
+        click_engage_button(driver)
+
+
+def log_maze_state(maze_grid, visited):
+    """
+    Logs the current state of the maze to show which tiles have been visited.
+    """
+    grid_size = 40  # Assuming a 40x40 grid for the maze; adjust according to your maze
+    maze_representation = ''
+
+    for y in range(0, grid_size * 8, 8):  # Y-axis (step by 8, same as in the maze structure)
+        for x in range(0, grid_size * 8, 8):  # X-axis
+            tile = (x, y)
+            if tile in visited:
+                maze_representation += 'V '  # Mark visited tiles
+            elif tile in maze_grid:
+                maze_representation += '. '  # Mark open but unexplored tiles
+            else:
+                maze_representation += '# '  # Mark blocked tiles
+        maze_representation += '\n'  # Newline for each row
+    
+    print(f"Current Maze State:\n{maze_representation}")
+
+def get_current_position(driver):
+    """
+    Function to return the current position in the maze.
+    If no previous exploration, assume starting at (0, 0).
+    """
+    # Assuming we can extract the current position from the game UI or we start at (0, 0)
+    return (0, 0)  # Start here unless you have a way to get a more accurate starting position from the UI
+
+
+def explore_maze_until_monster(driver):
+    """
+    Explore the maze starting from the known position, updating the maze grid
+    and breaking out once a monster is encountered.
+    """
+    print("Exploring the maze...")
+    current_position = get_current_position_from_arrow(driver)
+    visited = set()
+    #current_position = get_current_position(driver)  # Starting at (0, 0) or known position
+    unexplored = deque([current_position])
+    maze_grid = {}  # Dictionary to store discovered tiles
+
+    while unexplored:
+        current_tile = unexplored.popleft()
+        visited.add(current_tile)
+
+        print(f"Exploring tile: {current_tile} | Visited: {len(visited)} | Unexplored: {len(unexplored)}")
+
+        # Now that we've visited the current tile, mark it as visited in the maze
+        maze_grid[current_tile] = 'visited'
+
+        # Check for nearby unexplored neighbors
+        neighbors = [(current_tile[0] + dx, current_tile[1] + dy)
+                     for dx, dy in [(0, 8), (0, -8), (8, 0), (-8, 0)]]
+
+        for neighbor in neighbors:
+            if neighbor not in visited:
+                unexplored.append(neighbor)
+                direction = get_direction(current_tile, neighbor)
+                print(f"Moving from {current_tile} to {neighbor} in direction: {direction}")
+                
+                move_in_maze(direction)  # Move the character to the next tile
+
+                # Check for monsters after each move
+                monsters = get_monsters(driver)
+                if monsters:
+                    print(f"Monsters encountered at {neighbor}, breaking out of maze exploration.")
+                    return  # Return control to the main fight script
+
+        # If no new tiles are found and all nearby tiles are explored, stop the exploration
+
+        # You could also add a stopping condition here if you want to reset after full exploration
+
+        # Optionally log the current maze state if you want to track it visually
+        log_maze_state(maze_grid, visited)
+
+
+
+####
+
+def get_current_position_from_arrow(driver):
+    """
+    Fetches the player's current position by parsing the arrow's 'd' attribute.
+    """
+    try:
+        # Find the arrow element by selecting the path with stroke="#ccc"
+        arrow_element = driver.find_element(By.CSS_SELECTOR, 'path[stroke="#ccc"]')
+        
+        # Extract the 'd' attribute, which contains the arrow's coordinates
+        d_attr = arrow_element.get_attribute("d")
+        
+        # Example: "M91 163 L91 168.5 96.5 165.75 91 163"
+        # We want to extract the starting coordinates: M91 163
+        start_coordinates = d_attr.split(" ")[0:2]  # Get the M and the first coordinate pair
+
+        # Convert the coordinates to integers
+        x = int(start_coordinates[0][1:])  # Remove 'M' and convert to integer
+        y = int(start_coordinates[1])
+
+        return (x, y)  # Return as tuple
+    except Exception as e:
+        print(f"Error fetching current position: {e}")
+        return (0, 0)  # Default fallback if not found
+
+def get_arrow_position(driver):
+    """
+    Finds the player's current arrow position on the map using its SVG path element.
+    """
+    try:
+        arrow_element = driver.find_element(By.CSS_SELECTOR, 'path[fill="#ccc"]')
+        arrow_position = arrow_element.get_attribute('d')  # Path data attribute
+        # Extract x, y coordinates from the arrow's path data (e.g., "M91 163 ...")
+        coordinates = arrow_position.split(' ')[1:3]
+        return int(coordinates[0]), int(coordinates[1])
+    except Exception as e:
+        print(f"Error fetching arrow position: {e}")
+        return None
+
+
+def explore_maze(driver):
+    """
+    Explores the maze dynamically starting from the player's current position
+    until a monster is encountered or no more walkable tiles remain.
+    """
+    current_position = get_arrow_position(driver)  # Get the starting position from the arrow
+    print(f'* Current Position - {current_position}')
+    visited = set()  # Track visited tiles
+    unexplored = deque([current_position])  # Queue for tiles to explore
+
+    while unexplored:
+        current_tile = unexplored.popleft()  # Get the next tile to explore
+        visited.add(current_tile)  # Mark it as visited
+        print(f"Exploring tile: {current_tile}")
+
+        # Define possible directions and their corresponding movements
+        directions = {
+            'up': (0, -8),
+            'down': (0, 8),
+            'left': (-8, 0),
+            'right': (8, 0)
+        }
+
+        for direction, (dx, dy) in directions.items():
+            next_tile = (current_tile[0] + dx, current_tile[1] + dy)
+            
+            if next_tile not in visited:
+                # Try moving to the new tile
+                move_in_maze(direction)
+
+                # After moving, check the new tile's state
+                new_position = get_arrow_position(driver)  # Get the new position after moving
+                
+                # If the move was successful (i.e., the player moved to a new tile)
+                if new_position != current_tile:
+                    print(f"Moved to new tile: {new_position}")
+                    unexplored.append(new_position)
+
+                    # Check if a monster was found
+                    if monsters_found(driver):
+                        print(f"Monster encountered at {new_position}. Engaging.")
+                        #engage_monster(driver)  # Break exploration to fight
+                        return  # Exit the maze exploration
+                    
+                # If the move was unsuccessful (e.g., a wall or blocked path), log and skip
+                else:
+                    print(f"Could not move to {next_tile} from {current_tile}")
+
+        # If no unexplored tiles remain, reset the maze
+        if not unexplored:
+            print("Maze fully explored. Resetting the maze.")
+            reset_maze(driver)
+            return
+
+
+
+
+
+
+### NAVIGATION
+
+
+
+
 
  ### COOKING ###
 
@@ -917,6 +1227,15 @@ def get_health_mana(driver):
         write_to_terminal(f"Error: {e}")
         return None
 
+def monsters_found(driver):
+    try:
+        monsters = driver.find_elements(By.CSS_SELECTOR, ".mobArea .mob")
+        print(f'{len(monsters)} monsters found.')
+        return len(monsters) > 0
+    except Exception as e:
+        print(f"Error checking for monsters: {e}")
+        return False
+
 # Function to find all monsters and their health
 def get_monsters(driver):
     try:
@@ -1036,10 +1355,13 @@ def is_in_town(driver):
 # Function to check if engage button is visible
 def is_engage_button_visible(driver):
     try:
+        print('Is Engage Button Visible?')
         engage_button = driver.find_element(By.CSS_SELECTOR, ".cataEngage")
         display_style = engage_button.get_attribute("style")
         if "display: block" in display_style:
+            print('TRUE')
             return True
+        print('FALSE')
         return False
     except Exception:
         print('CANT FIND ENGAGE BUTTON')
@@ -1160,6 +1482,18 @@ def resetDungeon(driver):
 def is_leader(driver):
     return bool(driver.find_elements(By.CSS_SELECTOR, ".cName.gLeader"))
 
+def click_engage_button(driver):
+    """
+    Clicks the 'engage' button to return to the maze after fighting.
+    """
+    try:
+        engage_button = driver.find_element(By.CSS_SELECTOR, ".cataEngage")
+        engage_button.click()
+        time.sleep(1)  # Allow time to return to the maze
+    except Exception as e:
+        print(f"Error clicking engage button: {e}")
+
+
 def engage_if_leader(driver):
     if is_leader(driver):
         print('Try find engage as leader')
@@ -1167,6 +1501,9 @@ def engage_if_leader(driver):
             engage_button = driver.find_element(By.CSS_SELECTOR, ".cataEngage")  # Update selector as needed
             if engage_button:
                 engage_button.click()
+                time.sleep(.5)
+
+                ## NAVIGATE
 
         # if whistle_var.get():
                 # send_keystrokes(driver, "T")  # Assume T is the hotkey for whistle
@@ -1277,36 +1614,71 @@ def quickAttack(driver):
         print("Quick Attack Failed")
 
 
+
+"""def automate_fighting(driver): #
+    global fighting, fight_state, role #
+    write_to_terminal(f"Fighting: {fighting}")
+    write_to_terminal(f"Fight State: {fight_state}")
+
+    if fighting:
+        try:
+            if is_in_town(driver):
+                select_catacombs(driver)  # Enter the catacombs if in town
+
+            # Get the current maze structure
+            maze_grid = parse_maze(driver)  # Parse the maze from the HTML
+            start_position = (0, 0)  # Starting position of the maze
+
+            # Start exploring and fighting
+            explore_and_fight(driver, maze_grid, start_position)
+
+        except Exception as e:
+            print(f"Error in automate_fighting: {e}")
+        overlay.after(1000, lambda: automate_fighting(driver))  # Repeat the process with a delay"""
+
+
+
 def automate_fighting(driver):
     global fighting, fight_state, role
     write_to_terminal(f"Fighting: {fighting}")
     write_to_terminal(f"Fight State: {fight_state}")
-    #update_overlay_position()
     
     if fighting:
         try:
             isLeader = is_leader(driver)
             print(f'Is Leader: {isLeader}')
+            
             if is_in_town(driver):
                 select_catacombs(driver)
-        
+
             checkHealth(driver)
-                
-            if not isLeader:
-                wait_for_monsters()
-            else:
-                engage_if_leader(driver)
-                
+            
+            #if not isLeader:
+            #    wait_for_monsters()
+            #else:
+            #    engage_if_leader(driver)
+            
             fight_based_on_role(driver, role)
             print('Check Items')
-
+            
+            # Check for dropped items
             drop_items = driver.find_elements(By.CSS_SELECTOR, ".dropItemsBox .itemBox")
             if drop_items:
                 print('Found Items')
                 scanDroppedItems(driver, drop_items)
-        except:
-            print('In Automate Fighting - Fighting Exception')
-        overlay.after(1000, lambda: automate_fighting(driver))  # Adjust delay as needed
+
+            # Check for the engage button to trigger exploration
+            if is_engage_button_visible(driver):
+                print("Engage button found, clicking to return to the maze.")
+                click_engage_button(driver)  # Click engage to return to the maze
+                # Start maze exploration until a monster is encountered
+                #explore_maze_until_monster(driver)
+                explore_maze(driver)
+        except Exception as e:
+            print(f"Error in automate_fighting: {e}")
+        
+        overlay.after(1000, lambda: automate_fighting(driver))  # Repeat after delay
+
 
 def checkHealth(driver):
     try:
