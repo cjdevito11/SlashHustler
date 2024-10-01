@@ -42,6 +42,9 @@ fight_state = 0
 role = ''
 attack_counter = 0
 loot_threshold = 4
+whistle = False
+autoStat = False
+
 
 running = False
 fighting = False
@@ -52,7 +55,11 @@ fighting_thread = None
 fishing_thread = None
 cooking_thread = None
 
-CHARACTER_JSON_PATH = 'configs/MrHustle.json'  # Update this to get character name
+#CHARACTER_JSON_PATH = 'configs/MrHustle.json'  # Update this to get character name
+CHARACTER_JSON_PATH = 'configs/HustlinPies.json'  # Update this to get character name
+#CHARACTER_JSON_PATH = 'configs/TigBittyBroad.json'  # Update this to get character name
+STAT_JSON_PATH = 'configs/autoStat/paladin/basic.json'
+
 
 CONFIG = {
     "name": "CharacterName",
@@ -72,13 +79,301 @@ CONFIG = {
 equipped = []
 inventory = []
 
+abilitiesMap = {
+    "row1": ["powerstrike", "bottomsup", "topsmash", "knockdown", "retribution", "healrage"],
+    "row2": ["backstab", "backastrophe", "multistrike", "twohitback", "revenge", "doublestrike"],
+    "row3": ["crossstrike", "pathslash", "jumpattack", "wildswing", "slapdash", "xin"],
+    "row4": ["Castabove", "Piercecast", "Powercast", "Pillarcast", "Multiheal", "Salvation"],
+    "row5": ["Castabove", "Piercecast", "Powercast", "Pillarcast", "Multiheal", "Salvation"],
+    "row6": ["Castabove", "Piercecast", "Powercast", "Pillarcast", "Multiheal", "Salvation"]
+}
+flattened_abilities = abilitiesMap["row1"] + abilitiesMap["row2"] + abilitiesMap["row3"] + abilitiesMap["row4"] + abilitiesMap["row5"] + abilitiesMap["row6"]
+
+
+
 def load_scoring_system():
     with open('jsons/itemScore.json', 'r') as file:
         scoring_system = json.load(file)
         print('Loaded scoring system:', json.dumps(scoring_system, indent=4))  # Print the entire JSON for debugging
         return scoring_system
 
+# Function to read the configuration file
+def load_stats_config(file_path):
+    try:
+        with open(file_path, 'r') as config_file:
+            return json.load(config_file)
+    except Exception as e:
+        print(f"Error loading config: {e}")
+        return None
+
+
 scoring_system = load_scoring_system()
+
+
+#### AUTO SKILL ####
+
+def map_abilities(driver):
+    try:
+        # Find all the ability icons in the order they appear in the HTML
+        ability_icons = driver.find_elements(By.CSS_SELECTOR, "div.cp.abilityIcon")
+        
+        # Make sure we have the same number of ability icons as in the abilities map
+        if len(ability_icons) != len(flattened_abilities):
+            print(f"Mismatch in number of abilities: found {len(ability_icons)} icons, expected {len(flattened_abilities)}.")
+            return
+        
+        # Create a mapping of the ability icons to their respective names from the flattened abilities list
+        ability_mapping = {}
+        for index, icon in enumerate(ability_icons):
+            # Map the icon to its corresponding ability based on the order
+            ability_name = flattened_abilities[index]
+            ability_mapping[ability_name] = icon
+
+        print("Ability mapping completed successfully!")
+        print(ability_mapping)
+        
+        return ability_mapping
+
+    except Exception as e:
+        print(f"Error mapping abilities: {e}")
+        return None
+
+# Function to get current levels of abilities based on the order in abilitiesMap
+def read_ability_levels(driver):
+    try:
+        # Find all the ability icons
+        ability_icons = driver.find_elements(By.CSS_SELECTOR, "div.cp.abilityIcon")
+
+        # Dictionary to store current ability levels
+        current_levels = {}
+
+        # We assume the abilities are mapped in the same order as in abilitiesMap
+        for index, icon in enumerate(ability_icons):
+            try:
+                level_element = icon.find_element(By.CLASS_NAME, 'stAbLvl')  # Find the level element
+                ability_level = int(level_element.text.strip())  # Get the level as an integer
+                ability_name = flattened_abilities[index]  # Map it to the correct ability name based on the order
+                current_levels[ability_name] = ability_level  # Store the level in the dictionary
+                print(f"{ability_name}: Lvl({ability_level})")
+            except Exception as e:
+                # Handle the case where the level element is not found or there's an error
+                ability_name = flattened_abilities[index]  # Get the ability name from abilitiesMap
+                current_levels[ability_name] = 0  # Set the level to 0 or any default value
+                print(f"Error reading level for ability {ability_name}: {e}")
+
+        return current_levels
+
+    except Exception as e:
+        print(f"Error reading ability levels: {e}")
+        return {}
+    
+
+# Function to spend ability points based on thresholds from JSON
+def spend_ability_points_based_on_thresholds(driver, ability_mapping, points_to_spend, skill_thresholds, current_levels):
+    print('Spend_ability_points')
+    try:
+        # Normalize skill thresholds and current levels by converting all keys to lowercase
+        skill_thresholds = {key.lower(): value for key, value in skill_thresholds.items()}
+        current_levels = {key.lower(): value for key, value in current_levels.items()}
+        
+        # Iterate through abilities in the skill thresholds
+        for ability, max_threshold in skill_thresholds.items():
+            if points_to_spend <= 0:
+                break
+
+            current_level = current_levels.get(ability, 0)  # Fetch the current level of the ability
+            print(f'current_level for {ability}: {current_level}')
+            
+            # Check if current ability level is below the defined threshold
+            if current_level < max_threshold:
+                print(f'{ability}: Current Level < max Threshold - SPEND POINT')
+                points_needed = max_threshold - current_level
+                points_to_allocate = min(points_needed, points_to_spend)
+
+                # Find the corresponding ability icon and click it to allocate points
+                if ability in ability_mapping:
+                    print(f'ability: {ability}')
+                    ability_icon = ability_mapping[ability] 
+                    print(f'ability_icon: {ability_icon}')
+                    
+                    for _ in range(points_to_allocate):
+                        try:
+                            # Use the same method you use for other clicks (direct click)
+                            print(f'Try to click Ability Icon : {ability_icon}')
+                            ability_icon.click()
+                            points_to_spend -= 1
+                            print(f"Allocated a point to {ability}. Points remaining: {points_to_spend}")
+                            time.sleep(1)  # Delay to prevent rapid clicks
+                        except Exception as e:
+                            print(f"Failed to click {ability_icon} for {ability}: {e}")
+                            continue
+
+                    if points_to_spend <= 0:
+                        break
+
+        if points_to_spend == 0:
+            print("All points allocated successfully.")
+        else:
+            print(f"Remaining points: {points_to_spend}.")
+    
+    except Exception as e:
+        print(f"Error spending ability points based on thresholds: {e}")
+
+# Combined function for auto stat and ability allocation
+def auto_stat_and_ability_allocation(driver, config_path):
+    print('---------------------auto_stat_and_ability_allocation---------------------------')
+    print('---------------------auto_stat_and_ability_allocation---------------------------')
+    print('---------------------auto_stat_and_ability_allocation---------------------------')
+    try:
+        # Step 1: Load the JSON config to get skill thresholds
+        config = load_stats_config(config_path)
+        if not config:
+            return
+
+        skill_thresholds = config.get("skills", {})
+
+        # Step 2: Read current player stats (to get ability points)
+        current_stats = readPlayerStats(driver)
+        ability_points = current_stats.get("ability_points", 0)
+
+        print(f"Ability points available: {ability_points}")
+
+        # Step 3: Check if there are any ability points to spend
+        if ability_points > 0:
+            # Step 4: Map abilities in the UI
+            ability_mapping = map_abilities(driver)
+
+            if ability_mapping:
+                # Step 5: Read current ability levels from the UI
+                current_ability_levels = read_ability_levels(driver)
+
+                print(f'ability_mapping: {ability_mapping}')
+                print(f'ability_points: {ability_points}')
+                print(f'skill_thresholds: {skill_thresholds}')
+                print(f'current_ability_levels: {current_ability_levels}')
+                print('spend_ability_points_based_on_thresholds(driver, ability_mapping, ability_points, skill_thresholds, current_ability_levels)')
+                # Step 6: Spend ability points based on the thresholds in the JSON
+                spend_ability_points_based_on_thresholds(driver, ability_mapping, ability_points, skill_thresholds, current_ability_levels)
+            else:
+                print("Failed to map abilities.")
+        else:
+            print("No ability points available to spend.")
+
+    except Exception as e:
+        print(f"Error in auto stat and ability allocation: {e}")
+
+
+
+
+#### AUTO SKILL ####
+
+#### AUTO STAT ####
+
+def readPlayerStats(driver):
+    try:
+        stats = {
+            "level": 0,
+            "exp": 0,
+            "next_level": 0,
+            "str": 0,
+            "dex": 0,
+            "int": 0,
+            "vit": 0,
+            "stat_points": 0,
+            "ability_points": 0,
+            "kills": 0,
+            "deaths": 0,
+            "damage": "0 to 0",  # Treat as string for range
+            "physical_def": "0 to 0",  # Treat as string for range
+            "magical_def": "0 to 0"  # Treat as string for range
+        }
+
+        # Retrieve and parse each stat
+        stats["level"] = int(driver.find_element(By.ID, "CS0").text.strip())
+        stats["exp"] = int(driver.find_element(By.ID, "CS1").text.strip())
+        stats["next_level"] = int(driver.find_element(By.ID, "CS2").text.strip())
+        stats["str"] = int(driver.find_element(By.ID, "CS3").text.strip())
+        stats["dex"] = int(driver.find_element(By.ID, "CS4").text.strip())
+        stats["int"] = int(driver.find_element(By.ID, "CS5").text.strip())
+        stats["vit"] = int(driver.find_element(By.ID, "CS6").text.strip())
+        stats["stat_points"] = int(driver.find_element(By.ID, "CS7").text.strip())
+        stats["ability_points"] = int(driver.find_element(By.ID, "CS8").text.strip())
+        stats["kills"] = int(driver.find_element(By.ID, "CS9").text.strip())
+        stats["deaths"] = int(driver.find_element(By.ID, "CS10").text.strip())
+        
+        # Damage and defense are ranges, so handle them as strings
+        stats["damage"] = driver.find_element(By.ID, "CS11").text.strip()
+        stats["physical_def"] = driver.find_element(By.ID, "CS12").text.strip()
+        stats["magical_def"] = driver.find_element(By.ID, "CS13").text.strip()
+
+        return stats
+    except Exception as e:
+        print(f"Error reading player stats: {e}")
+        return stats  # Return the stats dictionary with default values if there's an issue
+    
+
+
+
+def spendStatPoints(driver, config_path):
+    try:
+        # Load config
+        config = load_stats_config(config_path)
+        if config is None:
+            return
+
+        desired_vitality = config["stats"].get("vitality", 0)
+        desired_strength = config["stats"].get("strength", 0)
+
+        # Get current stats
+        current_stats = readPlayerStats(driver)
+        vitality = current_stats["vit"]  # Current vitality
+        strength = current_stats["str"]  # Current strength
+        stat_points = current_stats["stat_points"]  # Available stat points
+
+        # Distribute stat points
+        points_to_vitality = max(0, desired_vitality - vitality)
+        points_to_strength = max(0, desired_strength - strength)
+
+        total_points_needed = points_to_vitality + points_to_strength
+
+        if total_points_needed <= 0:
+            print("Stats already at desired levels.")
+            return
+
+        # Allocate points with re-finding elements to prevent stale element reference
+        while stat_points > 0:
+            if points_to_vitality > 0:
+                # Wait until the vitality button is clickable, then click it
+                vitality_button = WebDriverWait(driver, 10).until(
+                    EC.element_to_be_clickable((By.CSS_SELECTOR, "div#CS6 svg"))
+                )
+                vitality_button.click()
+                points_to_vitality -= 1
+                stat_points -= 1
+
+            elif points_to_strength > 0:
+                # Wait until the strength button is clickable, then click it
+                strength_button = WebDriverWait(driver, 10).until(
+                    EC.element_to_be_clickable((By.CSS_SELECTOR, "div#CS3 svg"))
+                )
+                strength_button.click()
+                points_to_strength -= 1
+                stat_points -= 1
+
+            # Re-check stat points to ensure they are still available
+            current_stats = readPlayerStats(driver)
+            stat_points = current_stats["stat_points"]
+
+        print("Stat points allocated successfully.")
+
+    except Exception as e:
+        print(f"Error spending stat points: {e}")
+
+
+
+
+#### AUTO STAT ####
+
 
  ### COOKING ###
 
@@ -292,7 +587,8 @@ def click_snag_counter(driver):
         # Find and click the Snag Counter button
         snag_button = driver.find_element(By.XPATH, "//a[text()='Snag Counter']")
         snag_button.click()
-        time.sleep(.3)
+        time.sleep(.2)
+        snag_button.click()
     except:
         pass
 
@@ -342,12 +638,12 @@ def fishing_loop(driver):
     try:
         print(' - Fishing Loop - ')
         while fishing and running:
-            time.sleep(.5)
-            # Check if a snag occurred and click Snag Counter if necessary
+            time.sleep(.4) # was 3 - test at different numbers for time between reels & snags
             if check_snag(driver):
                 print("Snag detected, clicking Snag Counter")
                 click_snag_counter(driver)
-
+            print(' - Fishing Loop - click_reel')
+            click_reel(driver)
                 # Wait for the rod or reel progress to change before continuing to reel
                 #reel_progress = check_reel_progress(driver)
                 #while reel_progress == 100:  # Wait until reel progress changes
@@ -355,23 +651,18 @@ def fishing_loop(driver):
                 #    time.sleep(0.5)
                 #    reel_progress = check_reel_progress(driver)
                 
-                #print('Reel progress changed, switching back to Reel')
+            #print('Reel progress changed, switching back to Reel')
             
-            # Check Rod health and ensure it's not going to break
             #rod_health = check_rod_health(driver)
             #if rod_health < 10:  # If rod health is below 10%, stop reeling
             #    print(f"Rod health low! - {rod_health} - Stopping reel...")
-            #    continue  # Skip the reel click to avoid breaking the rod
-            
-            # Click Reel button to reel in the fish
-            print(' - Fishing Loop - click_reel')
-            click_reel(driver)
-
-            # Check if the fish has escaped and needs recasting
+            #    continue  
             try:
                 #escape_text = driver.find_element(By.XPATH, "//div[contains(text(), 'Escaped the Hook')]")
                 print("Trying to Recast line...")
                 click_recast(driver)
+                if townHeal & isHealthBelow(driver,90) == False:
+                    return
             except:
                 pass  # Ignore if the fish hasn't escaped
 
@@ -382,16 +673,18 @@ def fishing_loop(driver):
         write_to_terminal(f"Failed fishing loop: {e}")
 
 
-def startFishing(driver):
+def startFishing(driver, townHeal = False):
     try:
+        time.sleep(1)
         if is_in_town(driver):
             selectFishingPond(driver)
         click_fish(driver)
-        fishing_loop(driver)
+        fishing_loop(driver, townHeal)
         print('Done Fishing')
-        write_to_terminal(f"Done fishing")
+        time.sleep(1)
+        fishingToTown(driver)
     except:
-        pass
+        print('Failed to click Fish to town button')
 
             
 # Selenium setup
@@ -406,7 +699,7 @@ def write_to_terminal(message):
     terminal_output.see(tk.END)
 
 def getCharacter(driver):
-    global CHARACTER_JSON_PATH, CONFIG, loot_threshold
+    global CHARACTER_JSON_PATH, CONFIG, loot_threshold, whistle, autoStat
     characterName = driver.find_element(By.CSS_SELECTOR, ".cName").text
     print(f'characterName: {characterName}')
     write_to_terminal(f"characterName: {characterName}")
@@ -417,9 +710,17 @@ def getCharacter(driver):
     write_to_terminal(f"charJsonPath: {charJsonPath}")
 
     CHARACTER_JSON_PATH = charJsonPath
+
+    ## SET GLOBAL CONFIG VARIABLES ##
     CONFIG = loadConfig()
     loot_threshold = CONFIG["loot_threshold"]
-    write_to_terminal(f"Loaded CONFIG loot_threshold=: {loot_threshold}")
+    whistle = CONFIG["whistle"]
+    autoStat = CONFIG["auto_stat"]
+    write_to_terminal(f"Loaded CONFIG =: {CONFIG}")
+    print('* - * - * - READ CONFIG - SETTING GLOBAL VARIABLES = ')
+    print(f'autoStat : {autoStat}')
+    print(f'whistle : {whistle}')
+    print(f'loot_threshold : {loot_threshold}')
     return
 
 # Load character data from JSON
@@ -445,7 +746,9 @@ def update_character_json(driver):
     global CONFIG, equipped, inventory
     try:
         print("Updating character JSON...")
-
+        # Retrieve character information
+        className = get_class(driver)
+        #<div class="cStats">    <div>Class:</div>    <div>Samurai</div>	<div>Level:</div>    <div id="CS0">?</div></div>
         print('Scan Equipment Next')
         equipped = scanEquippedItems(driver)
         print('Scan Inventory Next')
@@ -453,17 +756,37 @@ def update_character_json(driver):
 
         CONFIG["inventory"] = inventory
         CONFIG["equipment"] = equipped
+        CONFIG["build"] = className
 
         print(f"New Inventory: {CONFIG['inventory']}")
         print(f"New Equipment: {CONFIG['equipment']}")
+        print(f"New Class: {CONFIG['build']}")
+        
         write_to_terminal(f"Update JSON")
         write_to_terminal(f" -- Inventory: {fighting} \n -- ")
         write_to_terminal(f" -- Equipment: {equipped} \n -- ")
+        write_to_terminal(f" -- New Class {CONFIG['build']} \n -- ")
+
         saveConfig()
         print(f"Character JSON updated and saved.")
     except Exception as e:
         print(f"Error updating character JSON: {e}")
 
+def get_class(driver):
+    try:
+        character_element = driver.find_element(By.XPATH, "//div[@class='cStats'][1]")
+        class_name_element = character_element.find_element(By.XPATH, ".//div[2]")
+        class_name = class_name_element.text.strip()
+        print(" ---GET CLASS INFO---")
+        print(" ---GET CLASS INFO---")
+        print(" ---GET CLASS INFO---")
+        print(f"class_name = {class_name} ---GET CLASS INFO---")
+        STAT_JSON_PATH = f'configs/autoStat/{class_name}/basic.json'
+        print(f'----------={STAT_JSON_PATH}---------------')
+        return class_name
+    except Exception as e:
+        print(f"Error getting class!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! {e}")
+  
 
 def move_to_position(driver, move_class):
     try:
@@ -674,6 +997,11 @@ def scanEquippedItems(driver):
 
             # Calculate item score
             item_score = calculate_item_score(item_details['name'], item_details)
+            #if itemLevel == 5:
+            #    item_score = item_score * 1.75
+            #if itemLevel == 10:
+            #    item_score = item_score * 1.75
+
             item_details['score'] = item_score
             item_details['action'] = 'fight_with'  # Equipped items are used for fighting
 
@@ -856,6 +1184,21 @@ def remove_item_from_inventory(item_id):
     CONFIG["inventory"] = [item for item in CONFIG["inventory"] if item["id"] != item_id]
     saveConfig()
 
+def isHealthBelow(driver,testhp):
+    try:
+        health_mana_data = get_health_mana(driver)
+        if health_mana_data:
+            hp = health_mana_data['hp']
+            print(' * - - isHealthBelow {testhp}? ')
+            if hp >= testhp:
+                print('- No. HP = {hp}')
+                return False
+            else:
+                print('- Yes. HP = {hp}')
+                return True
+    except:
+        pass
+
 # Function to get player's health and mana
 def get_health_mana(driver):
     try:
@@ -944,12 +1287,14 @@ def send_keystrokes(driver, keys):
 def town_heal(driver):
     try:
         try:
-            town_button = driver.find_element(By.CSS_SELECTOR, ".abutGradBl.gradRed")  # Adjust selector as needed
+            town_button = driver.find_element(By.CSS_SELECTOR, ".abutGradBl.gradRed")
             town_button.click()
+            time.sleep(1)
         finally:
             print(" - Talking to Akara - ")
             write_to_terminal("Talking to Akara")
             time.sleep(7)  # Adjust healing time as needed
+
             health_mana_data = get_health_mana(driver)
             if health_mana_data:
                 hp = health_mana_data['hp']
@@ -958,15 +1303,17 @@ def town_heal(driver):
                 write_to_terminal(f"~Town Stats~")
                 write_to_terminal(f"-HP: {hp}")
                 write_to_terminal(f"-MP: {mp}")
+                
                 print(f"~Town Stats~")
                 print(f"~HP: {hp}")
                 print(f"-MP: {mp}")
                 send_keystrokes(driver,"3")
 
-                if hp < 95:
+                if hp < 90:
                     print("~~ Loop TownHeal ~~")
                     town_heal(driver)
                     return
+                    
         
     except Exception as e:
         write_to_terminal(f"Error going to town: {e}")
@@ -1049,6 +1396,17 @@ def selectFishingPond(driver):
                 return
     except Exception as e:
         write_to_terminal(f"Error selecting fishing pond: {e}")
+
+def fishingToTown(driver):
+    try:
+        fishToTownButton = driver.find_element(By.CSS_SELECTOR, ".abutGradBl .fishBTT")
+        if fishToTownButton:
+            fishToTownButton.click()
+        time.sleep(2)
+        return
+    except Exception as e:
+        write_to_terminal(f"Error rowing boat to town: {e}")
+
 
 # Function to loot an item
 def loot_item(driver, item):
@@ -1210,6 +1568,8 @@ def attack_nearest_monster(driver):
             actions = ActionChains(driver).key_down(Keys.CONTROL).key_up(Keys.CONTROL).perform()
         elif attack_counter % 19 == 0:
             actions = ActionChains(driver).key_down(Keys.ALT).key_up(Keys.ALT).perform()
+        elif attack_counter % 21 == 0:
+            actions = ActionChains(driver).key_down(Keys.SHIFT).key_up(Keys.SHIFT).perform()
         elif attack_counter % 13 == 0:
             pass
             #actions = ActionChains(driver).key_down('R').key_up('R').perform()
@@ -1279,7 +1639,6 @@ def automate_fighting(driver):
                 select_catacombs(driver)
         
             checkHealth(driver)
-                #Print group health/mana data
                 
             if not isLeader:
                 wait_for_monsters()
@@ -1336,10 +1695,11 @@ def checkHealth(driver):
             print(f"-MP: {mp}")
             
             if hp < 40:
-                print("Fight: ~> Town Heal <~")
-                write_to_terminal("Fight: ~> Town Heal <~")
+                print("Fight: To ~> Town Heal <~")
+                write_to_terminal("Fight: To ~> Town Heal <~")
                 town_heal(driver)
-                
+                spendStatPoints(driver, STAT_JSON_PATH)
+                auto_stat_and_ability_allocation(driver, STAT_JSON_PATH)
             #if hp < 60:
                 #fight_heal(driver, hp, mp)
             #if hp > 60 or mp < 30:
@@ -1381,9 +1741,21 @@ def run_fighting():
     print("Get Character Config")
     getCharacter(driver)
     role = CONFIG['class']
-    # Scan inventory and equipment at the start
+
     update_character_json(driver)
     get_loot_threshold()
+
+    print('checkStats and abilities')
+    spendStatPoints(driver, STAT_JSON_PATH)
+    auto_stat_and_ability_allocation(driver, STAT_JSON_PATH)
+    print('Done checkStats and abilities')
+
+    # Scan inventory and equipment at the start
+    update_character_json(driver)
+    time.sleep(5)
+
+    #loot_threshold = loot_textbox.get() #Set loot threshold
+    
     write_to_terminal("Fight!... ")
     automate_fighting(driver)
 
