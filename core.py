@@ -1329,7 +1329,7 @@ def town_heal(driver):
             town_button = driver.find_element(By.CSS_SELECTOR, ".abutGradBl.gradRed")
             town_button.click()
             time.sleep(2)
-            heal_fish(driver)
+            #heal_fish(driver)                                  # UNCOMMENT TO START TOWN HEAL + FISH LOOP
         finally:
             print(" - Talking to Akara - ")
             write_to_terminal("Talking to Akara")
@@ -1354,11 +1354,11 @@ def town_heal(driver):
                     town_heal(driver)
                     return
             print('Town Heal: Stop Fishing')
-            time.sleep(1)
-            stop_fishing()
-            time.sleep(5)
-            print('Town Heal: Fishing To Town')
-            fishingToTown(driver)
+            #time.sleep(1)
+            #stop_fishing()                                         # TOWN HEAL + FISH LOOP END
+            #time.sleep(5)
+            #print('Town Heal: Fishing To Town')
+            #fishingToTown(driver)
             
     except Exception as e:
         write_to_terminal(f"Error going to town: {e}")
