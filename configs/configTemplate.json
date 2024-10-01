@@ -1,6 +1,7 @@
 {
     "name": "CharacterName",
-    "class": "tank",
+    "role": "tank",
+    "class": "barbarian",
     "leader": true,
     "whistle": false,
     "loot_threshold": 9,
