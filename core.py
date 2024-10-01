@@ -46,7 +46,7 @@ loot_threshold = 4
 whistle = False
 autoStat = False
 
-CHARACTER_JSON_PATH = 'configs/MrHustle.json'  # Update this to get character name
+CHARACTER_JSON_PATH = 'configs/HustlinPies.json'  # Update this to get character name
 #CHARACTER_JSON_PATH = 'configs/TigBittyBroad.json'  # Update this to get character name
 STAT_JSON_PATH = 'configs/autoStat/paladin/basic.json'
 
@@ -776,7 +776,9 @@ def update_character_json(driver):
     global CONFIG, equipped, inventory
     try:
         print("Updating character JSON...")
-
+        # Retrieve character information
+        className = get_class(driver)
+        #<div class="cStats">    <div>Class:</div>    <div>Samurai</div>	<div>Level:</div>    <div id="CS0">?</div></div>
         print('Scan Equipment Next')
         equipped = scanEquippedItems(driver)
         print('Scan Inventory Next')
@@ -784,15 +786,32 @@ def update_character_json(driver):
 
         CONFIG["inventory"] = inventory
         CONFIG["equipment"] = equipped
+        CONFIG["build"] = className
 
         print(f"New Inventory: {CONFIG['inventory']}")
         print(f"New Equipment: {CONFIG['equipment']}")
+        print(f"New Class: {CONFIG['build']}")
 
         saveConfig()
         print(f"Character JSON updated and saved.")
     except Exception as e:
         print(f"Error updating character JSON: {e}")
 
+def get_class(driver):
+    try:
+        character_element = driver.find_element(By.XPATH, "//div[@class='cStats'][1]")
+        class_name_element = character_element.find_element(By.XPATH, ".//div[2]")
+        class_name = class_name_element.text.strip()
+        print(" ---GET CLASS INFO---")
+        print(" ---GET CLASS INFO---")
+        print(" ---GET CLASS INFO---")
+        print(f"class_name = {class_name} ---GET CLASS INFO---")
+        STAT_JSON_PATH = f'configs/autoStat/{class_name}/basic.json'
+        print(f'----------={STAT_JSON_PATH}---------------')
+        return class_name
+    except Exception as e:
+        print(f"Error getting class!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! {e}")
+  
 
 def move_to_position(driver, move_class):
     try:
@@ -1550,6 +1569,8 @@ def attack_nearest_monster(driver):
             actions = ActionChains(driver).key_down(Keys.CONTROL).key_up(Keys.CONTROL).perform()
         elif attack_counter % 19 == 0:
             actions = ActionChains(driver).key_down(Keys.ALT).key_up(Keys.ALT).perform()
+        elif attack_counter % 21 == 0:
+            actions = ActionChains(driver).key_down(Keys.SHIFT).key_up(Keys.SHIFT).perform()
         elif attack_counter % 13 == 0:
             actions = ActionChains(driver).key_down('R').key_up('R').perform()
         for monster in monsters:

@@ -1,10 +1,11 @@
 {
     "name": "HustlinPies",
     "class": "tank",
+    "build": "Samurai",
     "leader": true,
     "whistle": false,
     "loot_threshold": 9,
-
     "auto_stat": true,
     "inventory": {},
     "equipment": {}
+}
