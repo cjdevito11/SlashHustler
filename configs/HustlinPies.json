@@ -1,7 +1,7 @@
 {
     "name": "HustlinPies",
-    "class": "tank",
-    "build": "Samurai",
+    "role": "tank",
+    "class": "Samurai",
     "leader": true,
     "whistle": false,
     "loot_threshold": 9,

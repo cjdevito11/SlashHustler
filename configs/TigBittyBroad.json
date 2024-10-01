@@ -1,6 +1,6 @@
 {
     "name": "TigBittyBroad",
-    "class": "tank",
+    "role": "tank",
     "leader": true,
     "whistle": false,
     "loot_threshold": 9,
