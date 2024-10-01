@@ -38,7 +38,6 @@ class StdoutRedirector:
 # Global variables and configurations
 pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
 running = False
-fighting = False
 fight_state = 0
 role = ''
 attack_counter = 0
@@ -46,6 +45,17 @@ loot_threshold = 4
 whistle = False
 autoStat = False
 
+
+running = False
+fighting = False
+fishing = False
+cooking = False
+
+fighting_thread = None
+fishing_thread = None
+cooking_thread = None
+
+#CHARACTER_JSON_PATH = 'configs/MrHustle.json'  # Update this to get character name
 CHARACTER_JSON_PATH = 'configs/HustlinPies.json'  # Update this to get character name
 #CHARACTER_JSON_PATH = 'configs/TigBittyBroad.json'  # Update this to get character name
 STAT_JSON_PATH = 'configs/autoStat/paladin/basic.json'
@@ -437,7 +447,7 @@ def cooking_loop(driver,fishCount):
         print(' - Cooking Loop - ')
         counter=0
 
-        while counter<fishCount:
+        while counter<fishCount and cooking and running:
             time.sleep(.5)
             # Check if a flame occurred and click Flame Counter if necessary
             if check_flame(driver):
@@ -476,12 +486,16 @@ def cooking_loop(driver,fishCount):
 
             # Small delay to avoid spamming
             time.sleep(0.3)
-        fishCount=dragToCook(driver)
-        click_cook(driver)
-        cooking_loop(driver,fishCount)
+
+            #After loop - Continue cooking?
+        if cooking and running:
+            fishCount=dragToCook(driver)
+            click_cook(driver)
+            cooking_loop(driver,fishCount)
 
     except Exception as e:
         print(f'Failed cooking_loop : {e}')
+        write_to_terminal(f"Failed cooking_loop: {e}")
 
 def dragToCook(driver):
     try:
@@ -505,7 +519,7 @@ def dragToCook(driver):
                 fish_quantity = fish_quantity_element.text
                 fishInt=int(fish_quantity)
                 print(f'Found fish with quantity: {fish_quantity}')
-                print(f'FishInt: {fishInt}')
+                write_to_terminal(f'Cutting up {fishInt} fish to cook')
                 
                 # Locate the item box in the cooking popup where the fish needs to be dropped
                 popup_item_box = driver.find_element(By.CSS_SELECTOR, ".popupBox.pbSkillup .itemSlotBox")
@@ -540,8 +554,10 @@ def startCooking(driver):
         click_cook(driver)
         cooking_loop(driver,fishCount)
         print('Done Cooking')
+        write_to_terminal(f"Done Cooking")
     except Exception as e:
         print(f'Failed to start cooking: {e}')
+        write_to_terminal(f"Failed to start cooking: {e}")
 
     
 def check_snag(driver):
@@ -617,26 +633,23 @@ def click_fish(driver):
     except:
         print('failed to click fish button')
 
-def fishing_loop(driver, townHeal=False):
+def fishing_loop(driver):
+    global fishing, running
     try:
         print(' - Fishing Loop - ')
-        while True:
-            x=0
-            while x <= 10:
-                time.sleep(.3)
-                # Check if a snag occurred and click Snag Counter if necessary
-                if check_snag(driver):
-                    print("Snag detected, clicking Snag Counter")
-                    click_snag_counter(driver)
-                print(' - Fishing Loop - click_reel')
-                click_reel(driver)
-                x += 1
-
-            #reel_progress = check_reel_progress(driver)
-            #while reel_progress == 100:  # Wait until reel progress changes
-            #    print('Waiting for reel progress to change...')
-            #    time.sleep(0.5)
-            #    reel_progress = check_reel_progress(driver)
+        while fishing and running:
+            time.sleep(.4) # was 3 - test at different numbers for time between reels & snags
+            if check_snag(driver):
+                print("Snag detected, clicking Snag Counter")
+                click_snag_counter(driver)
+            print(' - Fishing Loop - click_reel')
+            click_reel(driver)
+                # Wait for the rod or reel progress to change before continuing to reel
+                #reel_progress = check_reel_progress(driver)
+                #while reel_progress == 100:  # Wait until reel progress changes
+                #    print('Waiting for reel progress to change...')
+                #    time.sleep(0.5)
+                #    reel_progress = check_reel_progress(driver)
                 
             #print('Reel progress changed, switching back to Reel')
             
@@ -644,7 +657,6 @@ def fishing_loop(driver, townHeal=False):
             #if rod_health < 10:  # If rod health is below 10%, stop reeling
             #    print(f"Rod health low! - {rod_health} - Stopping reel...")
             #    continue  
-            
             try:
                 #escape_text = driver.find_element(By.XPATH, "//div[contains(text(), 'Escaped the Hook')]")
                 print("Trying to Recast line...")
@@ -658,6 +670,7 @@ def fishing_loop(driver, townHeal=False):
             time.sleep(0.3)
     except Exception as e:
         print(f'Failed fishing_loop : {e}')
+        write_to_terminal(f"Failed fishing loop: {e}")
 
 
 def startFishing(driver, townHeal = False):
@@ -673,55 +686,6 @@ def startFishing(driver, townHeal = False):
     except:
         print('Failed to click Fish to town button')
 
-
-# Function to update overlay position
-def update_overlay_position():
-    global fighting
-    while fighting != True:
-        try:
-            # Get the Chrome window
-            chrome_window = gw.getWindowsWithTitle("Ladder Slasher v1.33.1")[0]
-            if chrome_window:
-                # Check if Chrome is minimized
-                if chrome_window.isMinimized:
-                    print('Chrome Window Minimized')
-                    #overlay.withdraw()  # Hide the overlay
-                    overlay.attributes('-topmost', False)
-                else:
-                    # Position overlay on top of Chrome
-                    print('Chrome Window NOT Minimized')
-                    chrome_pos = chrome_window.topleft
-                    newX = chrome_pos.x + 1000 
-                    newY = chrome_pos.y + 730
-                    overlay.geometry(f"500x400+{newX}+{newY}")
-                    overlay.deiconify()  # Show the overlay if hidden
-                    #overlay.attributes('-topmost', True)
-            time.sleep(1)  # Check every second
-        except IndexError:
-            pass  # Handle case where window might not be found
-    if fighting == True:
-        print('fighting = true')
-        try:
-            # Get the Chrome window
-            chrome_window = gw.getWindowsWithTitle("Ladder Slasher v1.33.1")[0]
-            if chrome_window:
-                # Check if Chrome is minimized
-                if chrome_window.isMinimized:
-                    print('Chrome Window Minimized')
-                    #overlay.withdraw()  # Hide the overlay
-                    overlay.attributes('-topmost', False)
-                else:
-                    # Position overlay on top of Chrome
-                    print('Chrome Window NOT Minimized')
-                    chrome_pos = chrome_window.topleft
-                    newX = chrome_pos.x + 1000
-                    newY = chrome_pos.y + 730
-                    overlay.geometry(f"500x400+{newX}+{newY}")
-                    overlay.deiconify()  # Show the overlay if hidden
-                    #overlay.attributes('-topmost', True)
-            time.sleep(1)  # Check every second
-        except IndexError:
-            pass  # Handle case where window might not be found
             
 # Selenium setup
 def setup_browser():
@@ -738,9 +702,13 @@ def getCharacter(driver):
     global CHARACTER_JSON_PATH, CONFIG, loot_threshold, whistle, autoStat
     characterName = driver.find_element(By.CSS_SELECTOR, ".cName").text
     print(f'characterName: {characterName}')
+    write_to_terminal(f"characterName: {characterName}")
+
     charJsonPath = 'configs/' + characterName
     charJsonPath = charJsonPath + '.json'
     print(f'charJsonPath: {charJsonPath}')
+    write_to_terminal(f"charJsonPath: {charJsonPath}")
+
     CHARACTER_JSON_PATH = charJsonPath
 
     ## SET GLOBAL CONFIG VARIABLES ##
@@ -748,7 +716,7 @@ def getCharacter(driver):
     loot_threshold = CONFIG["loot_threshold"]
     whistle = CONFIG["whistle"]
     autoStat = CONFIG["auto_stat"]
-
+    write_to_terminal(f"Loaded CONFIG =: {CONFIG}")
     print('* - * - * - READ CONFIG - SETTING GLOBAL VARIABLES = ')
     print(f'autoStat : {autoStat}')
     print(f'whistle : {whistle}')
@@ -769,8 +737,10 @@ def saveConfig():
         with open(CHARACTER_JSON_PATH, 'w') as file:
             json.dump(CONFIG, file, indent=4)
         print(f"Successfully saved CONFIG to {CHARACTER_JSON_PATH}")
+        write_to_terminal(f"Successfully saved Config to: {CHARACTER_JSON_PATH}")
     except Exception as e:
         print(f"Error saving CONFIG to {CHARACTER_JSON_PATH}: {e}")
+        write_to_terminal(f"Error saving CONFIG to: {CHARACTER_JSON_PATH}")
 
 def update_character_json(driver):
     global CONFIG, equipped, inventory
@@ -791,6 +761,11 @@ def update_character_json(driver):
         print(f"New Inventory: {CONFIG['inventory']}")
         print(f"New Equipment: {CONFIG['equipment']}")
         print(f"New Class: {CONFIG['build']}")
+        
+        write_to_terminal(f"Update JSON")
+        write_to_terminal(f" -- Inventory: {fighting} \n -- ")
+        write_to_terminal(f" -- Equipment: {equipped} \n -- ")
+        write_to_terminal(f" -- New Class {CONFIG['build']} \n -- ")
 
         saveConfig()
         print(f"Character JSON updated and saved.")
@@ -916,6 +891,7 @@ def parseNotEquippedItem(html):
             print(f"Error parsing stat '{text}': {e}")
 
     print(f"Final parsed item details: {item_details}")
+    write_to_terminal(f"Parsed Item Details: {item_details}")
     return item_details
 
 def parseEquippedItem(html):
@@ -973,6 +949,7 @@ def parseEquippedItem(html):
                 print(f"Error parsing stat '{text}': {e}")
 
     print(f"Final parsed equipped item details: {item_details}")
+    write_to_terminal(f"Parsed Equipped Details: {item_details}")
     return item_details
 
 def hoverExtractParse(driver, item, is_equipped=False):
@@ -1180,6 +1157,7 @@ def calculate_item_score(item_name, item_details):
             #Available stats: {list(scoring_system.keys())}")
     
     print(f'Final calculated score for {item_name}: {score}')
+    write_to_terminal(f"|SCORE| {item_name}: ({score})")
     return score
 
 def log_item_to_file(item_details, item_score, filename="logs/itemDrops.txt"):
@@ -1286,6 +1264,7 @@ def attack_monster(driver, monster):
         write_to_terminal(f"Attacking monster: {monster['name']}")
         actions = ActionChains(driver)
         actions.move_to_element(monster["element"]).click().perform()
+        print('Attacked Monster')
     except Exception as e:
         write_to_terminal(f"Error attacking monster: {e}")
 
@@ -1314,8 +1293,8 @@ def town_heal(driver):
         finally:
             print(" - Talking to Akara - ")
             write_to_terminal("Talking to Akara")
-            time.sleep(5)  # Adjust healing time as needed
-            #startFishing(driver, True)
+            time.sleep(7)  # Adjust healing time as needed
+
             health_mana_data = get_health_mana(driver)
             if health_mana_data:
                 hp = health_mana_data['hp']
@@ -1324,6 +1303,11 @@ def town_heal(driver):
                 write_to_terminal(f"~Town Stats~")
                 write_to_terminal(f"-HP: {hp}")
                 write_to_terminal(f"-MP: {mp}")
+                
+                print(f"~Town Stats~")
+                print(f"~HP: {hp}")
+                print(f"-MP: {mp}")
+                send_keystrokes(driver,"3")
 
                 if hp < 90:
                     print("~~ Loop TownHeal ~~")
@@ -1342,6 +1326,7 @@ def fight_heal(driver,hp,mp):
             #fight_heal(driver,hp,mp)
             send_keystrokes(driver,"Q")
             actions = ActionChains(driver).key_down(Keys.CONTROL).key_up(Keys.CONTROL).perform()
+            write_to_terminal(f"Fight heal")
         else:
             send_keystrokes(driver,"Q")
             return
@@ -1355,6 +1340,7 @@ def is_in_town(driver):
         town_elements = driver.find_elements(By.CSS_SELECTOR, ".townOption .townOLabel")
         for element in town_elements:
             if "Catacombs" in element.text:
+                write_to_terminal(f"In Town")
                 return True
         return False
     except Exception:
@@ -1436,7 +1422,14 @@ def loot_item(driver, item):
 def resetDungeon(driver):
     try:
         print('-- TOO MANY MONSTERS -- resetDungeon() --')
+        write_to_terminal("Too Many Monsters -- RESETTING DUNGEON --")
         town_button = driver.find_element(By.CSS_SELECTOR, ".abutGradBl.gradRed")  
+        #town_button = driver.find_element(By.XPATH, "//a[text()='Go to Town']")
+        time.sleep(.3)
+        town_button.click()
+        town_button.click()
+        print(f'Click Town_Button: {town_button}')
+        town_button.click()
         town_button.click()
         time.sleep(2)
         controlButtons = driver.find_elements(By.CSS_SELECTOR, ".ctrlButtons .cp") 
@@ -1452,6 +1445,7 @@ def resetDungeon(driver):
                 for tab in groupTabs:
                     print(f'tab: {tab}')
                     if tab.text == 'Create Group':
+                        write_to_terminal("Create Group --")
                         print('Create Group')
                         time.sleep(2)
                         tab.click()
@@ -1475,13 +1469,12 @@ def resetDungeon(driver):
                                     if btn.text == 'Leave Group':
                                         time.sleep(2)
                                         btn.click()
+                                        print('Left Group')
+                                        write_to_terminal("Left Group --")
                                         time.sleep(30)
                         
-        #Create Group
-        #Leave Group
-        
-    finally:
-        return
+    except Exception as e:
+        print(f'Failed to Reset Dungeon: {e}')
     
 
 def is_leader(driver):
@@ -1490,6 +1483,7 @@ def is_leader(driver):
 def engage_if_leader(driver):
     if is_leader(driver):
         print('Try find engage as leader')
+        write_to_terminal(f"Leader - Watching for Engage")
         if is_engage_button_visible(driver):
             engage_button = driver.find_element(By.CSS_SELECTOR, ".cataEngage")  # Update selector as needed
             if engage_button:
@@ -1554,7 +1548,7 @@ def mage_attack_strategy(driver):
     
 def attack_nearest_monster(driver):
     global attack_counter
-    attack_counter = attack_counter + 1
+    attack_counter += 1
     print(f'Attack Counter: {attack_counter}')
     try:
         quickAttack(driver)
@@ -1563,8 +1557,13 @@ def attack_nearest_monster(driver):
             print("Too many monsters")
             resetDungeon(driver)
             return
-        
-        send_keystrokes(driver, 'Q')
+            # Attempt to reduce the number of monsters or reset dungeon
+            #actions = ActionChains(driver).key_down(Keys.SHIFT).key_up(Keys.SHIFT).perform()
+
+        print('Less than 4 Monsters - Keep Fighting')
+        # Remove modulo-based key presses
+        if attack_counter % 4 == 0:
+            send_keystrokes(driver, 'Q')
         if attack_counter % 17 == 0:
             actions = ActionChains(driver).key_down(Keys.CONTROL).key_up(Keys.CONTROL).perform()
         elif attack_counter % 19 == 0:
@@ -1572,13 +1571,33 @@ def attack_nearest_monster(driver):
         elif attack_counter % 21 == 0:
             actions = ActionChains(driver).key_down(Keys.SHIFT).key_up(Keys.SHIFT).perform()
         elif attack_counter % 13 == 0:
-            actions = ActionChains(driver).key_down('R').key_up('R').perform()
-        for monster in monsters:
-            attack_monster(driver, monster)
-            break
+            pass
+            #actions = ActionChains(driver).key_down('R').key_up('R').perform()
             
-    except:
-        print("couldnt attack monster")
+        # Remove modulo-based key presses
+
+        # Check abilities and use them if percentage >=75%
+        """abilities = get_abilities(driver)
+
+        for ability in abilities:
+            if 75 <= ability['percentage']:
+                print(f"Using ability {ability['name']} with {ability['percentage']}%")
+                ability_element = ability['element']
+                # Click the ability element to activate it
+                #ability_element.click()
+                actions = ActionChains(driver).key_down(Keys.CONTROL).key_up(Keys.CONTROL).perform()
+                time.sleep(0.5)  # Wait a bit
+                # If you want to use only one ability per cycle, uncomment the next line
+                # break """
+
+        # Continue with attacking
+        for monster in monsters:
+            attack_monster(driver, monster)     # Attack first monster
+            break
+
+    except Exception as e:
+        print(f"Couldn't attack monster: {e}")
+
 
 def spellAttack(driver, key):
     try:
@@ -1600,10 +1619,10 @@ def quickAttack(driver):
     try:
         monsters = get_monsters(driver)
         for monster in monsters:
-            attack_monster(monster)
+            attack_monster(driver, monster)
             break
-    except:
-        print("Quick Attack Failed")
+    except Exception as e:
+        print(f"Quick Attack Failed: {e}")
 
 
 def automate_fighting(driver):
@@ -1612,7 +1631,7 @@ def automate_fighting(driver):
     write_to_terminal(f"Fight State: {fight_state}")
     #update_overlay_position()
     
-    if fighting:
+    while fighting and running:
         try:
             isLeader = is_leader(driver)
             print(f'Is Leader: {isLeader}')
@@ -1628,14 +1647,39 @@ def automate_fighting(driver):
                 
             fight_based_on_role(driver, role)
             print('Check Items')
+            write_to_terminal(f"Looking for items")
 
             drop_items = driver.find_elements(By.CSS_SELECTOR, ".dropItemsBox .itemBox")
             if drop_items:
                 print('Found Items')
+                write_to_terminal(f"Drops: {drop_items}")
                 scanDroppedItems(driver, drop_items)
         except:
             print('In Automate Fighting - Fighting Exception')
-        overlay.after(1000, lambda: automate_fighting(driver))  # Adjust delay as needed
+            break
+
+def get_abilities(driver):
+    try:
+        abilities = []
+        ability_elements = driver.find_elements(By.CSS_SELECTOR, ".botbar .bbAbility")
+        for ability_element in ability_elements:
+            # Get the ability name
+            ability_name = ability_element.find_element(By.CSS_SELECTOR, ".abLabel").text.strip()
+            # Get the ability percentage
+            ability_percentage_text = ability_element.find_element(By.CSS_SELECTOR, ".abPerc").text.strip()
+            ability_percentage = int(ability_percentage_text.strip('%'))
+            # Store in list
+            abilities.append({
+                'name': ability_name,
+                'percentage': ability_percentage,
+                'element': ability_element
+            })
+        return abilities
+    except Exception as e:
+        print(f"Error in get_abilities: {e}")
+        return []
+
+
 
 def checkHealth(driver):
     try:
@@ -1664,28 +1708,43 @@ def checkHealth(driver):
     except Exception as e:
         print(f"Error in checkHealthAndReact: {e}")
 
-def cook():
+
+
+# Function to validate only integer input
+def validate_input(threshold):
+    if threshold.isdigit() or threshold == "":  # Allow only digits and empty input
+        return True
+    else:
+        messagebox.showerror("Invalid Input", "Please enter an integer value.")
+        return False
+
+# Function to get and check the loot threshold value
+def get_loot_threshold():
+    global loot_threshold
+    loot_threshold = loot_textbox.get()
+    if loot_threshold == "":
+        print('loot_threshold is empty. using 9 as default')
+        write_to_terminal(f"loot_threshold: ({loot_threshold})is empty. using 9 as defaukt")
+        loot_threshold = 9
+    elif validate_input(loot_threshold) == False:
+        print('Invalid Threshold. Using 9 as default.')
+        write_to_terminal(f"Invalid Threshold: {loot_threshold}. Using 9 as default.")
+        loot_threshold = 9
+    else:
+        loot_threshold = int(loot_threshold)  # Now it's safe to convert to integer
+        print(f"Loot Threshold set to: {loot_threshold}")
+        write_to_terminal(f"Loot Threshold set to: {loot_threshold}")
+
+def run_fighting():
+    global fighting, running, role
     driver = setup_browser()
-    startCooking(driver)
-
-def fish():
-    driver = setup_browser()
-    startFishing(driver)
-
-
-# Function to start fighting
-def fight():
-    global fighting, role
-    
-    driver = setup_browser()
-
-    
-
-    fighting = True
     print("Get Character Config")
     getCharacter(driver)
     role = CONFIG['class']
-    
+
+    update_character_json(driver)
+    get_loot_threshold()
+
     print('checkStats and abilities')
     spendStatPoints(driver, STAT_JSON_PATH)
     auto_stat_and_ability_allocation(driver, STAT_JSON_PATH)
@@ -1695,18 +1754,58 @@ def fight():
     update_character_json(driver)
     time.sleep(5)
 
-    loot_threshold = loot_textbox.get() #Set loot threshold
-
+    #loot_threshold = loot_textbox.get() #Set loot threshold
+    
     write_to_terminal("Fight!... ")
     automate_fighting(driver)
 
+def run_fishing():
+    driver = setup_browser()
+    startFishing(driver)
 
-# Function to stop automation
+def run_cooking():
+    driver = setup_browser()
+    startCooking(driver)
+
+
+def cook():
+    global cooking_thread, cooking, running
+
+    cooking = True
+    running = True
+
+    cooking_thread = threading.Thread(target=run_cooking)
+    cooking_thread.start()
+
+
+def fish():
+    global fishing_thread, fishing, running
+
+    fishing = True
+    running = True
+
+    fishing_thread = threading.Thread(target=run_fishing)
+    fishing_thread.start()
+
+
+def fight():
+    global fighting_thread, fighting, running, role
+
+    fighting = True
+    running = True
+
+# Start a new thread for the fighting logic
+    fighting_thread = threading.Thread(target=run_fighting)
+    fighting_thread.start()
+
 def stop_automation():
-    global fighting
+    global fighting, fishing, cooking, running
     fighting = False
-    write_to_terminal("Automation stopped by hotkey...")
-    os._exit(0)
+    fishing = False
+    cooking = False
+    running = False
+    write_to_terminal("Automation stopped by Stop button or hotkey.")
+
 
 # Set up the GUI
 overlay = tk.Tk()
@@ -1736,18 +1835,11 @@ tk.Label(overlay, text="Loot Threshold", bg='black', fg='white').pack(pady=1)
 loot_textbox = tk.Entry(overlay, bg='black', fg='white')
 loot_textbox.pack(pady=1)
 
-terminal_output = tk.Text(overlay, bg='black', fg='white', font=('exocet', 9), wrap='word')
+terminal_output = tk.Text(overlay, bg='black', fg='white', font=('arial', 11), wrap='word')
 terminal_output.pack(expand=True, fill='both')
 
 #sys.stdout = StdoutRedirector(terminal_output)
 
 keyboard.add_hotkey('+', stop_automation)
-
-
-
-# Start the monitoring thread (Updating Overlay Position) (Auto Minimize)
-thread = threading.Thread(target=update_overlay_position)
-thread.daemon = True
-thread.start()
 
 overlay.mainloop()
