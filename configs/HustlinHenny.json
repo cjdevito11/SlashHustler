@@ -1,0 +1,85 @@
+{
+    "name": "HustlinHenny",
+    "role": "tank",
+    "class": "Fighter",
+    "leader": true,
+    "whistle": false,
+    "loot_threshold": 9,
+    "auto_stat": true,
+    "inventory": {
+        "1": {
+            "name": "Arcane copper chain mail",
+            "magic_level": null,
+            "quality_level": null,
+            "physical_defense": "10 to 25",
+            "magical_defense": "0 to 5",
+            "Enhanced Effect": "+40",
+            "Life": "+1 to 2",
+            "Parry": "+1",
+            "Critical Flux": "+1",
+            "score": 16,
+            "action": "fight_with"
+        },
+        "2": {
+            "name": "Rare copper axe",
+            "magic_level": null,
+            "quality_level": null,
+            "damage": "19 to 23",
+            "Enhanced Effect": "+15",
+            "Critical Flux": "+2",
+            "score": 10,
+            "action": "fight_with"
+        }
+    },
+    "equipment": {
+        "weapon": {
+            "type": "iconSword",
+            "name": "Magical fine alloy sword",
+            "magic_level": null,
+            "quality_level": null,
+            "level_req": "20",
+            "damage": "20 to 208",
+            "enhanced effect": "65",
+            "score": 20,
+            "action": "fight_with"
+        },
+        "armor": {
+            "type": "iconLeather",
+            "name": "Rare double cured leather armor",
+            "magic_level": null,
+            "quality_level": null,
+            "level_req": "15",
+            "physical_defense": "14 to 44",
+            "magical_defense": "8 to 34",
+            "enhanced effect": "36",
+            "score": 13,
+            "action": "fight_with"
+        },
+        "charm": {
+            "type": "iconEarthCharm",
+            "name": "Arcane earth II",
+            "magic_level": null,
+            "quality_level": null,
+            "damage": "9 to 17",
+            "enhanced effect": "19",
+            "experience gained": "1",
+            "life": "+1 to 2",
+            "quick draw": "2",
+            "mana skin": "1",
+            "score": 10,
+            "action": "fight_with"
+        },
+        "acc._charm": {
+            "type": "iconWindCharm",
+            "name": "Mystical wind II",
+            "magic_level": null,
+            "quality_level": null,
+            "damage": "4 to 18",
+            "life steal": "2",
+            "wind mastery": "1",
+            "earth mastery": "2",
+            "score": 2,
+            "action": "fight_with"
+        }
+    }
+}
