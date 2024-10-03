@@ -385,46 +385,109 @@ def get_trash_can_element(driver):
 # Function to trash a specific item (the fish)
 def trash_fish_item(driver, item_img):
     trash_can = get_trash_can_element(driver)
-
+    
+    # Ensure the trash can is visible
+    driver.execute_script("arguments[0].style.display = 'block';", trash_can)
     
     # Perform drag and drop to move the fish to the trash can
     actions = ActionChains(driver)
     actions.drag_and_drop(item_img, trash_can).perform()
     time.sleep(1)  # Optional: small delay after the action
+    print("Trashed fish item")
+
+
 
 # Add this function to track and trash fish within the invItemsWrap class
 def trash_icon_fish(driver):
-    # Locate the invItemsWrap container
-    inv_items_wrap = driver.find_element(By.CLASS_NAME, "invItemsWrap")
-    
-    # Locate all itemSlotBox elements within invItemsWrap
-    item_slots = inv_items_wrap.find_elements(By.CLASS_NAME, "itemSlotBox")
-    
-    # Initialize variables to track the fish stack to keep and move to hotkey 3
-    keep_fish_found = False
-    
-    # Loop through each slot and find the iconFish elements
-    for slot in item_slots:
-        item_img = slot.find_element(By.TAG_NAME, "img")
+    try:
+        # Locate the invItemsWrap container
+        inv_items_wrap = driver.find_element(By.CLASS_NAME, "invItemsWrap")
         
-        if 'iconFish.svg' in item_img.get_attribute("src"):  # Check if the item is iconFish
-            # Find the quantity of fish in this stack
-            quantity_element = slot.find_element(By.CLASS_NAME, "iQnt")
-            quantity = int(quantity_element.text)
+        # Locate all itemSlotBox elements within invItemsWrap
+        item_slots = inv_items_wrap.find_elements(By.CLASS_NAME, "itemSlotBox")
+        
+        # Initialize variables to track the fish stack to keep and move to hotkey 3
+        keep_fish_found = False
+        
+        # Loop through each slot and find the iconFish elements
+        for slot in item_slots:
+            item_img = slot.find_element(By.TAG_NAME, "img")
+            
+            if 'iconFish.svg' in item_img.get_attribute("src"):  # Check if the item is iconFish
+                # Find the quantity of fish in this stack
+                quantity_element = slot.find_element(By.CLASS_NAME, "iQnt")
+                quantity = int(quantity_element.text)
 
-            # Logic to keep one stack of 20+ fish and move it to hotkey 3
-            if quantity >= 20 and not keep_fish_found:
-                keep_fish_found = True
-                move_fish_to_hotkey_3(driver, item_img)  # Move this stack to hotkey 3
-                continue  # Skip trashing this stack
+                # Logic to keep one stack of 20+ fish and move it to hotkey 3
+                if quantity >= 20 and not keep_fish_found:
+                    keep_fish_found = True
+                    move_fish_to_hotkey_3(driver, item_img)  # Move this stack to hotkey 3
+                    continue  # Skip trashing this stack
 
-            # Otherwise, trash this fish stack
-            trash_fish_item(driver, item_img)  # Call the trash function
+                # Otherwise, trash this fish stack
+                trash_fish_item(driver, item_img)  # Call the trash function
+    except Exception as e:
+        print(f'failed to trash fishys--------{e}------------------------------------------------------------')
+     
+def manage_fish_inventory(driver):
+    try:
+        print("Inventory full, managing fish...")
 
+        # Wait for the inventory to be visible
+        WebDriverWait(driver, 10).until(
+            EC.presence_of_element_located((By.CLASS_NAME, "invItemsBox"))
+        )
+
+        # Locate all fish items in the inventory
+        fish_elements = driver.find_elements(By.XPATH, "//div[@class='itemBox cp'][.//img[@src='svg/iconFish.svg']]")
+
+        # Log the number of fish found for debugging
+        print(f"Found {len(fish_elements)} fish in the inventory.")
+
+        # Ensure there are fish to remove
+        if len(fish_elements) == 0:
+            print("No fish found in inventory, cannot trash excess fish.")
+            return
+
+        # Locate the hotkey 3 slot
+        hotkey_3 = WebDriverWait(driver, 10).until(
+            EC.presence_of_element_located((By.XPATH, "//div[@class='qSlotBox' and @slot='2']"))
+        )
+
+        # Loop through the fish elements and move or delete the fish
+        for fish in fish_elements:
+            try:
+                # Get the quantity of fish
+                quantity_element = fish.find_element(By.CLASS_NAME, "iQnt.ds2")
+                fish_quantity = int(quantity_element.text)
+
+                # Check if fish quantity is greater than or equal to 20
+                if fish_quantity >= 20:
+                    print(f"Moving fish with quantity {fish_quantity} to hotkey 3.")
+
+                    # Perform drag and drop to move the fish to hotkey 3
+                    ActionChains(driver).drag_and_drop(fish, hotkey_3).perform()
+                else:
+                    print(f"Trashing fish with quantity {fish_quantity}.")
+                    ActionChains(driver).click_and_hold(fish)
+                    time.sleep(.8)
+                    trash = get_trash_can_element(driver)
+                    time.sleep(.8)
+                    ActionChains(driver).move_to_element(trash)
+                    time.sleep(.8)
+                    ActionChains(driver).release().perform()
+                    time.sleep(.8)
+                    print(f'trashing those fishes------------------->>>>>>>>>>>>>>>>>>')
+                    
+            except Exception as e:
+                print(f"Error processing fish: {e}")
+                continue
+
+    except Exception as e:
+        print(f"Error in manage_fish_inventory: {e}")
 
 
 # Add this helper function to move fish to hotkey 3
-
 
 def move_fish_to_hotkey_3(driver, item_img):
     # Locate the element for hotkey 3 (slot 2)
@@ -434,6 +497,7 @@ def move_fish_to_hotkey_3(driver, item_img):
     actions = ActionChains(driver)
     actions.drag_and_drop(item_img, hotkey_3_element).perform()
     time.sleep(1)  # Optional: small delay between actions
+    print("Moved fish to hotkey 3")
 
 def check_inventory_during_fishing(driver):  
     if is_inventory_full(driver):  # Assuming you already have a function to check if the inventory is full
@@ -442,20 +506,26 @@ def check_inventory_during_fishing(driver):
     time.sleep(5)  # Wait for 5 seconds before the next inventory check (you can adjust this)
 
 def is_inventory_full(driver):
-   try:
-        # Locate the invItemsWrap container
-        inv_items_wrap = driver.find_element(By.CLASS_NAME, "invItemsWrap")
-        print(f"------ inv_items_wrap={inv_items_wrap}")
-        # Locate all itemSlotBox elements within invItemsWrap
-        item_slots = inv_items_wrap.find_elements(By.CLASS_NAME, "itemSlotBox")
-        print(f"------ item_slots={item_slots}")
-        # Count the number of filled slots (slots that contain an itemBox)
-        filled_slots = [slot for slot in item_slots if slot.find_elements(By.CLASS_NAME, "itemBox")]
-        print(f"------ filled slots={filled_slots}")
-        # Inventory is full if all slots are filled
-        return len(filled_slots) == len(item_slots)
-   except Exception as e:
-       print(f" Error is in inventory is full {e}---------------------------------------")
+    # Locate the invItemsWrap container
+    inv_items_wrap = driver.find_element(By.CLASS_NAME, "invItemsWrap")
+    
+    # Locate all itemSlotBox elements within invItemsWrap
+    item_slots = inv_items_wrap.find_elements(By.CLASS_NAME, "itemSlotBox")
+    
+    # Filter out any hidden or unused slots (only count visible slots)
+    visible_slots = [slot for slot in item_slots if slot.is_displayed()]
+    
+    # Print debugging information about the inventory slots
+    print(f"------ inv_items_wrap={inv_items_wrap}")
+    print(f"------ visible_slots={visible_slots}")
+    
+    # Count the number of filled slots (slots that contain an itemBox)
+    filled_slots = [slot for slot in visible_slots if slot.find_elements(By.CLASS_NAME, "itemBox")]
+    
+    print(f"Filled slots: {len(filled_slots)} out of {len(visible_slots)}")  # Debugging output
+    
+    # Inventory is considered full if all visible slots are filled
+    return len(filled_slots) == len(visible_slots)
 
  ### COOKING ###
 
@@ -700,12 +770,24 @@ def click_recast(driver):
     try:
         print('click_recast')
         # Find and click the Recast Line button
-        recast_button = driver.find_element(By.XPATH, "//a[text()='Recast Line']") 
-
+        recast_button = driver.find_element(By.XPATH, "//a[text()='Recast Line']")
+        recast_button.click()  # Perform the click action
+        
+        # Add your inventory checking logic before continuing
         print("CHECKING INVENTORY FOR FULL FISH***************************************...")
         check_inventory_during_fishing(driver)
         print("DONE CHECKING INVENTORY ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ ...")
         
+        # Check inventory if full
+        if is_inventory_full(driver):
+            print("Inventory full, trashing excess fish.")
+            manage_fish_inventory(driver)
+            return  # Exit the function after handling inventory
+            
+    except Exception as e:
+        print(f'Error in click_recast: {e}')
+
+
         recast_button.click()
         print('Recasted')
         time.sleep(.3)
