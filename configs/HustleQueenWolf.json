@@ -8,52 +8,30 @@
     "loot_threshold": 14,
     "auto_stat": true,
     "max_monsters": 4,
-    "inventory": {
-        "1": {
-            "name": "Magical ultimanium chain mail",
-            "magic_level": null,
-            "quality_level": null,
-            "level_req": "55",
-            "physical_defense": "54 to 136",
-            "magical_defense": "0 to 29",
-            "Experience Gained": "+6",
-            "score": 12,
-            "action": "fight_with"
-        }
-    },
+    "inventory": {},
     "equipment": {
         "weapon": {
             "type": "iconSword",
-            "name": "Magical tempered diamond sword",
+            "name": "Rare bronze sword",
             "magic_level": null,
             "quality_level": null,
-            "level_req": "45",
-            "damage": "38 to 388",
-            "enhanced effect": "61",
-            "score": 29,
-            "action": "fight_with"
-        },
-        "armor": {
-            "type": "iconChainmail",
-            "name": "Angelic sapphire chain mail",
-            "magic_level": null,
-            "quality_level": null,
-            "level_req": "30",
-            "physical_defense": "63 to 158",
-            "magical_defense": "0 to 34",
-            "enhanced effect": "81",
+            "damage": "7 to 72",
+            "enhanced effect": "57",
             "armor pierce": "1",
-            "score": 21,
+            "score": 18,
             "action": "fight_with"
         },
         "charm": {
-            "type": "iconWindCharm",
-            "name": "Rare wind VI",
+            "type": "iconFireCharm",
+            "name": "Legendary fire II",
             "magic_level": null,
             "quality_level": null,
-            "level_req": "15",
-            "damage": "12 to 56",
-            "score": 0,
+            "damage": "6 to 16",
+            "experience gained": "4",
+            "life steal": "1",
+            "mind numb": "1",
+            "glancing blow": "1",
+            "score": 4,
             "action": "fight_with"
         },
         "acc._charm": null
