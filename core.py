@@ -369,11 +369,93 @@ def spendStatPoints(driver, config_path):
     except Exception as e:
         print(f"Error spending stat points: {e}")
 
+# FISHING INVENTORY TRASH FISH HOTKEY3 FISH
+
+# Function to locate the trash can (the second invIWSide element)
+def get_trash_can_element(driver):
+    inv_items_wrap = driver.find_element(By.CLASS_NAME, "invItemsWrap")
+    inv_sides = inv_items_wrap.find_elements(By.CLASS_NAME, "invIWSide")
+    
+    if len(inv_sides) >= 2:
+        trash_can = inv_sides[1]  # Select the second invIWSide as the trash can
+        return trash_can
+    else:
+        raise Exception("Could not find the trash can element.")
+
+# Function to trash a specific item (the fish)
+def trash_fish_item(driver, item_img):
+    trash_can = get_trash_can_element(driver)
+
+    
+    # Perform drag and drop to move the fish to the trash can
+    actions = ActionChains(driver)
+    actions.drag_and_drop(item_img, trash_can).perform()
+    time.sleep(1)  # Optional: small delay after the action
+
+# Add this function to track and trash fish within the invItemsWrap class
+def trash_icon_fish(driver):
+    # Locate the invItemsWrap container
+    inv_items_wrap = driver.find_element(By.CLASS_NAME, "invItemsWrap")
+    
+    # Locate all itemSlotBox elements within invItemsWrap
+    item_slots = inv_items_wrap.find_elements(By.CLASS_NAME, "itemSlotBox")
+    
+    # Initialize variables to track the fish stack to keep and move to hotkey 3
+    keep_fish_found = False
+    
+    # Loop through each slot and find the iconFish elements
+    for slot in item_slots:
+        item_img = slot.find_element(By.TAG_NAME, "img")
+        
+        if 'iconFish.svg' in item_img.get_attribute("src"):  # Check if the item is iconFish
+            # Find the quantity of fish in this stack
+            quantity_element = slot.find_element(By.CLASS_NAME, "iQnt")
+            quantity = int(quantity_element.text)
+
+            # Logic to keep one stack of 20+ fish and move it to hotkey 3
+            if quantity >= 20 and not keep_fish_found:
+                keep_fish_found = True
+                move_fish_to_hotkey_3(driver, item_img)  # Move this stack to hotkey 3
+                continue  # Skip trashing this stack
+
+            # Otherwise, trash this fish stack
+            trash_fish_item(driver, item_img)  # Call the trash function
 
 
 
-#### AUTO STAT ####
+# Add this helper function to move fish to hotkey 3
 
+
+def move_fish_to_hotkey_3(driver, item_img):
+    # Locate the element for hotkey 3 (slot 2)
+    hotkey_3_element = driver.find_element(By.CSS_SELECTOR, 'div.qSlotBox[slot="2"]')
+
+    # Perform drag and drop action to move the fish item to hotkey 3
+    actions = ActionChains(driver)
+    actions.drag_and_drop(item_img, hotkey_3_element).perform()
+    time.sleep(1)  # Optional: small delay between actions
+
+def check_inventory_during_fishing(driver):  
+    if is_inventory_full(driver):  # Assuming you already have a function to check if the inventory is full
+        print("Inventory full, trashing excess fish.")
+        trash_icon_fish(driver)  # Call the function to trash excess fish and keep one stack
+    time.sleep(5)  # Wait for 5 seconds before the next inventory check (you can adjust this)
+
+def is_inventory_full(driver):
+   try:
+        # Locate the invItemsWrap container
+        inv_items_wrap = driver.find_element(By.CLASS_NAME, "invItemsWrap")
+        print(f"------ inv_items_wrap={inv_items_wrap}")
+        # Locate all itemSlotBox elements within invItemsWrap
+        item_slots = inv_items_wrap.find_elements(By.CLASS_NAME, "itemSlotBox")
+        print(f"------ item_slots={item_slots}")
+        # Count the number of filled slots (slots that contain an itemBox)
+        filled_slots = [slot for slot in item_slots if slot.find_elements(By.CLASS_NAME, "itemBox")]
+        print(f"------ filled slots={filled_slots}")
+        # Inventory is full if all slots are filled
+        return len(filled_slots) == len(item_slots)
+   except Exception as e:
+       print(f" Error is in inventory is full {e}---------------------------------------")
 
  ### COOKING ###
 
@@ -559,6 +641,7 @@ def startCooking(driver):
         print(f'Failed to start cooking: {e}')
         write_to_terminal(f"Failed to start cooking: {e}")
 
+ # FISHING 
     
 def check_snag(driver):
     try:
@@ -617,7 +700,12 @@ def click_recast(driver):
     try:
         print('click_recast')
         # Find and click the Recast Line button
-        recast_button = driver.find_element(By.XPATH, "//a[text()='Recast Line']")
+        recast_button = driver.find_element(By.XPATH, "//a[text()='Recast Line']") 
+
+        print("CHECKING INVENTORY FOR FULL FISH***************************************...")
+        check_inventory_during_fishing(driver)
+        print("DONE CHECKING INVENTORY ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ ...")
+        
         recast_button.click()
         print('Recasted')
         time.sleep(.3)
@@ -657,6 +745,8 @@ def fishing_loop(driver, townHeal = False):
             #if rod_health < 10:  # If rod health is below 10%, stop reeling
             #    print(f"Rod health low! - {rod_health} - Stopping reel...")
             #    continue  
+            
+    
             try:
                 if townHeal & isHealthAbove(driver,90):
                     print('Healed - Stop fishing')
@@ -1329,7 +1419,7 @@ def town_heal(driver):
             town_button = driver.find_element(By.CSS_SELECTOR, ".abutGradBl.gradRed")
             town_button.click()
             time.sleep(2)
-            #heal_fish(driver)                                  # UNCOMMENT TO START TOWN HEAL + FISH LOOP
+            heal_fish(driver)                                  # UNCOMMENT TO START TOWN HEAL + FISH LOOP
         finally:
             print(" - Talking to Akara - ")
             write_to_terminal("Talking to Akara")
@@ -1354,11 +1444,11 @@ def town_heal(driver):
                     town_heal(driver)
                     return
             print('Town Heal: Stop Fishing')
-            #time.sleep(1)
-            #stop_fishing()                                         # TOWN HEAL + FISH LOOP END
-            #time.sleep(5)
-            #print('Town Heal: Fishing To Town')
-            #fishingToTown(driver)
+            time.sleep(1)
+            stop_fishing()                                         # TOWN HEAL + FISH LOOP END
+            time.sleep(5)
+            print('Town Heal: Fishing To Town')
+            fishingToTown(driver)
             
     except Exception as e:
         write_to_terminal(f"Error going to town: {e}")
@@ -1417,7 +1507,7 @@ def select_catacombs(driver):
     except Exception as e:
         write_to_terminal(f"Error selecting catacombs: {e}")
 
-# Function to select catacombs when in town
+# Function to cook fish
 
 def selectCooking(driver):
     try:
@@ -1454,7 +1544,6 @@ def fishingToTown(driver):
         return
     except Exception as e:
         write_to_terminal(f"Error rowing boat to town: {e}")
-
 
 # Function to loot an item
 def loot_item(driver, item):
