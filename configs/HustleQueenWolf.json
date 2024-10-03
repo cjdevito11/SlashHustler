@@ -1,0 +1,61 @@
+{
+    "name": "HustleQueenWolf",
+    "role": "tank",
+    "class": "Samurai",
+    "build": "null",
+    "leader": true,
+    "whistle": true,
+    "loot_threshold": 14,
+    "auto_stat": true,
+    "max_monsters": 4,
+    "inventory": {
+        "1": {
+            "name": "Magical ultimanium chain mail",
+            "magic_level": null,
+            "quality_level": null,
+            "level_req": "55",
+            "physical_defense": "54 to 136",
+            "magical_defense": "0 to 29",
+            "Experience Gained": "+6",
+            "score": 12,
+            "action": "fight_with"
+        }
+    },
+    "equipment": {
+        "weapon": {
+            "type": "iconSword",
+            "name": "Magical tempered diamond sword",
+            "magic_level": null,
+            "quality_level": null,
+            "level_req": "45",
+            "damage": "38 to 388",
+            "enhanced effect": "61",
+            "score": 29,
+            "action": "fight_with"
+        },
+        "armor": {
+            "type": "iconChainmail",
+            "name": "Angelic sapphire chain mail",
+            "magic_level": null,
+            "quality_level": null,
+            "level_req": "30",
+            "physical_defense": "63 to 158",
+            "magical_defense": "0 to 34",
+            "enhanced effect": "81",
+            "armor pierce": "1",
+            "score": 21,
+            "action": "fight_with"
+        },
+        "charm": {
+            "type": "iconWindCharm",
+            "name": "Rare wind VI",
+            "magic_level": null,
+            "quality_level": null,
+            "level_req": "15",
+            "damage": "12 to 56",
+            "score": 0,
+            "action": "fight_with"
+        },
+        "acc._charm": null
+    }
+}
