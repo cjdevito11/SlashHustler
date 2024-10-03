@@ -110,6 +110,65 @@ def load_stats_config(file_path):
 scoring_system = load_scoring_system()
 
 
+#### CONFIRM WINDOWS ###
+
+def canSeeStats(driver):
+    try:
+        stats = driver.find_elements(By.CLASS_NAME, "pbStats")
+        if stats:
+            return True
+        else:
+            return False
+    except Exception as e:
+        print (f"Can't see Stats: {e}")
+        return False
+
+def canSeeInventory(driver):
+    try:
+        inventory = driver.find_elements(By.CLASS_NAME, "pbInv")
+        if inventory:
+            return True
+        else:
+            return False
+    except Exception as e:
+        print (f"Can't see Inventory: {e}")
+        return False
+
+def canSeeShrine(driver):
+    try:
+        shrine = driver.find_elements(By.CLASS_NAME, "pbShrine")
+        if shrine:
+            return True
+        else:
+            return False
+    except Exception as e:
+        print (f"Can't see Shrine: {e}")
+        return False
+    
+def canSeeVault(driver):
+    try:
+        vault = driver.find_elements(By.CLASS_NAME, "pbVault")
+        if vault:
+            return True
+        else:
+            return False
+    except Exception as e:
+        print (f"Can't see Vault: {e}")
+        return False
+    
+def canSeeMarket(driver):
+    try:
+        market = driver.find_elements(By.CLASS_NAME, "pbMarket")
+        if market:
+            return True
+        else:
+            return False
+    except Exception as e:
+        print (f"Can't see Market: {e}")
+        return False
+#### CONFIRM WINDOWS ###
+
+
 #### AUTO SKILL ####
 
 def map_abilities(driver):
@@ -750,9 +809,14 @@ def update_character_json(driver):
         print("Updating character JSON...")
         # Retrieve character information
         className = get_class(driver)
-        #<div class="cStats">    <div>Class:</div>    <div>Samurai</div>	<div>Level:</div>    <div id="CS0">?</div></div>
+
+        if canSeeInventory(driver) == False:
+            print('CANT SEE INVENTORY PRESS I')
+            send_keystrokes(driver, 'i') #Open Inv Window
+
         print('Scan Equipment Next')
         equipped = scanEquippedItems(driver)
+
         print('Scan Inventory Next')
         inventory = scanInventoryItems(driver)
 
@@ -765,9 +829,9 @@ def update_character_json(driver):
         print(f"New Class: {CONFIG['class']}")
         
         write_to_terminal(f"Update JSON")
-        write_to_terminal(f" -- Inventory: {fighting} \n -- ")
+        write_to_terminal(f" -- Inventory: {inventory} \n -- ")
         write_to_terminal(f" -- Equipment: {equipped} \n -- ")
-        write_to_terminal(f" -- New Class {CONFIG['class']} \n -- ")
+        write_to_terminal(f" -- New Class {className} \n -- ")
 
         saveConfig()
         print(f"Character JSON updated and saved.")
@@ -776,6 +840,10 @@ def update_character_json(driver):
 
 def get_class(driver):
     try:
+        if canSeeStats(driver) == False:
+            print('Cant See Stats Window - Press C')
+            send_keystrokes(driver, 'c') #Open Stats Window
+        print('Get Class Name')
         character_element = driver.find_element(By.XPATH, "//div[@class='cStats'][1]")
         class_name_element = character_element.find_element(By.XPATH, ".//div[2]")
         class_name = class_name_element.text.strip()
@@ -785,6 +853,7 @@ def get_class(driver):
         print(f"class_name = {class_name} ---GET CLASS INFO---")
         STAT_JSON_PATH = f'configs/autoStat/{class_name}/basic.json'
         print(f'----------={STAT_JSON_PATH}---------------')
+        time.sleep(10)
         return class_name
     except Exception as e:
         print(f"Error getting class!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! {e}")
@@ -1802,7 +1871,7 @@ def validate_input(threshold):
     if threshold.isdigit() or threshold == "":  # Allow only digits and empty input
         return True
     else:
-        messagebox.showerror("Invalid Input", "Please enter an integer value.")
+        write_to_terminal(f"Invalid Input, Please enter an integer value.")
         return False
 
 # Function to get and check the loot threshold value
@@ -1838,10 +1907,6 @@ def run_fighting():
     spendStatPoints(driver, STAT_JSON_PATH)
     auto_stat_and_ability_allocation(driver, STAT_JSON_PATH)
     print('Done checkStats and abilities')
-
-    # Scan inventory and equipment at the start
-    update_character_json(driver)
-    time.sleep(5)
 
     #loot_threshold = loot_textbox.get() #Set loot threshold
     
