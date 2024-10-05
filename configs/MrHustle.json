@@ -2,56 +2,142 @@
     "name": "MrHustle",
     "role": "tank",
     "class": "Paladin",
+    "build": null,
     "leader": true,
-    "whistle": true,
+    "whistle": false,
     "loot_threshold": 14,
     "auto_stat": true,
     "max_monsters": 4,
     "inventory": {
-        "2": {
-            "name": "Magical tempered diamond chain mail",
+        "1": {
+            "name": "Rare steel chain mail",
             "magic_level": null,
             "quality_level": null,
-            "level_req": "45",
-            "physical_defense": "42 to 107",
-            "magical_defense": "0 to 27",
-            "score": 0,
-            "action": "sell"
+            "level_req": "10",
+            "physical_defense": "17 to 43",
+            "magical_defense": "0 to 11",
+            "intelligence": "24",
+            "experience gained": "2",
+            "score": 126,
+            "action": "fight_with"
+        },
+        "2": {
+            "name": "Magical mithril sword",
+            "magic_level": null,
+            "quality_level": null,
+            "level_req": "25",
+            "damage": "27 to 270",
+            "enhanced effect": "75",
+            "score": 25,
+            "action": "fight_with"
         },
         "3": {
-            "name": "Mystical wind II",
+            "name": "mithril sword",
             "magic_level": null,
             "quality_level": null,
-            "damage": "4 to 20",
-            "mana_cost": "13",
-            "Life Steal": "+1",
-            "score": 1,
-            "action": "sell"
+            "level_req": "25",
+            "damage": "15 to 158",
+            "score": 5,
+            "action": "keep"
+        },
+        "4": {
+            "name": "Magical earth VI",
+            "magic_level": null,
+            "quality_level": null,
+            "level_req": "15",
+            "damage": "28 to 50",
+            "mana_cost": "45",
+            "strength": "10",
+            "score": 52,
+            "action": "fight_with"
+        },
+        "5": {
+            "name": "heartwood club",
+            "magic_level": null,
+            "quality_level": null,
+            "level_req": "15",
+            "damage": "23 to 106",
+            "score": 2,
+            "action": "shrine"
+        },
+        "6": {
+            "name": "heartwood club",
+            "magic_level": null,
+            "quality_level": null,
+            "level_req": "15",
+            "damage": "23 to 106",
+            "score": 2,
+            "action": "shrine"
+        },
+        "8": {
+            "name": "Legendary fine alloy plate mail",
+            "magic_level": null,
+            "quality_level": null,
+            "level_req": "20",
+            "physical_defense": "41 to 123",
+            "magical_defense": "0 to 13",
+            "enhanced effect": "68",
+            "to 58 life per kill": "1",
+            "mind numb": "1",
+            "critical flux": "1",
+            "mana skin": "2",
+            "ice mastery": "4",
+            "earth mastery": "2",
+            "score": 24,
+            "action": "fight_with"
+        },
+        "9": {
+            "name": "Magical alloy longsword",
+            "magic_level": null,
+            "quality_level": null,
+            "level_req": "15",
+            "damage": "35 to 356",
+            "enhanced effect": "57",
+            "score": 19,
+            "action": "fight_with"
         }
     },
     "equipment": {
+        "weapon": {
+            "type": "iconClub",
+            "name": "Angelic drywood club",
+            "magic_level": null,
+            "quality_level": null,
+            "level_req": "35",
+            "damage": "79 to 359",
+            "enhanced effect": "103",
+            "mana regen": "4",
+            "glancing blow": "1",
+            "fire mastery": "1",
+            "score": 35,
+            "action": "fight_with"
+        },
         "armor": {
             "type": "iconChainmail",
             "name": "Magical tempered diamond chain mail",
             "magic_level": null,
             "quality_level": null,
             "level_req": "45",
-            "physical_defense": "83 to 209",
-            "magical_defense": "0 to 53",
+            "physical_defense": "81 to 204",
+            "magical_defense": "0 to 55",
             "enhanced effect": "95",
-            "score": 20,
+            "score": 35,
             "action": "fight_with"
         },
         "charm": {
-            "type": "iconHealCharm",
-            "name": "Legendary heal II",
+            "type": "iconWindCharm",
+            "name": "Godly wind I",
             "magic_level": null,
             "quality_level": null,
-            "enhanced effect": "27",
-            "experience gained": "4",
-            "mind numb": "1",
-            "fire mastery": "1",
-            "score": 14,
+            "damage": "2 to 10",
+            "intelligence": "3",
+            "experience gained": "1",
+            "magic luck": "1",
+            "parry": "1",
+            "heal mastery": "1",
+            "wind mastery": "1",
+            "earth mastery": "2",
+            "score": 11,
             "action": "fight_with"
         },
         "acc._charm": {
@@ -59,13 +145,13 @@
             "name": "Mythical focused heal II",
             "magic_level": null,
             "quality_level": null,
+            "strength": "3",
             "experience gained": "2",
             "life steal": "2",
             "critical flux": "1",
             "wind mastery": "2",
-            "score": 4,
+            "score": 8,
             "action": "fight_with"
         }
-    },
-    "build": null
+    }
 }
