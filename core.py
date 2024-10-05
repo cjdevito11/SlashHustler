@@ -966,7 +966,7 @@ def parseNotEquippedItem(html):
             print(f"Error parsing stat '{text}': {e}")
 
     print(f"Final parsed item details: {item_details}")
-    write_to_terminal(f"Parsed Item Details: {item_details}")
+    #rite_to_terminal(f"Parsed Item Details: {item_details}")
     return item_details
 
 def parseEquippedItem(html):
@@ -1163,32 +1163,35 @@ def scanInventoryItems(driver):
 
 def scanDroppedItems(driver, drop_items):
     global loot_threshold
+    try:
+        print('--- Score Drops ---')
 
-    print('--- Score Drops ---')
-
-    # Log file name
-    log_filename = "logs/itemDrops.txt"
-    
-    for item in drop_items:
-        time.sleep(.3)
-        parsedItem = hoverExtractParse(driver,item,False)
+        # Log file name
+        log_filename = "logs/itemDrops.txt"
         
-        if parsedItem:
-            print(f'parsed_item = {parsedItem}')
-            item_score = calculate_item_score(parsedItem['name'], parsedItem)
+        for item in drop_items:
+            time.sleep(.3)
+            parsedItem = hoverExtractParse(driver,item,False)
+            
+            if parsedItem:
+                print(f'parsed_item = {parsedItem}')
+                item_score = calculate_item_score(parsedItem['name'], parsedItem)
 
-            print('+++++++++++++++++++++++++++++++++++++++++++++++++++++')
-            print(Fore.CYAN + f"Item: {parsedItem['name']}, Score: {item_score}" + Style.RESET_ALL)
-            print('+++++++++++++++++++++++++++++++++++++++++++++++++++++')
-                 # Log the item to file
-            log_item_to_file(parsedItem, item_score, log_filename)
+                print('+++++++++++++++++++++++++++++++++++++++++++++++++++++')
+                print(Fore.CYAN + f"~~~~ Item Dropped: {parsedItem['name']}    -   Score: {item_score} ~~~~" + Style.RESET_ALL)
+                write_to_terminal(f"~~~~ Item Dropped: {parsedItem['name']}    -   Score: {item_score} ~~~~")
+                print('+++++++++++++++++++++++++++++++++++++++++++++++++++++')
+                    # Log the item to file
+                log_item_to_file(parsedItem, item_score, log_filename)
 
 
-            print(f'Check if item_score > loot_threshold -------------- {item_score} > {loot_threshold}')
-                # Decide if the item should be looted
-            if item_score > loot_threshold:
-                print('TRY TO LOOT ITEM: {item}')
-                loot_item(driver, item)
+                print(f'Check if item_score > loot_threshold -------------- {item_score} > {loot_threshold}')
+                    # Decide if the item should be looted
+                if item_score > loot_threshold:
+                    print('TRY TO LOOT ITEM: {item}')
+                    loot_item(driver, item)
+    except:
+        print('Error in scanDroppedItems : Most likely to do with a dropped item not being there still to hover after time')
 
 
 def hover_and_extract_item(driver, item, is_equipped=False):
@@ -1251,7 +1254,7 @@ def calculate_item_score(item_name, item_details):
             #Available stats: {list(scoring_system.keys())}")
     
     print(Fore.MAGENTA + f'Final calculated score for {item_name}: {score}' + Style.RESET_ALL)
-    write_to_terminal(f"|SCORE| {item_name}: ({score})")
+    #write_to_terminal(f"|SCORE| {item_name}: ({score})")
     return score
 
 def log_item_to_file(item_details, item_score, filename="logs/itemDrops.txt"):
@@ -1342,7 +1345,7 @@ def get_monsters(driver):
             health_percentage = float(health_bar.get_attribute("style").split("width: ")[1].split("%")[0])
             monster_name = name_element.text
 
-            write_to_terminal(f"Monster: {monster_name}, Health: {health_percentage}%")
+            #write_to_terminal(f"Monster: {monster_name}, Health: {health_percentage}%")
             print(f"Monster: {monster_name}, Health: {health_percentage}%")
             monster_list.append({
                 "element": monster,
@@ -1370,7 +1373,7 @@ def attack_switch(driver, hp, mp):
 # Function to attack a monster
 def attack_monster(driver, monster):
     try:
-        write_to_terminal(f"Attacking monster: {monster['name']}")
+        #write_to_terminal(f"Attacking monster: {monster['name']}")
         actions = ActionChains(driver)
         actions.move_to_element(monster["element"]).click().perform()
         print(Fore.RED + 'Attacked Monster' + Style.RESET_ALL)
@@ -1388,7 +1391,7 @@ def send_keystrokes(driver, keys):
         # Send the specified keys
         actions.send_keys(keys).perform()
         
-        write_to_terminal(f"Sent keystrokes: {keys}")
+        #write_to_terminal(f"Sent keystrokes: {keys}")
     except Exception as e:
         write_to_terminal(f"Error sending keystrokes: {e}")
 
@@ -1625,7 +1628,7 @@ def engage_if_leader(driver, whistle = False):
             send_keystrokes(driver, "T")
             return
         print('Try find engage as leader - no whistle')
-        write_to_terminal(f"Leader - Watching for Engage")
+        #write_to_terminal(f"Leader - Watching for Engage")
         if is_engage_button_visible(driver):
             engage_button = driver.find_element(By.CSS_SELECTOR, ".cataEngage")  # Update selector as needed
             if engage_button:
@@ -1769,8 +1772,8 @@ def quickAttack(driver):
 
 def automate_fighting(driver, maxMonsters = 4, whistle = False):
     global fighting, fight_state, role
-    write_to_terminal(f"Fighting: {fighting}")
-    write_to_terminal(f"Fight State: {fight_state}")
+    #write_to_terminal(f"Fighting: {fighting}")
+    #write_to_terminal(f"Fight State: {fight_state}")
     #update_overlay_position()
     
     while fighting and running:
@@ -1795,8 +1798,11 @@ def automate_fighting(driver, maxMonsters = 4, whistle = False):
                 print("Automate Fighting Step 3.2: isLeader - engage_if_leader()")
                 engage_if_leader(driver, whistle)
 
-            print(f"Automate Fighting Step 4: fight_based_on_role({role})")
-            fight_based_on_role(driver, role)
+            x = 0
+            while x < 6:
+                print(f"Automate Fighting Step 4: fight_based_on_role({role})")
+                fight_based_on_role(driver, role)
+                x += 1
 
             print("Automate Fighting Step 5: checkForDrops()")
             checkForDrops(driver)
@@ -1808,11 +1814,11 @@ def automate_fighting(driver, maxMonsters = 4, whistle = False):
 def checkForDrops(driver):
     try:
         print('Check Items')
-        write_to_terminal(f"Looking for items")
+        #write_to_terminal(f"Looking for items")
         drop_items = driver.find_elements(By.CSS_SELECTOR, ".dropItemsBox .itemBox")
         if drop_items:
             print(Fore.GREEN + 'Found Items' + Style.RESET_ALL)
-            write_to_terminal(f"Drops: {drop_items}")
+            #write_to_terminal(f"Drops: {drop_items}")
             scanDroppedItems(driver, drop_items)
     except:
         print('checkForDrops threw exception')
@@ -1849,8 +1855,8 @@ def checkHealth(driver):
             hp = health_mana_data['hp']
             mp = health_mana_data['mp']
             
-            write_to_terminal(f"-HP: {hp}")
-            write_to_terminal(f"-MP: {mp}")
+            #write_to_terminal(f"-HP: {hp}")
+            #write_to_terminal(f"-MP: {mp}")
             print(f"-HP: {hp}")
             print(f"-MP: {mp}")
             
