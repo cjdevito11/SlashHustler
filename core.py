@@ -21,6 +21,10 @@ from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.keys import Keys
 import pygetwindow as gw
 import threading
+import colorama
+from colorama import Fore, Back, Style
+colorama.init()
+
 
 # Redirect print function
 class StdoutRedirector:
@@ -56,7 +60,7 @@ fishing_thread = None
 cooking_thread = None
 
 #CHARACTER_JSON_PATH = 'configs/MrHustle.json'  # Update this to get character name
-CHARACTER_JSON_PATH = 'configs/HustlinPies.json'  # Update this to get character name
+CHARACTER_JSON_PATH = 'configs/HustleQueenWolf.json'  # Update this to get character name
 #CHARACTER_JSON_PATH = 'configs/TigBittyBroad.json'  # Update this to get character name
 STAT_JSON_PATH = 'configs/autoStat/paladin/basic.json'
 
@@ -1205,10 +1209,10 @@ def hover_and_extract_item(driver, item, is_equipped=False):
 
 
 def calculate_item_score(item_name, item_details):
-    print(f'~~~~~~~~~~~~~~~~~~~ Calculating Item Score ~~~~~~~~~~~~~~~~~')
-    print(f'~~~~~~~~~~~~~~~~~~ Item Name : {item_name} ~~~~~~~~~~~~~~~~')
-    print(f'~~~~~~~~~~~~~~~~~~ Item Details : {item_details} ~~~~~~~~~~~~~~~~')
-    print(f'------------------')
+    print(Fore.BLUE + f'~~~~~~~~~~~~~~~~~~~ Calculating Item Score ~~~~~~~~~~~~~~~~~' + Style.RESET_ALL)
+    print(Fore.BLUE + f'~~~~~~~~~~~~~~~~~~ Item Name : {item_name} ~~~~~~~~~~~~~~~~' + Style.RESET_ALL)
+    print(Fore.BLUE + f'~~~~~~~~~~~~~~~~~~ Item Details : {item_details} ~~~~~~~~~~~~~~~~' + Style.RESET_ALL)
+    print(Fore.BLUE + f'------------------' + Style.RESET_ALL)
 
     score = 0
     
@@ -1232,7 +1236,7 @@ def calculate_item_score(item_name, item_details):
                 else:
                     stat_value = int(value.strip('+%'))
                 
-                print(f'Stat value extracted: {stat_value}')
+                print(Fore.GREEN + f'Stat value extracted: {stat_value}' + Style.RESET_ALL)
             except Exception as e:
                 stat_value = 1  # Default to 1 if parsing fails
                 print(f'Error parsing stat value for {normalized_stat}, defaulting to 1. Error: {e}')
@@ -1246,7 +1250,7 @@ def calculate_item_score(item_name, item_details):
             print(f"Stat '{normalized_stat}' not found in scoring system. ")
             #Available stats: {list(scoring_system.keys())}")
     
-    print(f'Final calculated score for {item_name}: {score}')
+    print(Fore.MAGENTA + f'Final calculated score for {item_name}: {score}' + Style.RESET_ALL)
     write_to_terminal(f"|SCORE| {item_name}: ({score})")
     return score
 
