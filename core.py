@@ -386,18 +386,24 @@ def spendStatPoints(driver, config_path):
 
         desired_vitality = config["stats"].get("vitality", 0)
         desired_strength = config["stats"].get("strength", 0)
+        desired_dexterity = config["stats"].get("dexterity", 0)
+        desired_intelligence = config["stats"].get("intelligence", 0)
 
         # Get current stats
         current_stats = readPlayerStats(driver)
         vitality = current_stats["vit"]  # Current vitality
         strength = current_stats["str"]  # Current strength
+        dexterity = current_stats["dex"]
+        intelligence = current_stats["int"]
         stat_points = current_stats["stat_points"]  # Available stat points
 
         # Distribute stat points
         points_to_vitality = max(0, desired_vitality - vitality)
         points_to_strength = max(0, desired_strength - strength)
+        points_to_dexterity = max(0,desired_dexterity - dexterity)
+        points_to_intelligence = max(0, desired_intelligence - intelligence)
 
-        total_points_needed = points_to_vitality + points_to_strength
+        total_points_needed = points_to_vitality + points_to_strength + points_to_dexterity + points_to_intelligence
 
         if total_points_needed <= 0:
             print("Stats already at desired levels.")
@@ -421,6 +427,23 @@ def spendStatPoints(driver, config_path):
                 )
                 strength_button.click()
                 points_to_strength -= 1
+                stat_points -= 1
+
+            elif points_to_dexterity > 0:
+                # Wait until the dexterity button is clickable, then click it
+                dexterity_button = WebDriverWait(driver, 10).until(
+                    EC.element_to_be_clickable((By.CSS_SELECTOR, "div#CS4 svg"))
+                )
+                dexterity_button.click()
+                points_to_dexterity -= 1
+                stat_points -= 1
+            elif points_to_intelligence > 0:
+                # Wait until the intellligence button is clickable, then click it
+                intelligence_button = WebDriverWait(driver, 10).until(
+                    EC.element_to_be_clickable((By.CSS_SELECTOR, "div#CS3 svg"))
+                )
+                intelligence_button.click()
+                points_to_intelligence -= 1
                 stat_points -= 1
 
             # Re-check stat points to ensure they are still available
