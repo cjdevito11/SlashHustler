@@ -4,8 +4,8 @@
         "strength": 140
     },
     "skills":{
+        "powerstrike": 70,
         "retribution": 60,
-        "powerstrike": 60,
         "multistrike": 10
     }
 }

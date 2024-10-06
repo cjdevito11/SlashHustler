@@ -254,7 +254,7 @@ def spend_ability_points_based_on_thresholds(driver, ability_mapping, points_to_
                 break
 
             current_level = current_levels.get(ability, 0)  # Fetch the current level of the ability
-            print(f'current_level for {ability}: {current_level}')
+            print(Fore.BLUE + f'current_level for {ability}: {current_level}' + Style.RESET_ALL)
             
             # Check if current ability level is below the defined threshold
             if current_level < max_threshold:
@@ -274,7 +274,7 @@ def spend_ability_points_based_on_thresholds(driver, ability_mapping, points_to_
                             print(f'Try to click Ability Icon : {ability_icon}')
                             ability_icon.click()
                             points_to_spend -= 1
-                            print(f"Allocated a point to {ability}. Points remaining: {points_to_spend}")
+                            print(Fore.GREEN + f"Allocated a point to {ability}. Points remaining: {points_to_spend}" + Style.RESET_ALL)
                             time.sleep(1)  # Delay to prevent rapid clicks
                         except Exception as e:
                             print(f"Failed to click {ability_icon} for {ability}: {e}")
@@ -320,9 +320,9 @@ def auto_stat_and_ability_allocation(driver, config_path):
                 current_ability_levels = read_ability_levels(driver)
 
                 print(f'ability_mapping: {ability_mapping}')
-                print(f'ability_points: {ability_points}')
+                print(Fore.BLUE + f'ability_points: {ability_points}' + Style.RESET_ALL)
                 print(f'skill_thresholds: {skill_thresholds}')
-                print(f'current_ability_levels: {current_ability_levels}')
+                print(Fore.BLUE + f'current_ability_levels: {current_ability_levels}' + Style.RESET_ALL)
                 print('spend_ability_points_based_on_thresholds(driver, ability_mapping, ability_points, skill_thresholds, current_ability_levels)')
                 # Step 6: Spend ability points based on the thresholds in the JSON
                 spend_ability_points_based_on_thresholds(driver, ability_mapping, ability_points, skill_thresholds, current_ability_levels)
@@ -395,18 +395,24 @@ def spendStatPoints(driver, config_path):
 
         desired_vitality = config["stats"].get("vitality", 0)
         desired_strength = config["stats"].get("strength", 0)
+        desired_dexterity = config["stats"].get("dexterity", 0)
+        desired_intelligence = config["stats"].get("intelligence", 0)
 
         # Get current stats
         current_stats = readPlayerStats(driver)
         vitality = current_stats["vit"]  # Current vitality
         strength = current_stats["str"]  # Current strength
+        dexterity = current_stats["dex"]
+        intelligence = current_stats["int"]
         stat_points = current_stats["stat_points"]  # Available stat points
 
         # Distribute stat points
         points_to_vitality = max(0, desired_vitality - vitality)
         points_to_strength = max(0, desired_strength - strength)
+        points_to_dexterity = max(0,desired_dexterity - dexterity)
+        points_to_intelligence = max(0, desired_intelligence - intelligence)
 
-        total_points_needed = points_to_vitality + points_to_strength
+        total_points_needed = points_to_vitality + points_to_strength + points_to_dexterity + points_to_intelligence
 
         if total_points_needed <= 0:
             print("Stats already at desired levels.")
@@ -430,6 +436,23 @@ def spendStatPoints(driver, config_path):
                 )
                 strength_button.click()
                 points_to_strength -= 1
+                stat_points -= 1
+
+            elif points_to_dexterity > 0:
+                # Wait until the dexterity button is clickable, then click it
+                dexterity_button = WebDriverWait(driver, 10).until(
+                    EC.element_to_be_clickable((By.CSS_SELECTOR, "div#CS4 svg"))
+                )
+                dexterity_button.click()
+                points_to_dexterity -= 1
+                stat_points -= 1
+            elif points_to_intelligence > 0:
+                # Wait until the intellligence button is clickable, then click it
+                intelligence_button = WebDriverWait(driver, 10).until(
+                    EC.element_to_be_clickable((By.CSS_SELECTOR, "div#CS3 svg"))
+                )
+                intelligence_button.click()
+                points_to_intelligence -= 1
                 stat_points -= 1
 
             # Re-check stat points to ensure they are still available
@@ -465,7 +488,7 @@ def check_temperature(driver):
         # Get the width of the Temperature meter
         temperature_element = driver.find_element(By.CSS_SELECTOR, ".meterBox .meterBoxProg")
         temperature_width = int(temperature_element.get_attribute("style").split('width: ')[1].split('%')[0])
-        print(f'temperature_width: {temperature_width}')
+        print(Fore.RED + f'temperature_width: {temperature_width}' + Style.RESET_ALL)
         return temperature_width
     except:
         return 100  # Assume full temperature if there's an issue
@@ -523,7 +546,7 @@ def cooking_loop(driver,fishCount):
             time.sleep(.5)
             # Check if a flame occurred and click Flame Counter if necessary
             if check_flame(driver):
-                print("Flame detected, clicking Flame Counter")
+                print(Fore.RED + "Flame detected, clicking Flame Counter" + Style.RESET_ALL)
                 click_flame_counter(driver)
 
                 # Wait for the temperature or magical sardine fish to change before continuing to cook
@@ -590,7 +613,7 @@ def dragToCook(driver):
                 fish_quantity_element = slot.find_element(By.CSS_SELECTOR, ".iQnt")
                 fish_quantity = fish_quantity_element.text
                 fishInt=int(fish_quantity)
-                print(f'Found fish with quantity: {fish_quantity}')
+                print(Fore.GREEN + f'Found fish with quantity: {fish_quantity}' + Style.RESET_ALL)
                 write_to_terminal(f'Cutting up {fishInt} fish to cook')
                 
                 # Locate the item box in the cooking popup where the fish needs to be dropped
@@ -610,7 +633,7 @@ def dragToCook(driver):
                 print(f"Error finding fish or performing drag-and-drop: {e}")
                 continue  # Move to the next slot if no fish is found or error occurs
     except Exception as e:
-        print(f'Failed to move fish to cooking popup item box: {e}')
+        print(Fore.RED + f'Failed to move fish to cooking popup item box: {e}' + Style.RESET_ALL)
 
 
 
@@ -625,11 +648,11 @@ def startCooking(driver):
         # Start cooking after placing the fish in the oven
         click_cook(driver)
         cooking_loop(driver,fishCount)
-        print('Done Cooking')
+        print(Fore.BLUE + 'Done Cooking' + Style.RESET_ALL)
         write_to_terminal(f"Done Cooking")
     except Exception as e:
-        print(f'Failed to start cooking: {e}')
-        write_to_terminal(f"Failed to start cooking: {e}")
+        print(Fore.RED + f'Failed in startCooking: {e}' + Style.RESET_ALL)
+        write_to_terminal(f"Failed in startCooking: {e}")
 
     
 def check_snag(driver):
@@ -637,7 +660,7 @@ def check_snag(driver):
         print('check_snag')
         # Check if the Snag element is present
         snag_element = driver.find_element(By.CLASS_NAME, "damageText")
-        print('Found Snag')
+        print(Fore.BLUE + 'Found Snag' + Style.RESET_ALL)
         return True
     except:
         return False
@@ -655,7 +678,7 @@ def check_rod_health(driver):
 
 def click_snag_counter(driver):
     try:
-        print('click_snag')
+        print(Fore.BLUE + 'click_snag' + Style.RESET_ALL)
         # Find and click the Snag Counter button
         snag_button = driver.find_element(By.XPATH, "//a[text()='Snag Counter']")
         snag_button.click()
@@ -687,7 +710,7 @@ def click_reel(driver):
 
 def click_recast(driver):
     try:
-        print('click_recast')
+        print(Fore.RED + 'click_recast' + Style.RESET_ALL)
         # Find and click the Recast Line button
         recast_button = driver.find_element(By.XPATH, "//a[text()='Recast Line']")
         recast_button.click()
@@ -731,7 +754,7 @@ def fishing_loop(driver, townHeal = False):
             #    continue  
             try:
                 if townHeal & isHealthAbove(driver,90):
-                    print('Healed - Stop fishing')
+                    print(Fore.BLUE + 'Healed - Stop fishing' + Style.RESET_ALL)
                     return
                 #escape_text = driver.find_element(By.XPATH, "//div[contains(text(), 'Escaped the Hook')]")
                 print("Trying to Recast line...")
@@ -775,12 +798,12 @@ def write_to_terminal(message):
 def getCharacter(driver):
     global CHARACTER_JSON_PATH, CONFIG, loot_threshold, whistle, autoStat
     characterName = driver.find_element(By.CSS_SELECTOR, ".cName").text
-    print(f'characterName: {characterName}')
+    print(Fore.BLUE + f'characterName: {characterName}' + Style.RESET_ALL)
     write_to_terminal(f"characterName: {characterName}")
 
     charJsonPath = 'configs/' + characterName
     charJsonPath = charJsonPath + '.json'
-    print(f'charJsonPath: {charJsonPath}')
+    print(Fore.GREEN + f'charJsonPath: {charJsonPath}' + Style.RESET_ALL)
     write_to_terminal(f"charJsonPath: {charJsonPath}")
 
     CHARACTER_JSON_PATH = charJsonPath
@@ -794,7 +817,7 @@ def getCharacter(driver):
     print('* - * - * - READ CONFIG - SETTING GLOBAL VARIABLES = ')
     print(f'autoStat : {autoStat}')
     print(f'whistle : {whistle}')
-    print(f'loot_threshold : {loot_threshold}')
+    print(Fore.GREEN + f'loot_threshold : {loot_threshold}' + Style.RESET_ALL)
     return
 
 # Load character data from JSON
@@ -975,7 +998,7 @@ def parseNotEquippedItem(html):
             print(f"Error parsing stat '{text}': {e}")
 
     print(f"Final parsed item details: {item_details}")
-    write_to_terminal(f"Parsed Item Details: {item_details}")
+    #rite_to_terminal(f"Parsed Item Details: {item_details}")
     return item_details
 
 def parseEquippedItem(html):
@@ -1172,32 +1195,36 @@ def scanInventoryItems(driver):
 
 def scanDroppedItems(driver, drop_items):
     global loot_threshold
+    try:
+        print('--- Score Drops ---')
 
-    print('--- Score Drops ---')
+        # Log file name
+        log_filename = "logs/itemDrops.txt"
+       
+        for item in drop_items:
+            time.sleep(.3)
+            parsedItem = hoverExtractParse(driver,item,False)
+            
+            if parsedItem:
+                print(f'parsed_item = {parsedItem}')
+                item_score = calculate_item_score(parsedItem['name'], parsedItem)
 
-    # Log file name
-    log_filename = "logs/itemDrops.txt"
-    
-    for item in drop_items:
-        time.sleep(.3)
-        parsedItem = hoverExtractParse(driver,item,False)
-        
-        if parsedItem:
-            print(f'parsed_item = {parsedItem}')
-            item_score = calculate_item_score(parsedItem['name'], parsedItem)
-
-            print('+++++++++++++++++++++++++++++++++++++++++++++++++++++')
-            print(f"Item: {parsedItem['name']}, Score: {item_score}")
-            print('+++++++++++++++++++++++++++++++++++++++++++++++++++++')
-                 # Log the item to file
-            log_item_to_file(parsedItem, item_score, log_filename)
+                print('+++++++++++++++++++++++++++++++++++++++++++++++++++++')
+                print(Fore.CYAN + f"~~~~ Item Dropped: {parsedItem['name']}    -   Score: {item_score} ~~~~" + Style.RESET_ALL)
+                write_to_terminal(f"~~~~ Item Dropped: {parsedItem['name']}    -   Score: {item_score} ~~~~")
+                print('+++++++++++++++++++++++++++++++++++++++++++++++++++++')
+                    # Log the item to file
+                log_item_to_file(parsedItem, item_score, log_filename)
 
 
-            print(f'{FMAGENTA}Check if item_score > loot_threshold -------------- {item_score} > {loot_threshold}{RESET}')
-                # Decide if the item should be looted
-            if item_score > loot_threshold:
-                print('TRY TO LOOT ITEM: {item}')
-                loot_item(driver, item)
+                print(f'Check if item_score > loot_threshold -------------- {item_score} > {loot_threshold}')
+                    # Decide if the item should be looted
+                if item_score > loot_threshold:
+                    print('TRY TO LOOT ITEM: {item}')
+                    loot_item(driver, item)
+    except:
+        print('Error in scanDroppedItems : Most likely to do with a dropped item not being there still to hover after time')
+
 
 
 def hover_and_extract_item(driver, item, is_equipped=False):
@@ -1260,7 +1287,7 @@ def calculate_item_score(item_name, item_details):
             #Available stats: {list(scoring_system.keys())}")
     
     print(Fore.MAGENTA + f'Final calculated score for {item_name}: {score}' + Style.RESET_ALL)
-    write_to_terminal(f"|SCORE| {item_name}: ({score})")
+    #write_to_terminal(f"|SCORE| {item_name}: ({score})")
     return score
 
 def log_item_to_file(item_details, item_score, filename="logs/itemDrops.txt"):
@@ -1292,7 +1319,7 @@ def isHealthAbove(driver,testhp):
         health_mana_data = get_health_mana(driver)
         if health_mana_data:
             hp = health_mana_data['hp']
-            print(' * - - isHealthBelow {testhp}? ')
+            print(Fore.BLUE + ' * - - isHealthBelow {testhp}? ' + Style.RESET_ALL)
             if hp >= testhp:
                 print(f'- Yes. HP = {hp}')
                 return True
@@ -1307,7 +1334,7 @@ def isHealthBelow(driver,testhp):
         health_mana_data = get_health_mana(driver)
         if health_mana_data:
             hp = health_mana_data['hp']
-            print(' * - - isHealthBelow {testhp}? ')
+            print(Fore.BLUE + ' * - - isHealthBelow {testhp}? ' + Style.RESET_ALL)
             if hp >= testhp:
                 print(f'- No. HP = {hp}')
                 return False
@@ -1351,7 +1378,7 @@ def get_monsters(driver):
             health_percentage = float(health_bar.get_attribute("style").split("width: ")[1].split("%")[0])
             monster_name = name_element.text
 
-            write_to_terminal(f"Monster: {monster_name}, Health: {health_percentage}%")
+            #write_to_terminal(f"Monster: {monster_name}, Health: {health_percentage}%")
             print(f"Monster: {monster_name}, Health: {health_percentage}%")
             monster_list.append({
                 "element": monster,
@@ -1379,10 +1406,10 @@ def attack_switch(driver, hp, mp):
 # Function to attack a monster
 def attack_monster(driver, monster):
     try:
-        write_to_terminal(f"Attacking monster: {monster['name']}")
+        #write_to_terminal(f"Attacking monster: {monster['name']}")
         actions = ActionChains(driver)
         actions.move_to_element(monster["element"]).click().perform()
-        print('Attacked Monster')
+        print(Fore.RED + 'Attacked Monster' + Style.RESET_ALL)
     except Exception as e:
         write_to_terminal(f"Error attacking monster: {e}")
 
@@ -1397,7 +1424,7 @@ def send_keystrokes(driver, keys):
         # Send the specified keys
         actions.send_keys(keys).perform()
         
-        write_to_terminal(f"Sent keystrokes: {keys}")
+        #write_to_terminal(f"Sent keystrokes: {keys}")
     except Exception as e:
         write_to_terminal(f"Error sending keystrokes: {e}")
 
@@ -1435,7 +1462,7 @@ def town_heal(driver):
                     print("~~ Loop TownHeal ~~")
                     town_heal(driver)
                     return
-            print('Town Heal: Stop Fishing')
+            print(Fore.BLUE + 'Town Heal: Stop Fishing' + Style.RESET_ALL)
             #time.sleep(1)
             #stop_fishing()                                         # TOWN HEAL + FISH LOOP END
             #time.sleep(5)
@@ -1525,7 +1552,7 @@ def selectFishingPond(driver):
         write_to_terminal(f"Error selecting fishing pond: {e}")
 
 def fishingToTown(driver):
-    print('fishingToTown')
+    print(Fore.BLUE + 'fishingToTown' + Style.RESET_ALL)
     try:
         fishToTownButton = driver.find_element(By.CSS_SELECTOR, ".abutGradBl.fishBTT")
         print('click to town')
@@ -1563,7 +1590,7 @@ def checkForDungeonReset(driver, maxMonsters = 4):
 #Too many monsters, reset dungeon
 def resetDungeon(driver):
     try:
-        print('-- TOO MANY MONSTERS -- resetDungeon() --')
+        print(Fore.RED + '-- TOO MANY MONSTERS -- resetDungeon() --' + Style.RESET_ALL)
         write_to_terminal("Too Many Monsters -- RESETTING DUNGEON --")
         town_button = driver.find_element(By.CSS_SELECTOR, ".abutGradBl.gradRed")  
         #town_button = driver.find_element(By.XPATH, "//a[text()='Go to Town']")
@@ -1576,7 +1603,7 @@ def resetDungeon(driver):
         print(f'Click Town_Button: {town_button}')
         time.sleep(2)
     except:
-        print('Couldnt leave catacombs')
+        print(Fore.RED + 'Couldnt leave catacombs' + Style.RESET_ALL)
 
     print('Try to reset w/ group')
     try:
@@ -1617,7 +1644,7 @@ def resetDungeon(driver):
                                     if btn.text == 'Leave Group':
                                         time.sleep(2)
                                         btn.click()
-                                        print('-- Left Group Successfully--')
+                                        print(Fore.GREEN + '-- Left Group Successfully--' + Style.RESET_ALL)
                                         write_to_terminal("-- Left Group Successfully--")
                                         time.sleep(30)
                         
@@ -1634,7 +1661,7 @@ def engage_if_leader(driver, whistle = False):
             send_keystrokes(driver, "T")
             return
         print('Try find engage as leader - no whistle')
-        write_to_terminal(f"Leader - Watching for Engage")
+        #write_to_terminal(f"Leader - Watching for Engage")
         if is_engage_button_visible(driver):
             engage_button = driver.find_element(By.CSS_SELECTOR, ".cataEngage")  # Update selector as needed
             if engage_button:
@@ -1778,8 +1805,8 @@ def quickAttack(driver):
 
 def automate_fighting(driver, maxMonsters = 4, whistle = False):
     global fighting, fight_state, role
-    write_to_terminal(f"Fighting: {fighting}")
-    write_to_terminal(f"Fight State: {fight_state}")
+    #write_to_terminal(f"Fighting: {fighting}")
+    #write_to_terminal(f"Fight State: {fight_state}")
     #update_overlay_position()
     
     while fighting and running:
@@ -1804,8 +1831,11 @@ def automate_fighting(driver, maxMonsters = 4, whistle = False):
                 print("Automate Fighting Step 3.2: isLeader - engage_if_leader()")
                 engage_if_leader(driver, whistle)
 
-            print(f"Automate Fighting Step 4: fight_based_on_role({role})")
-            fight_based_on_role(driver, role)
+            x = 0
+            while x < 6:
+                print(f"Automate Fighting Step 4: fight_based_on_role({role})")
+                fight_based_on_role(driver, role)
+                x += 1
 
             print("Automate Fighting Step 5: checkForDrops()")
             checkForDrops(driver)
@@ -1817,11 +1847,11 @@ def automate_fighting(driver, maxMonsters = 4, whistle = False):
 def checkForDrops(driver):
     try:
         print('Check Items')
-        write_to_terminal(f"Looking for items")
+        #write_to_terminal(f"Looking for items")
         drop_items = driver.find_elements(By.CSS_SELECTOR, ".dropItemsBox .itemBox")
         if drop_items:
-            print('Found Items')
-            write_to_terminal(f"Drops: {drop_items}")
+            print(Fore.GREEN + 'Found Items' + Style.RESET_ALL)
+            #write_to_terminal(f"Drops: {drop_items}")
             scanDroppedItems(driver, drop_items)
     except:
         print('checkForDrops threw exception')
@@ -1858,8 +1888,8 @@ def checkHealth(driver):
             hp = health_mana_data['hp']
             mp = health_mana_data['mp']
             
-            write_to_terminal(f"-HP: {hp}")
-            write_to_terminal(f"-MP: {mp}")
+            #write_to_terminal(f"-HP: {hp}")
+            #write_to_terminal(f"-MP: {mp}")
             print(f"-HP: {hp}")
             print(f"-MP: {mp}")
             

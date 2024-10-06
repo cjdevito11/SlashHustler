@@ -1,11 +1,11 @@
 {
     "stats": {
         "vitality": 80,
-        "strength": 140
+        "dexterity": 140
     },
     "skills":{
+        "doublestrike": 60,
         "retribution": 60,
-        "powerstrike": 60,
         "multistrike": 10
     }
 }

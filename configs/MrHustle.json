@@ -1,69 +1,73 @@
 {
     "name": "MrHustle",
     "role": "tank",
-    "class": "Paladin",
+    "class": "Monk",
     "leader": true,
     "whistle": true,
     "loot_threshold": 14,
     "auto_stat": true,
     "max_monsters": 4,
     "inventory": {
-        "2": {
-            "name": "Magical tempered diamond chain mail",
-            "magic_level": null,
-            "quality_level": null,
-            "level_req": "45",
-            "physical_defense": "42 to 107",
-            "magical_defense": "0 to 27",
-            "score": 0,
-            "action": "sell"
-        },
-        "3": {
-            "name": "Mystical wind II",
-            "magic_level": null,
-            "quality_level": null,
-            "damage": "4 to 20",
-            "mana_cost": "13",
-            "Life Steal": "+1",
-            "score": 1,
-            "action": "sell"
-        }
-    },
-    "equipment": {
-        "armor": {
-            "type": "iconChainmail",
-            "name": "Magical tempered diamond chain mail",
-            "magic_level": null,
-            "quality_level": null,
-            "level_req": "45",
-            "physical_defense": "83 to 209",
-            "magical_defense": "0 to 53",
-            "enhanced effect": "95",
-            "score": 20,
-            "action": "fight_with"
-        },
-        "charm": {
-            "type": "iconHealCharm",
-            "name": "Legendary heal II",
-            "magic_level": null,
-            "quality_level": null,
-            "enhanced effect": "27",
-            "experience gained": "4",
-            "mind numb": "1",
-            "fire mastery": "1",
-            "score": 14,
-            "action": "fight_with"
-        },
-        "acc._charm": {
-            "type": "iconFocusedHealCharm",
+        "1": {
             "name": "Mythical focused heal II",
             "magic_level": null,
             "quality_level": null,
-            "experience gained": "2",
-            "life steal": "2",
-            "critical flux": "1",
-            "wind mastery": "2",
-            "score": 4,
+            "heals": "12 to 14",
+            "mana_cost": "13",
+            "Experience Gained": "+2",
+            "Life Steal": "+2",
+            "Critical Flux": "+1",
+            "Wind Mastery": "+2",
+            "score": 8,
+            "action": "keep"
+        }
+    },
+    "equipment": {
+        "weapon": {
+            "type": "iconStaff",
+            "name": "Rare pine staff",
+            "magic_level": null,
+            "quality_level": null,
+            "damage": "13 to 36",
+            "enhanced effect": "32",
+            "score": 13,
+            "action": "fight_with"
+        },
+        "armor": {
+            "type": "iconRobe",
+            "name": "Arcane cotton robe",
+            "magic_level": null,
+            "quality_level": null,
+            "physical_defense": "0 to 2",
+            "magical_defense": "4 to 14",
+            "experience gained": "1",
+            "mana": "+1 to 2",
+            "life steal": "1",
+            "score": 1,
+            "action": "fight_with"
+        },
+        "charm": {
+            "type": "iconWindCharm",
+            "name": "Godly wind I",
+            "magic_level": null,
+            "quality_level": null,
+            "damage": "2 to 10",
+            "experience gained": "1",
+            "parry": "1",
+            "heal mastery": "1",
+            "wind mastery": "1",
+            "earth mastery": "2",
+            "score": 1,
+            "action": "fight_with"
+        },
+        "acc._charm": {
+            "type": "iconLightCharm",
+            "name": "Magical lightning III",
+            "magic_level": null,
+            "quality_level": null,
+            "damage": "5 to 54",
+            "enhanced effect": "54",
+            "score": 16,
             "action": "fight_with"
         }
     },
