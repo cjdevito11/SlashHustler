@@ -24,7 +24,16 @@ import threading
 import colorama
 from colorama import Fore, Back, Style
 colorama.init()
-
+UNDERLINE = '\033[4m'
+RESET = '\033[0m'
+FRED = '\033[31m'
+FGREEN = '\033[32m'
+FYELLOW = '\033[33m'
+FBLUE = '\033[34m'
+FMAGENTA = '\033[35m'
+FCYAN = '\033[36m'
+FWHITE = '\033[37m'
+FBLACK = ''
 
 # Redirect print function
 class StdoutRedirector:
@@ -60,7 +69,7 @@ fishing_thread = None
 cooking_thread = None
 
 #CHARACTER_JSON_PATH = 'configs/MrHustle.json'  # Update this to get character name
-CHARACTER_JSON_PATH = 'configs/HustleQueenWolf.json'  # Update this to get character name
+CHARACTER_JSON_PATH = 'configs/HustlerWolfie.json'  # Update this to get character name
 #CHARACTER_JSON_PATH = 'configs/TigBittyBroad.json'  # Update this to get character name
 STAT_JSON_PATH = 'configs/autoStat/paladin/basic.json'
 
@@ -1042,9 +1051,9 @@ def parseEquippedItem(html):
                         stat_name = parts[1].split(' ')[1].strip()
                         item_details[stat_name.lower()] = f"{left_part} to {right_part}"
                 else:
-                    print(f"Unknown stat format, skipping: {text}")
+                    print(Fore.RED + f"Unknown stat format, skipping: {text}" + Style.RESET_ALL)
             except Exception as e:
-                print(f"Error parsing stat '{text}': {e}")
+                print(Fore.RED + f"Error parsing stat '{text}': {e}" + Style.RESET_ALL)
 
     print(f"Final parsed equipped item details: {item_details}")
     write_to_terminal(f"Parsed Equipped Details: {item_details}")
@@ -1191,7 +1200,7 @@ def scanDroppedItems(driver, drop_items):
 
         # Log file name
         log_filename = "logs/itemDrops.txt"
-        
+       
         for item in drop_items:
             time.sleep(.3)
             parsedItem = hoverExtractParse(driver,item,False)
@@ -1215,6 +1224,7 @@ def scanDroppedItems(driver, drop_items):
                     loot_item(driver, item)
     except:
         print('Error in scanDroppedItems : Most likely to do with a dropped item not being there still to hover after time')
+
 
 
 def hover_and_extract_item(driver, item, is_equipped=False):
@@ -1265,15 +1275,15 @@ def calculate_item_score(item_name, item_details):
                 print(Fore.GREEN + f'Stat value extracted: {stat_value}' + Style.RESET_ALL)
             except Exception as e:
                 stat_value = 1  # Default to 1 if parsing fails
-                print(f'Error parsing stat value for {normalized_stat}, defaulting to 1. Error: {e}')
+                print(Fore.RED + f'Error parsing stat value for {normalized_stat}, defaulting to 1. Error: {e}' + Style.RESET_ALL)
 
             # Apply score modifier based on the extracted value from JSON
             stat_score = scoring_system[normalized_stat].get(str(stat_value), 0)
-            print(f'Modifier for {normalized_stat} with value {stat_value}: {stat_score}')
+            print(f'{UNDERLINE}Modifier for {Fore.YELLOW}{normalized_stat}{RESET}{UNDERLINE} with value {stat_value}: {Fore.YELLOW}{stat_score}{RESET}')
             score += stat_score
         else:
             # Print out the keys available in the scoring system for debugging
-            print(f"Stat '{normalized_stat}' not found in scoring system. ")
+            print(Fore.RED + f"Stat '{normalized_stat}' not found in scoring system. " + Style.RESET_ALL)
             #Available stats: {list(scoring_system.keys())}")
     
     print(Fore.MAGENTA + f'Final calculated score for {item_name}: {score}' + Style.RESET_ALL)
@@ -1944,7 +1954,7 @@ def run_fighting():
     #loot_threshold = loot_textbox.get() #Set loot threshold
     
     write_to_terminal("Fight!... ")
-    automate_fighting(driver,4,whistle)
+    automate_fighting(driver,4,whistle) #wolfie 4 is the max monster
 
 def run_fishing():
     driver = setup_browser()
