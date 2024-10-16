@@ -1,0 +1,180 @@
+{
+    "weapons":{
+        "sword":{
+            "0":{
+                "1":{
+                    "enhanced effect":40
+                },
+                "2":{
+                    "enhanced effect":30,
+                    "strength": 10
+                },
+                "3":{
+                    "enhanced effect":30,
+                    "magic luck": 1
+                }
+            },
+            "5":{
+                "1":{
+                    "enhanced effect":40
+                },
+                "2":{
+                    "enhanced effect":30,
+                    "strength": 10
+                },
+                "3":{
+                    "enhanced effect":30,
+                    "magic luck": 1
+                }
+            },
+            "10":{
+                "1":{
+                    "enhanced effect":40
+                },
+                "2":{
+                    "enhanced effect":30,
+                    "strength": 10
+                },
+                "3":{
+                    "enhanced effect":30,
+                    "magic luck": 1
+                }
+            }
+        },
+        "dagger":{
+            "0":{
+                "1":{
+                    "enhanced effect":45
+                },
+                "2":{
+                    "enhanced effect":35,
+                    "dexterity": 10
+                },
+                "3":{
+                    "enhanced effect":30,
+                    "magic luck": 1
+                },
+                "4":{
+                    "extra equipment slots": 1
+                }
+            },
+            "5":{
+                "1":{
+                    "enhanced effect":40
+                },
+                "2":{
+                    "enhanced effect":30,
+                    "strength": 10
+                },
+                "3":{
+                    "enhanced effect":30,
+                    "magic luck": 1
+                }
+            },
+            "10":{
+                "1":{
+                    "enhanced effect":40
+                },
+                "2":{
+                    "enhanced effect":30,
+                    "strength": 10
+                },
+                "3":{
+                    "enhanced effect":30,
+                    "magic luck": 1
+                }
+            }
+        }
+    },
+    "armor":{
+        "plate":{
+            "0":{
+                "1":{
+                    "enhanced effect":45
+                },
+                "2":{
+                    "enhanced effect":35,
+                    "dexterity": 10
+                },
+                "3":{
+                    "enhanced effect":30,
+                    "magic luck": 1
+                },
+                "4":{
+                    "extra equipment slots": 1
+                }
+            },
+            "5":{
+                "1":{
+                    "enhanced effect":40
+                },
+                "2":{
+                    "enhanced effect":30,
+                    "strength": 10
+                },
+                "3":{
+                    "enhanced effect":30,
+                    "magic luck": 1
+                }
+            },
+            "10":{
+                "1":{
+                    "enhanced effect":40
+                },
+                "2":{
+                    "enhanced effect":30,
+                    "strength": 10
+                },
+                "3":{
+                    "enhanced effect":30,
+                    "magic luck": 1
+                }
+            }
+        },
+        "Chain":{
+            "0":{
+                "1":{
+                    "enhanced effect":45
+                },
+                "2":{
+                    "enhanced effect":35,
+                    "dexterity": 10
+                },
+                "3":{
+                    "enhanced effect":30,
+                    "magic luck": 1
+                },
+                "4":{
+                    "extra equipment slots": 1
+                }
+            },
+            "5":{
+                "1":{
+                    "enhanced effect":40
+                },
+                "2":{
+                    "enhanced effect":30,
+                    "strength": 10
+                },
+                "3":{
+                    "enhanced effect":30,
+                    "magic luck": 1
+                }
+            },
+            "10":{
+                "1":{
+                    "enhanced effect":40
+                },
+                "2":{
+                    "enhanced effect":30,
+                    "strength": 10
+                },
+                "3":{
+                    "enhanced effect":30,
+                    "magic luck": 1
+                }
+            }
+        }
+    }
+
+}

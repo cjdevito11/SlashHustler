@@ -1,0 +1,39 @@
+{
+    "name": "HustleQueenWolf",
+    "role": "tank",
+    "class": "Samurai",
+    "build": "null",
+    "leader": true,
+    "whistle": true,
+    "loot_threshold": 14,
+    "auto_stat": true,
+    "max_monsters": 4,
+    "inventory": {},
+    "equipment": {
+        "weapon": {
+            "type": "iconSword",
+            "name": "Rare bronze sword",
+            "magic_level": null,
+            "quality_level": null,
+            "damage": "7 to 72",
+            "enhanced effect": "57",
+            "armor pierce": "1",
+            "score": 18,
+            "action": "fight_with"
+        },
+        "charm": {
+            "type": "iconFireCharm",
+            "name": "Legendary fire II",
+            "magic_level": null,
+            "quality_level": null,
+            "damage": "6 to 16",
+            "experience gained": "4",
+            "life steal": "1",
+            "mind numb": "1",
+            "glancing blow": "1",
+            "score": 4,
+            "action": "fight_with"
+        },
+        "acc._charm": null
+    }
+}
