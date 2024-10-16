@@ -373,6 +373,8 @@ def spendStatPoints(driver, config_path):
 
 def is_inventory_full(driver):
     # Locate the invItemsWrap container
+    print('Is Inv Full?')
+
     inv_items_wrap = driver.find_element(By.CLASS_NAME, "invItemsWrap")
     
     # Locate all itemSlotBox elements within invItemsWrap
@@ -397,7 +399,7 @@ def check_inventory_during_fishing(driver):
     if is_inventory_full(driver):  # Assuming you already have a function to check if the inventory is full
         print("Inventory full, trashing excess fish.")
         manage_fish_inventory(driver)
-    time.sleep(5)  # Wait for 5 seconds before the next inventory check (you can adjust this)
+    #time.sleep(5)  # Wait for 5 seconds before the next inventory check (you can adjust this)
 
 def get_trash_can_element(driver):
     print("Locating the trash can...")
