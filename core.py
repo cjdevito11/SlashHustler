@@ -1,11 +1,12 @@
 import tkinter as tk
+from tkinter import ttk
 from tkinter import simpledialog
 import pyautogui
 import time
 import json
 import os
 import pytesseract
-from PIL import ImageGrab
+from PIL import Image, ImageTk
 import random
 import keyboard
 import sys
@@ -23,7 +24,10 @@ import pygetwindow as gw
 import threading
 import colorama
 from colorama import Fore, Back, Style
+from tkinter import messagebox
+
 colorama.init()
+
 UNDERLINE = '\033[4m'
 RESET = '\033[0m'
 FRED = '\033[31m'
@@ -102,7 +106,24 @@ abilitiesMap = {
 }
 flattened_abilities = abilitiesMap["row1"] + abilitiesMap["row2"] + abilitiesMap["row3"] + abilitiesMap["row4"] + abilitiesMap["row5"] + abilitiesMap["row6"]
 
+# Directory paths
+main_config_path = 'configs'
+auto_stat_path = os.path.join(main_config_path, 'autoStat')
 
+# Function to load JSON files
+def load_json_files(directory):
+    json_files = {}
+    for root, dirs, files in os.walk(directory):
+        for file in files:
+            if file.endswith(".json"):
+                file_path = os.path.join(root, file)
+                with open(file_path, 'r') as f:
+                    try:
+                        json_files[file] = json.load(f)
+                    except Exception as e:
+                        print(f"Error loading {file}: {e}")
+                        messagebox.showerror("Error", f"Could not load {file}: {e}")
+    return json_files
 
 def load_scoring_system():
     with open('jsons/itemScore.json', 'r') as file:
@@ -2161,40 +2182,98 @@ def stop_fishing():
     
     write_to_terminal("- Fishing stopped -")
 
+# Function to handle config selection
+def load_selected_configs():
+    main_config_name = main_config_var.get()
+    auto_stat_config_name = auto_stat_config_var.get()
+    
+    if main_config_name in main_configs:
+        global CONFIG  # Use global CONFIG if it's already defined in your existing code
+        CONFIG = main_configs[main_config_name]
+        print(f"Loaded main config: {main_config_name}")
+    
+    if auto_stat_config_name in auto_stat_configs:
+        global STAT_JSON_PATH  # Use the STAT_JSON_PATH if already defined
+        STAT_JSON_PATH = auto_stat_configs[auto_stat_config_name]
+        print(f"Loaded auto stat config: {auto_stat_config_name}")
+
+    print(f"Main Config: {CONFIG}")
+    print(f"Auto Stat Config: {STAT_JSON_PATH}")
+
+main_configs = load_json_files(main_config_path)
+auto_stat_configs = load_json_files(auto_stat_path)
 
 # Set up the GUI
 overlay = tk.Tk()
 overlay.title("Slash Hustler")
-overlay.geometry("400x500+1450+530")
-#overlay.attributes('-topmost', True)
-overlay.attributes('-alpha', 0.7)
-#overlay.overrideredirect(True)
+overlay.geometry("600x750+100+100")
+overlay.attributes('-alpha', 0.9)
 
-fight_button = tk.Button(overlay, bg='black', fg='white', font=('exocet', 9), text="Fight", command=fight)
-fight_button.pack()
+# Load and add a banner image
+banner_image = Image.open("images/SlashHustler.png")  # Add the correct path to your image
+banner_image = banner_image.resize((600, 350))
+banner_photo = ImageTk.PhotoImage(banner_image)
+banner_label = tk.Label(overlay, image=banner_photo)
+banner_label.pack(pady=.5)
 
-stop_button = tk.Button(overlay, bg='black', fg='white', font=('exocet', 9), text="Stop", command=stop_automation)
-stop_button.pack()
+# Create a notebook (tabs)
+notebook = ttk.Notebook(overlay)
+notebook.pack(expand=True, fill='both')
 
-whistle_var = tk.BooleanVar(value=False)  # Set initial value to False
-whistle_checkbox = tk.Checkbutton(overlay, text="Whistle", variable=whistle_var, bg='black', fg='white', font=('exocet', 9))
-whistle_checkbox.pack()
+# Dropdown for Main Configs
+tk.Label(overlay, text="Select Main Config", bg='black', fg='white', font=('exocet', 10)).pack(pady=10)
+main_config_var = tk.StringVar()
+main_config_dropdown = ttk.Combobox(overlay, textvariable=main_config_var, values=list(main_configs.keys()))
+main_config_dropdown.pack(pady=10)
 
-fish_button = tk.Button(overlay, bg='black', fg='white', font=('exocet', 9), text="Fish", command=fish)
-fish_button.pack()
+# Dropdown for Class Configs
+tk.Label(overlay, text="Select Class Config", bg='black', fg='white', font=('exocet', 10)).pack(pady=10)
+auto_stat_config_var = tk.StringVar()
+auto_stat_dropdown = ttk.Combobox(overlay, textvariable=auto_stat_config_var, values=list(auto_stat_configs.keys()))
+auto_stat_dropdown.pack(pady=10)
 
-cook_button = tk.Button(overlay, bg='black', fg='white', font=('exocet', 9), text="cook", command=cook)
-cook_button.pack()
+# Personal Configs Tab
+personal_frame = tk.Frame(notebook, bg='black')
+notebook.add(personal_frame, text="Personal Configs")
 
-tk.Label(overlay, text="Loot Threshold", bg='black', fg='white').pack(pady=1)
-loot_textbox = tk.Entry(overlay, bg='black', fg='white')
+# Add widgets to the Personal Configs tab
+tk.Label(personal_frame, text="Profile Name", bg='black', fg='white', font=('exocet', 10)).pack(pady=10)
+profile_entry = tk.Entry(personal_frame, bg='black', fg='white', font=('exocet', 10))
+profile_entry.pack(pady=10)
+
+# Character Configs Tab
+character_frame = tk.Frame(notebook, bg='black')
+notebook.add(character_frame, text="Character Configs")
+
+# Add widgets for character configs
+tk.Label(character_frame, text="Character Name", bg='black', fg='white', font=('exocet', 10)).pack(pady=10)
+character_entry = tk.Entry(character_frame, bg='black', fg='white', font=('exocet', 10))
+character_entry.pack(pady=10)
+
+# Settings Tab for Activities (Fighting, Fishing, Cooking)
+settings_frame = tk.Frame(notebook, bg='black')
+notebook.add(settings_frame, text="Activity Settings")
+
+load_button = tk.Button(overlay, text="Load Configs", command=load_selected_configs)
+load_button.pack(pady=20)
+
+# Activity settings section
+tk.Label(settings_frame, text="Loot Threshold", bg='black', fg='white', font=('exocet', 15)).pack(pady=1)
+loot_textbox = tk.Entry(settings_frame, bg='black', fg='white')
 loot_textbox.pack(pady=1)
 
-terminal_output = tk.Text(overlay, bg='black', fg='white', font=('arial', 11), wrap='word')
+fight_button = tk.Button(settings_frame, bg='black', fg='white', font=('exocet', 15), text="Fight", command=fight)
+fight_button.pack(pady=5)
+
+fish_button = tk.Button(settings_frame, bg='black', fg='white', font=('exocet', 15), text="Fish", command=fish)
+fish_button.pack(pady=5)
+
+cook_button = tk.Button(settings_frame, bg='black', fg='white', font=('exocet', 15), text="Cook", command=cook)
+cook_button.pack(pady=5)
+
+# Add a text terminal at the bottom
+terminal_output = tk.Text(overlay, bg='black', fg='white', font=('exocet', 9), wrap='word', height=10)
 terminal_output.pack(expand=True, fill='both')
 
-#sys.stdout = StdoutRedirector(terminal_output)
-
-keyboard.add_hotkey('+', stop_automation)
-
+# Start the GUI loop
 overlay.mainloop()
