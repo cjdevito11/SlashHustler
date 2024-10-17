@@ -21,7 +21,11 @@ from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.keys import Keys
 import pygetwindow as gw
 import threading
-from collections import deque
+from collections import deque, defaultdict
+import re
+from colorama import Fore, Style, init
+
+init(autoreset=True)
 
 # Redirect print function
 class StdoutRedirector:
@@ -46,6 +50,22 @@ attack_counter = 0
 loot_threshold = 4
 
 CHARACTER_JSON_PATH = 'configs/HustlinPies.json'  # Update this to get character name
+WALL_LEARNED_FILE = "jsons/walls.json"
+learned_walls = {}
+
+unexplored = None
+visited = None
+
+# Directions map for turning based on current facing direction
+direction_rotation = {
+    'north': {'left': 'west', 'right': 'east', 'down': 'south'},
+    'south': {'left': 'east', 'right': 'west', 'down': 'north'},
+    'east': {'left': 'north', 'right': 'south', 'down': 'west'},
+    'west': {'left': 'south', 'right': 'north', 'down': 'east'}
+}
+
+# Start with the character facing north
+current_facing = 'north'
 
 CONFIG = {
     "name": "CharacterName",
@@ -65,6 +85,7 @@ CONFIG = {
 equipped = []
 inventory = []
 
+
 def load_scoring_system():
     with open('jsons/itemScore.json', 'r') as file:
         scoring_system = json.load(file)
@@ -73,51 +94,297 @@ def load_scoring_system():
 
 scoring_system = load_scoring_system()
 
+def load_learned_walls():
+    try:
+        with open(WALL_LEARNED_FILE, "r") as f:
+            data = json.load(f)
+
+        # Convert loaded data (nested lists) into sets of tuples for learned walls
+        learned_walls = {key: set(tuple(tuple(coord) for coord in wall) for wall in value) if value else set() for key, value in data.items()}
+
+        print(f"Loaded {len(learned_walls)} learned wall patterns.")
+        return learned_walls
+    except Exception as e:
+        print(f"Error loading learned walls: {e}")
+        return {}
+
+
+
+
+def save_learned_walls():
+    """
+    Saves the learned wall patterns to a JSON file for future use.
+    Convert sets of tuples to lists to make them JSON serializable.
+    """
+    serializable_learned_walls = {key: [list(wall) for wall in value] for key, value in learned_walls.items()}
+
+    with open(WALL_LEARNED_FILE, 'w') as f:
+        json.dump(serializable_learned_walls, f, indent=4)
+        
+    print(f"Saved {len(learned_walls)} learned wall patterns.")
+
+
+
+
+# Q-table to store the knowledge (state-action-reward pairs)
+q_table = defaultdict(lambda: {'up': 0, 'down': 0, 'left': 0, 'right': 0})
+learning_rate = 0.1
+discount_factor = 0.9
+exploration_rate = 0.3
 
 def reset_maze(driver):
     """
     Resets the maze by going back to town and re-entering the catacombs.
     """
-    town_heal(driver)  # Go back to town for healing
-    select_catacombs(driver)  # Re-enter the catacombs to reset the maze
+    print("Resetting the maze by going to town and re-entering catacombs.")
+    town_heal(driver)
+    select_catacombs(driver)
     time.sleep(2)
+
+def learn_wall_pattern(d_attr, walls):
+    """
+    Adds the learned D attribute and corresponding wall structure to the learned walls dictionary.
+    If the D attribute is already known, we skip or refine the learning.
+    """
+    if d_attr not in learned_walls:
+        learned_walls[d_attr] = walls
+        save_learned_walls()
+        print(f"Learning new pattern for D attribute: {d_attr}")
+    else:
+        print(f"Pattern for D attribute {d_attr} already known.")
+
+def get_walls_from_d(d_attr):
+    """
+    Parses the 'd' attribute to understand which walls exist or retrieves from learned data.
+    If a known D attribute pattern is found, it returns the stored walls.
+    """
+    if d_attr in learned_walls:
+        print(f"Using learned walls for D attribute: {d_attr}")
+        return learned_walls[d_attr]
+
+    walls = set()
+    segments = d_attr.split("M")  # Split by 'M' to isolate wall paths
+
+    for segment in segments:
+        if not segment.strip():
+            continue
+
+        commands = segment.split("L")  # Split each segment into 'L' commands
+        try:
+            for i in range(len(commands) - 1):
+                start_coords = commands[i].strip().split()
+                end_coords = commands[i + 1].strip().split()
+
+                if len(start_coords) == 2 and len(end_coords) == 2:
+                    x1, y1 = int(start_coords[0]), int(start_coords[1])
+                    x2, y2 = int(end_coords[0]), int(end_coords[1])
+
+                    # Store the walls as tuples of (x, y) coordinates
+                    walls.add(((x1, y1), (x2, y2)))
+
+        except ValueError as e:
+            print(f"Skipping invalid wall segment: {segment}")
+
+    # Learn this pattern for future use
+    learn_wall_pattern(d_attr, walls)
+
+    return walls
+
+
+def update_q_table(state, action, reward, next_state):
+    """
+    Updates the Q-table based on the action taken and the reward received.
+    """
+    best_next_action = max(q_table[next_state], key=q_table[next_state].get)
+    q_table[state][action] = q_table[state][action] + learning_rate * (reward + discount_factor * q_table[next_state][best_next_action] - q_table[state][action])
+
+def update_learned_moves(d_attr, direction, start_position, end_position):
+    """
+    Updates the learned moves for a room's structure after a successful move.
+    """
+    if d_attr not in learned_walls:
+        learned_walls[d_attr] = {
+            "walls": [],  # Initialize with empty walls
+            "moves": {}
+        }
+
+    # Get the moves for this room structure
+    moves = learned_walls[d_attr].get("moves", {})
+
+    # Update the successful move for the given direction
+    moves[direction] = [start_position, end_position]
+
+    # Update the walls.json with the new move
+    save_learned_walls()
+
+    print(f"Learned move from {start_position} to {end_position} in direction {direction} for room {d_attr}")
 
 ### NAVIGATION ###
 
 
 def parse_maze(driver):
     """
-    Parses the maze structure from the game's HTML.
+    Parses the maze structure from the game's HTML, including walls and open rooms.
+    Loads previously learned wall patterns.
     """
     maze_grid = {}  # A dictionary to store tile positions and their statuses
+    walls = {}  # Store walls for each tile
+
+    print("Parsing maze rooms...")
+
     svg_elements = driver.find_elements(By.CSS_SELECTOR, ".mapSVG rect")
 
     for element in svg_elements:
         x = int(element.get_attribute('x'))
         y = int(element.get_attribute('y'))
         status = element.get_attribute('fill')
+
         if status == '#22AA22':  # Assuming this color represents 'open' tiles
             maze_grid[(x, y)] = 'open'
         else:
             maze_grid[(x, y)] = 'blocked'
+        print(f"Room at {x}, {y} marked as {'open' if status == '#22AA22' else 'blocked'}.")
 
-    return maze_grid
+    # Now, let's parse the walls based on the path element
+    path_elements = driver.find_elements(By.CSS_SELECTOR, ".mapSVG path")
+    print("Parsing walls from 'd' attributes...")
 
+    for path in path_elements:
+        d_attr = path.get_attribute("d")
+        room_walls = get_walls_from_d(d_attr)  # Use learned walls if available
+        print(f"Wall parsed with data: {d_attr}")
 
+        # You could assign these walls to the corresponding room in maze_grid or track separately.
+        for wall in room_walls:
+            walls[(wall[0], wall[1])] = 'wall'
 
-def move_in_maze(direction):
-    time.sleep(random.uniform(0.5, 1.5))
+    return maze_grid, walls
 
-    if direction == 'up':
-        pyautogui.press('w')
-    elif direction == 'down':
-        pyautogui.press('s')
-    elif direction == 'left':
-        pyautogui.press('a')
-    elif direction == 'right':
-        pyautogui.press('d')
+def get_room_d_attr(driver, current_position):
+    """
+    Finds the room's 'd' attribute based on the player's current position.
+    """
+    try:
+        # Extract all the path elements in the maze that represent rooms (using CSS selector for the SVG paths)
+        path_elements = driver.find_elements(By.CSS_SELECTOR, ".mapSVG path")
+
+        # Iterate through each path element
+        for path in path_elements:
+            d_attr = path.get_attribute("d")
+            
+            # For each room's 'd' attribute, check if the current position lies within that room's boundaries
+            if is_position_in_room(d_attr, current_position):
+                print(f"Player is in room with 'd' attribute: {d_attr}")
+                return d_attr  # Return the 'd' attribute of the room the player is in
+
+        # If no room matches the current position
+        print(f"Player's current position {current_position} does not match any room.")
+        return None
+
+    except Exception as e:
+        print(f"Error finding room 'd' attribute: {e}")
+        return None
+
+def is_position_in_room(d_attr, current_position):
+    """
+    Determines if the player's current position is inside the room defined by the given 'd' attribute.
+    """
+    try:
+        # Example of parsing the 'd' attribute and checking if it contains the current position
+        # For now, we will assume that the 'd' attribute defines the room boundaries in some way
+
+        # Parse the coordinates from the 'd' attribute (this assumes the 'd' attribute contains line segments)
+        coordinates = re.findall(r"[ML](\d+(?:\.\d+)?) (\d+(?:\.\d+)?)", d_attr)
+
+        # Convert coordinates to tuples of integers for comparison
+        room_boundaries = [(int(float(x)), int(float(y))) for x, y in coordinates]
+
+        # Check if the current position is inside the boundary points
+        for i in range(len(room_boundaries) - 1):
+            x1, y1 = room_boundaries[i]
+            x2, y2 = room_boundaries[i + 1]
+            
+            if min(x1, x2) <= current_position[0] <= max(x1, x2) and min(y1, y2) <= current_position[1] <= max(y1, y2):
+                return True  # The current position is within this room's boundary
+
+        return False  # Current position not found within this room's boundary
+
+    except Exception as e:
+        print(f"Error in is_position_in_room: {e}")
+        return False
+
+def move_in_maze(driver, direction):
+    """
+    Moves in the maze by clicking the corresponding arrow and records successful movements.
+    """
+    global current_facing  # To track which way we're facing
+    current_position = get_current_position(driver)
+    
+    print(f"Moving {direction} in the maze.")
+    time.sleep(random.uniform(0.5, 1.5))  # Simulate human-like delay
+
+    try:
+        # Find the div containing all the arrow controls
+        arrow_controls = driver.find_element(By.CLASS_NAME, "cataArrowControls")
+        arrows = arrow_controls.find_elements(By.TAG_NAME, "svg")
         
-    time.sleep(random.uniform(0.5, 1.5))
+        # Assuming the order of arrows is: left, up, right, down, whistle
+        direction_map = {
+            'left': arrows[0],
+            'up': arrows[1],
+            'right': arrows[2],
+            'down': arrows[3],
+            'whistle': arrows[4]
+        }
+        
+        if direction in direction_map:
+            direction_map[direction].click()
+            time.sleep(1)  # Allow time for movement
+            
+            # Check the new position after moving
+            new_position = get_current_position(driver)
+            
+            # If the move was successful (i.e., we moved to a new room)
+            if new_position != (0,0) and new_position != current_position:
+                print(f"Moved {direction} successfully to {new_position}")
+                
+                # Update the learned moves in the room structure
+                d_attr = get_room_d_attr(driver)  # You need a method to get the current room's 'd' attribute
+                update_learned_moves(d_attr, direction, current_position, new_position)
+            else:
+                print(f"Failed to move {direction}. Still at {current_position}")
+        else:
+            print(f"Unknown direction: {direction}")
+
+    except Exception as e:
+        print(f"Error moving {direction}: {e}")
+
+
+
+def choose_action(state):
+    """
+    Chooses an action (direction) based on the current Q-table values.
+    """
+    if random.uniform(0, 1) < exploration_rate:  # Explore randomly
+        return random.choice(['up', 'down', 'left', 'right'])
+    else:  # Exploit learned values
+        return max(q_table[state], key=q_table[state].get)
+
+def choose_learned_move(d_attr, current_position):
+    """
+    Chooses a direction based on previously learned moves for the given room structure.
+    """
+    if d_attr in learned_walls and "moves" in learned_walls[d_attr]:
+        possible_moves = learned_walls[d_attr]["moves"]
+        
+        # Check if there's a learned move from the current position
+        for direction, move in possible_moves.items():
+            if move[0] == current_position:
+                print(f"Learned move available: {direction} from {current_position} to {move[1]}")
+                return direction
+
+    # If no learned moves, fall back to a default behavior (explore, etc.)
+    return None
 
 def get_direction(current_tile, next_tile):
     """
@@ -135,6 +402,122 @@ def get_direction(current_tile, next_tile):
     elif next_x > current_x:
         return 'right'
 
+def explore_and_learn(driver, maze_grid, walls, start_position, unexplored=None, visited=None):
+    """
+    Explore the maze, learning about wall layouts and handling monsters if encountered.
+    The bot prioritizes unexplored tiles and backtracks when necessary to fully explore the maze.
+    """
+    if unexplored is None:
+        unexplored = deque([start_position])  # Initialize unexplored if not provided
+    if visited is None:
+        visited = set()  # Initialize visited if not provided
+
+    print(f"Starting exploration at position: {start_position}")
+
+    while unexplored:
+        current_tile = unexplored.popleft()  # Get the next tile to explore
+        visited.add(current_tile)  # Mark it as visited
+        print(f"Exploring tile: {current_tile}")
+        print(f'Visited: {visited}')
+        
+        # Get the current state (tile and its walls)
+        current_walls = walls.get(current_tile, set())
+        state = (current_tile, frozenset(current_walls))
+
+        visualize_maze(maze_grid, visited, start_position)
+        
+        # Prioritize unexplored directions
+        unexplored_directions = []
+        neighbors = get_neighbors(current_tile)  # Get neighboring tiles (e.g., up, down, left, right)
+        
+        for direction, neighbor in neighbors.items():
+            if neighbor not in visited:
+                unexplored_directions.append((direction, neighbor))
+        
+        if unexplored_directions:
+            # Choose an unexplored direction if available
+            direction, new_tile = unexplored_directions[0]  # Prioritize the first unexplored direction
+        else:
+            # If no unexplored directions, choose an action based on the Q-table (or backtrack)
+            action = choose_action(state)
+            move_in_maze(driver, action)
+            new_tile = get_current_position(driver)
+
+        
+        # Move to the selected tile
+        move_in_maze(driver, direction)
+        new_tile = get_current_position(driver)
+        reward = 10 if new_tile != current_tile else -5  # Reward for moving to a new room, penalty for failing
+        print(f"Moved to new tile: {new_tile}. Reward: {reward}")
+
+        # Update Q-table
+        next_state = (new_tile, frozenset(walls.get(new_tile, set())))
+        update_q_table(state, direction, reward, next_state)
+
+        # If the new tile has not been visited, add it to unexplored
+        if new_tile not in visited:
+            unexplored.append(new_tile)
+
+        # Check for monsters
+        monsters = get_monsters(driver)
+        if monsters:
+            print(f"Monsters encountered at {new_tile}. Initiating fight. RETURN")
+            return unexplored, visited  # Exit exploration to handle monsters
+
+        # If the entire maze is explored, reset the maze
+        if len(visited) == len([tile for tile, status in maze_grid.items() if status == 'open']):
+            print("Maze fully explored, resetting maze.")
+            reset_maze(driver)
+            return unexplored, visited  # Return updated states
+
+    return unexplored, visited  # Return unexplored and visited for next calls
+
+
+
+def visualize_maze(maze_grid, visited, player_position):
+    """
+    Visually represents the maze grid and the visited tiles dynamically based on the discovered maze.
+    """
+    print("\n--- Current Maze State ---")
+    
+    # Find the minimum and maximum coordinates in the discovered maze
+    if maze_grid:
+        min_x = min(tile[0] for tile in maze_grid)
+        max_x = max(tile[0] for tile in maze_grid)
+        min_y = min(tile[1] for tile in maze_grid)
+        max_y = max(tile[1] for tile in maze_grid)
+    else:
+        min_x = min_y = 0
+        max_x = max_y = 40  # Default size if no tiles are discovered
+
+    maze_representation = ''
+    
+    # Loop through the dynamically calculated grid range
+    for y in range(min_y, max_y + 8, 8):  # Adjust step size based on tile size (8 in your example)
+        for x in range(min_x, max_x + 8, 8):
+            tile = (x, y)
+            
+            if tile == player_position:
+                maze_representation += Fore.GREEN + 'P ' + Style.RESET_ALL  # Player's position
+            elif tile in visited:
+                maze_representation += Fore.YELLOW + 'V ' + Style.RESET_ALL  # Visited tile
+            elif tile in maze_grid and maze_grid[tile] == 'open':
+                maze_representation += Fore.CYAN + '. ' + Style.RESET_ALL  # Unexplored but open tile
+            elif tile in maze_grid and maze_grid[tile] == 'blocked':
+                maze_representation += Fore.RED + '# ' + Style.RESET_ALL  # Blocked tile
+            else:
+                maze_representation += '  '  # Empty space (not part of the maze)
+        
+        maze_representation += '\n'  # Newline for each row
+    
+    print(maze_representation)
+
+    # Add a legend
+    print(Fore.GREEN + "P" + Style.RESET_ALL + " - Player")
+    print(Fore.YELLOW + "V" + Style.RESET_ALL + " - Visited")
+    print(Fore.CYAN + "." + Style.RESET_ALL + " - Open Path")
+    print(Fore.RED + "#" + Style.RESET_ALL + " - Blocked Path")
+
 
 def explore_and_fight(driver, maze_grid, start_position):
     """
@@ -143,12 +526,12 @@ def explore_and_fight(driver, maze_grid, start_position):
     visited = set()
     unexplored = deque([start_position])  # Queue to track unexplored tiles
     print(f"Starting exploration at position: {start_position}")
-    
+
     while unexplored:
         current_tile = unexplored.popleft()  # Get the next tile to explore
         visited.add(current_tile)
         print(f"Exploring tile: {current_tile} | Visited: {len(visited)} | Unexplored: {len(unexplored)}")
-        
+
         # Check neighbors
         neighbors = [
             (current_tile[0], current_tile[1] + 8),  # Move up
@@ -156,13 +539,13 @@ def explore_and_fight(driver, maze_grid, start_position):
             (current_tile[0] + 8, current_tile[1]),  # Move right
             (current_tile[0] - 8, current_tile[1])   # Move left
         ]
-        
+
         # Filter out blocked or already visited tiles
         valid_neighbors = [
             neighbor for neighbor in neighbors 
             if neighbor in maze_grid and maze_grid[neighbor] == 'open' and neighbor not in visited
         ]
-        
+
         if valid_neighbors:
             for neighbor in valid_neighbors:
                 unexplored.append(neighbor)
@@ -175,14 +558,15 @@ def explore_and_fight(driver, maze_grid, start_position):
         if not valid_neighbors:
             print(f"Dead end at {current_tile}, backtracking...")
 
-        log_maze_state(maze_grid, visited)
+        # Visualize the maze after each move
+        visualize_maze(maze_grid, visited)
 
         # If the entire maze is explored, reset and start again
         if len(visited) == len([tile for tile, status in maze_grid.items() if status == 'open']):
             print("Maze fully explored, resetting maze.")
-            reset_maze(driver)  # Reset the maze and start again
+            reset_maze(driver)
             return True
-
+        
 def trigger_fight(driver):
     monsters = get_monsters(driver)  # Get the list of monsters on screen
     while monsters:
@@ -224,9 +608,67 @@ def get_current_position(driver):
     Function to return the current position in the maze.
     If no previous exploration, assume starting at (0, 0).
     """
-    # Assuming we can extract the current position from the game UI or we start at (0, 0)
-    return (0, 0)  # Start here unless you have a way to get a more accurate starting position from the UI
+    try:
+        # Assuming you extract the path that contains current position
+        #path_element = driver.find_element_by_xpath("//path[contains(@stroke, '#ccc')]")
+        arrow_element = driver.find_element(By.CSS_SELECTOR, 'path[fill="#ccc"][stroke="#ccc"]')
+        print(f'arrow_element: {arrow_element}')
+        d_attribute = arrow_element.get_attribute('d')
+        print(f'd_attribute: {d_attribute}')
+        # Extracting coordinates from the 'd' attribute
+        coordinates = re.findall(r"[ML](\d+(?:\.\d+)?) (\d+(?:\.\d+)?)", d_attribute)
+        if coordinates:
+            # Extracting the most recent coordinates from the arrow path
+            last_coordinate = coordinates[-1]
+            x, y = map(float, last_coordinate)  # Convert to float for more precise handling
 
+            # Round to the nearest integer, or use int() to floor the value
+            current_position = (int(round(x)), int(round(y)))
+            print(f"Current position parsed: {current_position}")
+            return current_position
+        else:
+            print("Error fetching current position: No coordinates found")
+            return (0, 0)  # Return default starting point if unable to find coordinates
+    except Exception as e:
+        print(f"Error fetching current position: {e}")
+        return (0, 0)  # Fallback in case of error
+
+def get_current_position_from_arrow(driver): # KEEP
+    """
+    Fetches the player's current position by parsing the arrow's 'd' attribute.
+    """
+    try:
+        # Find the arrow element by selecting the path with stroke="#ccc" and fill="#ccc"
+        arrow_element = driver.find_element(By.CSS_SELECTOR, 'path[fill="#ccc"][stroke="#ccc"]')
+        print(f'Arrow_element: {arrow_element}')
+        # Extract the 'd' attribute, which contains the arrow's coordinates
+        d_attr = arrow_element.get_attribute("d")
+        print(f'd_attr: {d_attr}')
+        # Example of d attribute: "M11 83 L11 88.5 16.5 85.75 11 83"
+        # We want to extract the first set of coordinates: M11 83
+        segments = d_attr.split(" ")
+        
+        # Extract the X and Y coordinates from the 'M11 83' part
+        x = int(segments[0][1:])  # Remove the 'M' and convert to integer
+        y = int(segments[1])
+
+        return (x, y)  # Return as tuple (x, y)
+    except Exception as e:
+        print(f"Error fetching current position: {e}")
+        return (0, 0)  # Default fallback if not found
+
+def get_neighbors(current_tile):
+    """
+    Returns the neighboring tiles (up, down, left, right) for the given current tile.
+    Example: (x, y) => {(direction, (new_x, new_y))}
+    """
+    x, y = current_tile
+    return {
+        'up': (x, y - 1),
+        'down': (x, y + 1),
+        'left': (x - 1, y),
+        'right': (x + 1, y)
+    }
 
 def explore_maze_until_monster(driver):
     """
@@ -278,29 +720,6 @@ def explore_maze_until_monster(driver):
 
 ####
 
-def get_current_position_from_arrow(driver):
-    """
-    Fetches the player's current position by parsing the arrow's 'd' attribute.
-    """
-    try:
-        # Find the arrow element by selecting the path with stroke="#ccc"
-        arrow_element = driver.find_element(By.CSS_SELECTOR, 'path[stroke="#ccc"]')
-        
-        # Extract the 'd' attribute, which contains the arrow's coordinates
-        d_attr = arrow_element.get_attribute("d")
-        
-        # Example: "M91 163 L91 168.5 96.5 165.75 91 163"
-        # We want to extract the starting coordinates: M91 163
-        start_coordinates = d_attr.split(" ")[0:2]  # Get the M and the first coordinate pair
-
-        # Convert the coordinates to integers
-        x = int(start_coordinates[0][1:])  # Remove 'M' and convert to integer
-        y = int(start_coordinates[1])
-
-        return (x, y)  # Return as tuple
-    except Exception as e:
-        print(f"Error fetching current position: {e}")
-        return (0, 0)  # Default fallback if not found
 
 def get_arrow_position(driver):
     """
@@ -1367,6 +1786,22 @@ def is_engage_button_visible(driver):
         print('CANT FIND ENGAGE BUTTON')
         return False
 
+# Function to check if engage button is visible
+def is_arrows_visible(driver):
+    try:
+        print('Is arrows Button Visible?')
+        arrows = driver.find_element(By.CSS_SELECTOR, ".cataArrowControls")
+        print('is it hiding?')
+        display_style = arrows.get_attribute("style")
+        if "display: block" in display_style:
+            print('TRUE')
+            return True
+        print('FALSE')
+        return False
+    except Exception:
+        print('CANT FIND arrows')
+        return False
+    
 # Function to select catacombs when in town
 def select_catacombs(driver):
     try:
@@ -1614,32 +2049,40 @@ def quickAttack(driver):
         print("Quick Attack Failed")
 
 
-
-"""def automate_fighting(driver): #
-    global fighting, fight_state, role #
+"""
+def automate_fighting(driver):
+    global fighting, fight_state, role
     write_to_terminal(f"Fighting: {fighting}")
     write_to_terminal(f"Fight State: {fight_state}")
-
+    
     if fighting:
         try:
+            isLeader = is_leader(driver)
+            print(f'Is Leader: {isLeader}')
+            
             if is_in_town(driver):
                 select_catacombs(driver)  # Enter the catacombs if in town
 
-            # Get the current maze structure
-            maze_grid = parse_maze(driver)  # Parse the maze from the HTML
-            start_position = (0, 0)  # Starting position of the maze
+            # Check and manage health before starting
+            checkHealth(driver)
 
-            # Start exploring and fighting
-            explore_and_fight(driver, maze_grid, start_position)
+            # Parse the maze and load the initial grid structure
+            maze_grid, walls = parse_maze(driver)
+            start_position = get_current_position(driver)
+            print(f'START POSITION: {start_position}')
+            # Start exploring and learning while fighting monsters when encountered
+            explore_and_learn(driver, maze_grid, walls, start_position)
 
         except Exception as e:
             print(f"Error in automate_fighting: {e}")
-        overlay.after(1000, lambda: automate_fighting(driver))  # Repeat the process with a delay"""
+        
+        # Schedule the function to run again after a delay to keep the loop going
+        overlay.after(1000, lambda: automate_fighting(driver))  # Repeat after delay
 
-
+"""
 
 def automate_fighting(driver):
-    global fighting, fight_state, role
+    global fighting, fight_state, role, unexplored, visited
     write_to_terminal(f"Fighting: {fighting}")
     write_to_terminal(f"Fight State: {fight_state}")
     
@@ -1653,11 +2096,6 @@ def automate_fighting(driver):
 
             checkHealth(driver)
             
-            #if not isLeader:
-            #    wait_for_monsters()
-            #else:
-            #    engage_if_leader(driver)
-            
             fight_based_on_role(driver, role)
             print('Check Items')
             
@@ -1668,16 +2106,27 @@ def automate_fighting(driver):
                 scanDroppedItems(driver, drop_items)
 
             # Check for the engage button to trigger exploration
-            if is_engage_button_visible(driver):
+            if is_engage_button_visible(driver) or is_arrows_visible(driver):
                 print("Engage button found, clicking to return to the maze.")
                 click_engage_button(driver)  # Click engage to return to the maze
-                # Start maze exploration until a monster is encountered
-                #explore_maze_until_monster(driver)
-                explore_maze(driver)
+
+                maze_grid, walls = parse_maze(driver)
+                start_position = get_current_position(driver)
+
+                # Only initialize unexplored and visited if they haven't been set yet
+                if unexplored is None or visited is None:
+                    unexplored = deque([start_position])  # Initialize unexplored queue
+                    visited = set()  # Initialize visited set
+
+                print(f'START POSITION: {start_position}')
+                # Continue exploring and learning while fighting monsters when encountered
+                unexplored, visited = explore_and_learn(driver, maze_grid, walls, start_position, unexplored, visited)
+
         except Exception as e:
             print(f"Error in automate_fighting: {e}")
         
-        overlay.after(1000, lambda: automate_fighting(driver))  # Repeat after delay
+        # Repeat after delay to keep automation running
+        overlay.after(1000, lambda: automate_fighting(driver))
 
 
 def checkHealth(driver):
@@ -1732,6 +2181,9 @@ def fight():
     update_character_json(driver)
     
     loot_threshold = loot_textbox.get() #Set loot threshold
+
+    print('Load Learned Walls')
+    load_learned_walls()
 
     write_to_terminal("Fight!... ")
     automate_fighting(driver)
