@@ -8,25 +8,14 @@
     "auto_stat": true,
     "max_monsters": 4,
     "inventory": {
-        "2": {
-            "name": "Magical brocade robe",
+        "1": {
+            "name": "Rare alloy dagger",
             "magic_level": null,
             "quality_level": null,
-            "level_req": "10",
-            "physical_defense": "0 to 12",
-            "magical_defense": "16 to 48",
-            "Enhanced Effect": "+40",
-            "score": 15,
-            "action": "fight_with"
-        },
-        "3": {
-            "name": "Mystical mithril dagger",
-            "magic_level": null,
-            "quality_level": null,
-            "level_req": "25",
-            "damage": "85 to 150",
-            "Enhanced Effect": "+30",
-            "score": 17,
+            "level_req": "15",
+            "damage": "65 to 114",
+            "Enhanced Effect": "+31",
+            "score": 14,
             "action": "fight_with"
         },
         "4": {
@@ -58,15 +47,6 @@
             "score": 32,
             "action": "fight_with"
         },
-        "7": {
-            "name": "Rare bronze dagger",
-            "magic_level": null,
-            "quality_level": null,
-            "damage": "24 to 43",
-            "Glancing Blow": "+1",
-            "score": 1,
-            "action": "sell"
-        },
         "8": {
             "name": "Arcane cotton robe",
             "magic_level": null,
@@ -83,6 +63,18 @@
     "equipment": {
         "weapon": {
             "type": "iconDagger",
+            "name": "Rare adamantium dagger",
+            "magic_level": null,
+            "quality_level": null,
+            "level_req": "35",
+            "damage": "142 to 248",
+            "enhanced effect": "72",
+            "ice mastery": "14",
+            "score": 29,
+            "action": "fight_with"
+        },
+        "armor": {
+            "type": "iconPaddedRobe",
             "name": "Magical wyvernskin padded robe",
             "magic_level": null,
             "quality_level": null,
