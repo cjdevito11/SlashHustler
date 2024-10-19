@@ -448,6 +448,13 @@ def spendStatPoints(driver, config_path):
         points_to_dexterity = max(0,desired_dexterity - dexterity)
         points_to_intelligence = max(0, desired_intelligence - intelligence)
 
+        print(f'desired_vitality: {desired_vitality}    -   desired_strength: {desired_strength}    
+              -   desired_dexterity: {desired_dexterity}  - desired_intelligence: {desired_intelligence}')
+        print(f'points_to_vitality: {points_to_vitality}    -   strength: {strength}    
+              -   dexterity: {dexterity}  - Intelligence: {intelligence}')
+        print(f'vitality: {vitality}    -   points_to_strength: {points_to_strength}    
+              -   points_to_dexterity: {points_to_dexterity}  - points_to_intelligence: {points_to_intelligence}')
+        
         total_points_needed = points_to_vitality + points_to_strength + points_to_dexterity + points_to_intelligence
 
         if total_points_needed <= 0:
@@ -457,6 +464,7 @@ def spendStatPoints(driver, config_path):
         # Allocate points with re-finding elements to prevent stale element reference
         while stat_points > 0:
             if points_to_vitality > 0:
+                print('Add to vitality')
                 # Wait until the vitality button is clickable, then click it
                 vitality_button = WebDriverWait(driver, 10).until(
                     EC.element_to_be_clickable((By.CSS_SELECTOR, "div#CS6 svg"))
@@ -466,6 +474,7 @@ def spendStatPoints(driver, config_path):
                 stat_points -= 1
 
             elif points_to_strength > 0:
+                print('Add to strength')
                 # Wait until the strength button is clickable, then click it
                 strength_button = WebDriverWait(driver, 10).until(
                     EC.element_to_be_clickable((By.CSS_SELECTOR, "div#CS3 svg"))
@@ -475,6 +484,7 @@ def spendStatPoints(driver, config_path):
                 stat_points -= 1
 
             elif points_to_dexterity > 0:
+                print('Add to dexterity')
                 # Wait until the dexterity button is clickable, then click it
                 dexterity_button = WebDriverWait(driver, 10).until(
                     EC.element_to_be_clickable((By.CSS_SELECTOR, "div#CS4 svg"))
@@ -483,6 +493,7 @@ def spendStatPoints(driver, config_path):
                 points_to_dexterity -= 1
                 stat_points -= 1
             elif points_to_intelligence > 0:
+                print('Add to intelligence')
                 # Wait until the intellligence button is clickable, then click it
                 intelligence_button = WebDriverWait(driver, 10).until(
                     EC.element_to_be_clickable((By.CSS_SELECTOR, "div#CS3 svg"))
