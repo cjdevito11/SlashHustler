@@ -450,9 +450,9 @@ def spendStatPoints(driver, config_path):
 
         print(f'desired_vitality: {desired_vitality}    -   desired_strength: {desired_strength}    
               -   desired_dexterity: {desired_dexterity}  - desired_intelligence: {desired_intelligence}')
-        print(f'points_to_vitality: {points_to_vitality}    -   strength: {strength}    
+        print(f'vitality: {vitality}    -   strength: {strength}    
               -   dexterity: {dexterity}  - Intelligence: {intelligence}')
-        print(f'vitality: {vitality}    -   points_to_strength: {points_to_strength}    
+        print(f'points_to_vitality: {points_to_vitality}    -   points_to_strength: {points_to_strength}    
               -   points_to_dexterity: {points_to_dexterity}  - points_to_intelligence: {points_to_intelligence}')
         
         total_points_needed = points_to_vitality + points_to_strength + points_to_dexterity + points_to_intelligence
