@@ -1067,6 +1067,7 @@ def update_character_json(driver):
         print(f"Error updating character JSON: {e}")
 
 def get_class(driver):
+    global STAT_JSON_PATH
     try:
         if canSeeStats(driver) == False:
             print('Cant See Stats Window - Press C')
