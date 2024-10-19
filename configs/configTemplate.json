@@ -2,7 +2,7 @@
     "name": "TemplateName",
     "role": "tank",
     "class": "Monk",
-    "build": null,
+    "build": "basic",
     "leader": true,
     "whistle": false,
     "loot_threshold": 14,
