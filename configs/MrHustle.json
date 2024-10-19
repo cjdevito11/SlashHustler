@@ -2,37 +2,23 @@
     "name": "MrHustle",
     "role": "tank",
     "class": "Monk",
-    "build": null,
-    "leader": true,
-    "whistle": false,
+    "leader": 1,
+    "whistle": 0,
     "loot_threshold": 14,
-    "auto_stat": true,
+    "auto_stat": 1,
     "max_monsters": 4,
     "inventory": {
         "1": {
-            "name": "Rare alloy dagger",
+            "name": "Mystical mithril dagger",
             "magic_level": null,
             "quality_level": null,
-            "level_req": "15",
-            "damage": "65 to 114",
-            "Enhanced Effect": "+31",
-            "score": 14,
+            "level_req": "25",
+            "damage": "89 to 157",
+            "Enhanced Effect": "+30",
+            "score": 17,
             "action": "fight_with"
         },
-        "4": {
-            "name": "Mythical focused heal II",
-            "magic_level": null,
-            "quality_level": null,
-            "heals": "11 to 13",
-            "mana_cost": "13",
-            "Experience Gained": "+2",
-            "Life Steal": "+2",
-            "Critical Flux": "+1",
-            "Wind Mastery": "+2",
-            "score": 8,
-            "action": "keep"
-        },
-        "5": {
+        "2": {
             "name": "Arcane elvan padded robe",
             "magic_level": null,
             "quality_level": null,
@@ -48,7 +34,38 @@
             "score": 32,
             "action": "fight_with"
         },
-        "8": {
+        "3": {
+            "name": "Rare alloy dagger",
+            "magic_level": null,
+            "quality_level": null,
+            "level_req": "15",
+            "damage": "67 to 118",
+            "Enhanced Effect": "+31",
+            "score": 14,
+            "action": "fight_with"
+        },
+        "4": {
+            "name": "Magical brocade robe",
+            "magic_level": null,
+            "quality_level": null,
+            "level_req": "10",
+            "physical_defense": "0 to 12",
+            "magical_defense": "16 to 48",
+            "Enhanced Effect": "+40",
+            "score": 15,
+            "action": "fight_with"
+        },
+        "5": {
+            "name": "Mystical steel dagger",
+            "magic_level": null,
+            "quality_level": null,
+            "level_req": "10",
+            "damage": "43 to 76",
+            "Life": "+1 to 10",
+            "score": 1,
+            "action": "sell"
+        },
+        "6": {
             "name": "Arcane cotton robe",
             "magic_level": null,
             "quality_level": null,
@@ -59,31 +76,61 @@
             "Life Steal": "+1",
             "score": 1,
             "action": "sell"
+        },
+        "7": {
+            "name": "Rare ice II",
+            "magic_level": null,
+            "quality_level": null,
+            "damage": "13 to 15",
+            "mana_cost": "13",
+            "score": 0,
+            "action": "sell"
         }
     },
     "equipment": {
         "weapon": {
             "type": "iconDagger",
+            "name": "Magical wyvernskin padded robe",
+            "magic_level": null,
+            "quality_level": null,
+            "level_req": "40",
+            "physical_defense": "0 to 80",
+            "magical_defense": "49 to 124",
+            "enhanced effect": "97",
+            "score": 32,
+            "action": "fight_with"
+        },
+        "armor": {
+            "type": "iconPaddedRobe",
             "name": "Rare adamantium dagger",
             "magic_level": null,
             "quality_level": null,
             "level_req": "35",
-            "damage": "142 to 248",
+            "damage": "147 to 258",
             "enhanced effect": "72",
             "ice mastery": "14",
             "score": 29,
             "action": "fight_with"
         },
-        "armor": {
-            "type": "iconPaddedRobe",
-            "name": "Magical wyvernskin padded robe",
+        "charm": {
+            "type": "iconEarthCharm",
+            "name": "Mystical earth IV",
             "magic_level": null,
             "quality_level": null,
-            "level_req": "40",
-            "physical_defense": "0 to 79",
-            "magical_defense": "49 to 124",
-            "enhanced effect": "97",
-            "score": 32,
+            "level_req": "5",
+            "damage": "19 to 33",
+            "enhanced effect": "4",
+            "score": 4,
+            "action": "fight_with"
+        },
+        "acc._charm": {
+            "type": "iconFireCharm",
+            "name": "fire XIV",
+            "magic_level": null,
+            "quality_level": null,
+            "level_req": "55",
+            "damage": "48 to 128",
+            "score": 25,
             "action": "fight_with"
         }
     }
