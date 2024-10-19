@@ -75,7 +75,8 @@ fishing_thread = None
 cooking_thread = None
 
 #CHARACTER_JSON_PATH = 'configs/MrHustle.json'  # Update this to get character name
-CHARACTER_JSON_PATH = 'configs/HustlerWolfie.json'  # Update this to get character name
+#CHARACTER_JSON_PATH = 'configs/HustlerWolfie.json'  # Update this to get character name
+CHARACTER_JSON_PATH = ''
 #CHARACTER_JSON_PATH = 'configs/TigBittyBroad.json'  # Update this to get character name
 STAT_JSON_PATH = 'configs/autoStat/paladin/basic.json'
 
@@ -970,7 +971,9 @@ def fishing_loop(driver, townHeal = False):
 #<input title="" type="text" class="skLvlTxt" maxlength="2">
 
 def setFishingLevel(driver):
-    global fishingLevel
+    global fishingLevel, CONFIG
+    fishingLevel = CONFIG["fishing_level"]
+    print(f'Set Fishing Level: {fishingLevel}')
     try:
         if fishingLevel > 1:
             fishLevel = driver.find_element(By.CLASS_NAME, "skLvlTxt")
@@ -2179,7 +2182,16 @@ def run_fighting():
     automate_fighting(driver,4,whistle) #wolfie 4 is the max monster
 
 def run_fishing():
+    global CONFIG, CHARACTER_JSON_PATH
     driver = setup_browser()
+
+    characterName = driver.find_element(By.CSS_SELECTOR, ".cName").text
+    charJsonPath = 'configs/' + characterName + '.json'
+    print(Fore.GREEN + f'charJsonPath: {charJsonPath}' + Style.RESET_ALL)
+    CHARACTER_JSON_PATH = charJsonPath
+
+    CONFIG = loadConfig()
+
     startFishing(driver)
 
 def run_cooking():
@@ -2199,10 +2211,10 @@ def cook():
 
 def fish():
     global fishing_thread, fishing, running
-
+    
     fishing = True
     running = True
-
+    
     fishing_thread = threading.Thread(target=run_fishing)
     fishing_thread.start()
 
@@ -2364,7 +2376,7 @@ def refresh_threads():
 # Set up the GUI
 overlay = tk.Tk()
 overlay.title("Slash Hustler")
-overlay.geometry("470x425+1400+700")
+overlay.geometry("470x455+1425+650")
 overlay.configure(bg='#839351')  # Ladder Slasher color green BG
 overlay.withdraw()
 
@@ -2395,6 +2407,61 @@ tk.Label(main_frame, text="", font=('Verdana', 16), bg='#3A3A3A', fg='#FFFFFF').
 
 tk.Button(main_frame, text="Fish", command=fish, font=('Verdana', 24), bg='#4C8BF5', fg='white').grid(row=3, column=1, padx=25, pady=15, sticky='nsew')
 tk.Button(main_frame, text="Cook", command=cook, font=('Verdana', 24), bg='#4C8BF5', fg='white').grid(row=3, column=3, padx=25, pady=15, sticky='nsew')
+
+# CONFIG Tab
+config_frame = tk.Frame(notebook, bg='#3A3A3A')
+notebook.add(config_frame, text="Config")
+
+tk.Label(config_frame, text="Select Character", font=('Verdana', 12), bg='#3A3A3A', fg='white').grid(row=0, column=0, padx=5, pady=5)
+config_dropdown = ttk.Combobox(config_frame, values=get_config_files())  # This function lists all config files
+config_dropdown.grid(row=0, column=1, padx=5, pady=5)
+
+tk.Label(config_frame, text="Character Name:", font=('Verdana', 12), bg='#3A3A3A', fg='white').grid(row=1, column=0, padx=5, pady=5)
+name_entry = tk.Entry(config_frame, bg='#2E3B4E', fg='white')
+name_entry.grid(row=1, column=1, padx=5, pady=5)
+
+tk.Label(config_frame, text="Role:", font=('Verdana', 12), bg='#3A3A3A', fg='white').grid(row=2, column=0, padx=5, pady=5)
+role_entry = tk.Entry(config_frame, bg='#2E3B4E', fg='white')
+role_entry.grid(row=2, column=1, padx=5, pady=5)
+
+tk.Label(config_frame, text="Class:", font=('Verdana', 12), bg='#3A3A3A', fg='white').grid(row=3, column=0, padx=5, pady=5)
+class_entry = tk.Entry(config_frame, bg='#2E3B4E', fg='white')
+class_entry.grid(row=3, column=1, padx=5, pady=5)
+
+# Add Hotkey handling for Which charm you want to be used for healing or mage attacks
+
+tk.Label(config_frame, text="Loot Threshold:", font=('Verdana', 12), bg='#3A3A3A', fg='white').grid(row=4, column=0, padx=5, pady=5)
+loot_entry = tk.Entry(config_frame, bg='#2E3B4E', fg='white')
+loot_entry.grid(row=4, column=1, padx=5, pady=5)
+
+leader_var = tk.IntVar()
+tk.Label(config_frame, text="Leader:", font=('Verdana', 12), bg='#3A3A3A', fg='white').grid(row=5, column=0, padx=5, pady=5)
+leader_check = tk.Checkbutton(config_frame, variable=leader_var, bg='#3A3A3A', fg='black')
+leader_check.grid(row=5, column=1, padx=5, pady=5)
+
+whistle_var = tk.IntVar()
+tk.Label(config_frame, text="Whistle:", font=('Verdana', 12), bg='#3A3A3A', fg='white').grid(row=7, column=0, padx=5, pady=5)
+whistle_check = tk.Checkbutton(config_frame, variable=whistle_var, bg='#3A3A3A')
+whistle_check.grid(row=7, column=1, padx=5, pady=5)
+
+auto_stat_var = tk.IntVar()
+tk.Label(config_frame, text="Auto Stat:", font=('Verdana', 12), bg='#3A3A3A', fg='white').grid(row=8, column=0, padx=5, pady=5)
+auto_stat_check = tk.Checkbutton(config_frame, variable=auto_stat_var, bg='#3A3A3A')
+auto_stat_check.grid(row=8, column=1, padx=5, pady=5)
+
+tk.Label(config_frame, text="Max Monsters:", font=('Verdana', 12), bg='#3A3A3A', fg='white').grid(row=9, column=0, padx=5, pady=5)
+max_monsters_entry = ttk.Combobox(config_frame, values=[str(i) for i in range(1, 11)], width=3)
+max_monsters_entry.grid(row=9, column=1, padx=5, pady=5)
+
+tk.Label(config_frame, text="Fishing Level", font=('Verdana', 12), bg='#3A3A3A', fg='white').grid(row=10, column=0, padx=5, pady=5)
+fishing_level_entry = ttk.Combobox(config_frame, values=[str(i) for i in range(1, 30)], width=3)
+fishing_level_entry.grid(row=10, column=1, padx=5, pady=5)
+
+tk.Button(config_frame, text="Load Config", command=load_config, bg='#4C8BF5', fg='white').grid(row=11, column=0, padx=5, pady=5)
+tk.Button(config_frame, text="Save Config", command=save_config, bg='#4C8BF5', fg='white').grid(row=11, column=1, padx=5, pady=5)
+tk.Button(config_frame, text="Refresh", command=refresh_threads, bg='#4C8BF5', fg='white').grid(row=11, column=0, columnspan=2, padx=5, pady=10)
+
+
 
 """
 # Fighting Tab
@@ -2453,9 +2520,9 @@ notebook.add(leveling_frame, text="Leveling")
 tk.Label(leveling_frame, text="Skill Allocation", font=('Verdana', 12), bg='#3A3A3A', fg='white').grid(row=0, column=0, padx=5, pady=5)
 tk.Label(leveling_frame, text="Stat Allocation", font=('Verdana', 12), bg='#3A3A3A', fg='white').grid(row=1, column=0, padx=5, pady=5)
 
-"""
+
 # Proficiencies Tab
-proficiencies_frame = tk.Frame(notebook, bg='#2E3B4E')
+proficiencies_frame = tk.Frame(notebook, bg='#3A3A3A')
 notebook.add(proficiencies_frame, text="Proficiencies")
 
 tk.Label(proficiencies_frame, text="Fishing Level", font=('Verdana', 12), bg='#3A3A3A', fg='white').grid(row=1, column=0, padx=5, pady=5)
@@ -2463,14 +2530,13 @@ tk.Label(proficiencies_frame, text="Fishing Level", font=('Verdana', 12), bg='#3
 fishing_level_entry = ttk.Combobox(proficiencies_frame, values=[str(i) for i in range(1, 30)], width=3)
 fishing_level_entry.grid(row=2, column=0, padx=5, pady=5)
 
-tk.Checkbutton(proficiencies_frame, text="Fill Hot Key Bar with Fish", font=('Verdana', 12), bg='#3A3A3A', fg='black').grid(row=3, column=0, padx=5, pady=5)
-
 fish_radio_var = tk.IntVar()
-tk.Radiobutton(proficiencies_frame, text="Trash all fish", variable=fish_radio_var, value=1, font=('Verdana', 12), bg='#3A3A3A', fg='black').grid(row=4, column=0, padx=5, pady=5)
+tk.Radiobutton(proficiencies_frame, text="Fill Hot Key Bar with Fish", variable=fish_radio_var, value=1, font=('Verdana', 12), bg='#3A3A3A', fg='black').grid(row=3, column=0, padx=5, pady=5)
+tk.Radiobutton(proficiencies_frame, text="Trash all fish", variable=fish_radio_var, value=1, font=('Verdana', 12), bg='#3A3A3A', fg='white').grid(row=4, column=0, padx=5, pady=5)
 tk.Radiobutton(proficiencies_frame, text="Keep one stack", variable=fish_radio_var, value=2, font=('Verdana', 12), bg='#3A3A3A', fg='black').grid(row=5, column=0, padx=5, pady=5)
 tk.Radiobutton(proficiencies_frame, text="Cook all fish", variable=fish_radio_var, value=3, font=('Verdana', 12), bg='#3A3A3A', fg='black').grid(row=6, column=0, padx=5, pady=5)
 
-"""
+
 # Marketplace Tab
 marketplace_frame = tk.Frame(notebook, bg='#3A3A3A')
 notebook.add(marketplace_frame, text="Marketplace")
@@ -2486,55 +2552,6 @@ tk.Checkbutton(vault_frame, text="Auto Vault", font=('Verdana', 12), bg='#3A3A3A
 tk.Checkbutton(vault_frame, text="Auto Gear", font=('Verdana', 12), bg='#3A3A3A', fg='black').grid(row=1, column=0, padx=5, pady=5)
 
 """
-
-# CONFIG Tab
-config_frame = tk.Frame(notebook, bg='#3A3A3A')
-notebook.add(config_frame, text="Config")
-
-tk.Label(config_frame, text="Select Character", font=('Verdana', 12), bg='#3A3A3A', fg='white').grid(row=0, column=0, padx=5, pady=5)
-config_dropdown = ttk.Combobox(config_frame, values=get_config_files())  # This function lists all config files
-config_dropdown.grid(row=0, column=1, padx=5, pady=5)
-
-tk.Label(config_frame, text="Character Name:", font=('Verdana', 12), bg='#3A3A3A', fg='white').grid(row=1, column=0, padx=5, pady=5)
-name_entry = tk.Entry(config_frame, bg='#2E3B4E', fg='white')
-name_entry.grid(row=1, column=1, padx=5, pady=5)
-
-tk.Label(config_frame, text="Role:", font=('Verdana', 12), bg='#3A3A3A', fg='white').grid(row=2, column=0, padx=5, pady=5)
-role_entry = tk.Entry(config_frame, bg='#2E3B4E', fg='white')
-role_entry.grid(row=2, column=1, padx=5, pady=5)
-
-tk.Label(config_frame, text="Class:", font=('Verdana', 12), bg='#3A3A3A', fg='white').grid(row=3, column=0, padx=5, pady=5)
-class_entry = tk.Entry(config_frame, bg='#2E3B4E', fg='white')
-class_entry.grid(row=3, column=1, padx=5, pady=5)
-
-# Add Hotkey handling for Which charm you want to be used for healing or mage attacks
-
-tk.Label(config_frame, text="Loot Threshold:", font=('Verdana', 12), bg='#3A3A3A', fg='white').grid(row=4, column=0, padx=5, pady=5)
-loot_entry = tk.Entry(config_frame, bg='#2E3B4E', fg='white')
-loot_entry.grid(row=4, column=1, padx=5, pady=5)
-
-leader_var = tk.IntVar()
-tk.Label(config_frame, text="Leader:", font=('Verdana', 12), bg='#3A3A3A', fg='white').grid(row=5, column=0, padx=5, pady=5)
-leader_check = tk.Checkbutton(config_frame, variable=leader_var, bg='#3A3A3A', fg='black')
-leader_check.grid(row=5, column=1, padx=5, pady=5)
-
-whistle_var = tk.IntVar()
-tk.Label(config_frame, text="Whistle:", font=('Verdana', 12), bg='#3A3A3A', fg='white').grid(row=7, column=0, padx=5, pady=5)
-whistle_check = tk.Checkbutton(config_frame, variable=whistle_var, bg='#3A3A3A')
-whistle_check.grid(row=7, column=1, padx=5, pady=5)
-
-auto_stat_var = tk.IntVar()
-tk.Label(config_frame, text="Auto Stat:", font=('Verdana', 12), bg='#3A3A3A', fg='white').grid(row=8, column=0, padx=5, pady=5)
-auto_stat_check = tk.Checkbutton(config_frame, variable=auto_stat_var, bg='#3A3A3A')
-auto_stat_check.grid(row=8, column=1, padx=5, pady=5)
-
-tk.Label(config_frame, text="Max Monsters:", font=('Verdana', 12), bg='#3A3A3A', fg='white').grid(row=9, column=0, padx=5, pady=5)
-max_monsters_entry = ttk.Combobox(config_frame, values=[str(i) for i in range(1, 11)], width=3)
-max_monsters_entry.grid(row=9, column=1, padx=5, pady=5)
-
-tk.Button(config_frame, text="Load Config", command=load_config, bg='#4C8BF5', fg='white').grid(row=10, column=0, padx=5, pady=5)
-tk.Button(config_frame, text="Save Config", command=save_config, bg='#4C8BF5', fg='white').grid(row=10, column=1, padx=5, pady=5)
-tk.Button(config_frame, text="Refresh", command=refresh_threads, bg='#4C8BF5', fg='white').grid(row=10, column=0, columnspan=2, padx=5, pady=10)
 
 
 

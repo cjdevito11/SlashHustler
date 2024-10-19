@@ -7,7 +7,7 @@
     "loot_threshold": 14,
     "auto_stat": 1,
     "max_monsters": 4,
-    "fishing_level": 1,
+    "fishing_level": 4,
     "inventory": {
         "1": {
             "name": "lightning XIV",
