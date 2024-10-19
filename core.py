@@ -962,8 +962,21 @@ def fishing_loop(driver, townHeal = False):
             except:
                 print('couldnt recast line')  # Ignore if the fish hasn't escaped
 
-            # Small delay to avoid spamming
-            time.sleep(0.3)
+            time.sleep(.2)
+            if check_snag(driver):
+                print("Snag detected, clicking Snag Counter")
+                click_snag_counter(driver)
+            print(' - Fishing Loop - click_reel')
+            click_reel(driver)
+
+            time.sleep(0.5)
+
+            if check_snag(driver):
+                print("Snag detected, clicking Snag Counter")
+                click_snag_counter(driver)
+            print(' - Fishing Loop - click_reel')
+            click_reel(driver)
+
     except Exception as e:
         print(f'Failed fishing_loop : {e}')
         write_to_terminal(f"Failed fishing loop: {e}")
@@ -1653,13 +1666,16 @@ def send_keystrokes(driver, keys):
 def town_heal(driver):
     try:
         try:
-            town_button = driver.find_element(By.CSS_SELECTOR, ".abutGradBl.gradRed")
-            town_button.click()
-            time.sleep(2)
-            town_button = driver.find_element(By.CSS_SELECTOR, ".abutGradBl.gradRed")
-            town_button.click()
-            time.sleep(2)
-            heal_fish(driver)                                  # UNCOMMENT TO START TOWN HEAL + FISH LOOP
+            if is_in_town(driver):
+                heal_fish(driver)
+            else: 
+                town_button = driver.find_element(By.CSS_SELECTOR, ".abutGradBl.gradRed")
+                town_button.click()
+                time.sleep(2)
+                town_button = driver.find_element(By.CSS_SELECTOR, ".abutGradBl.gradRed")
+                town_button.click()
+                time.sleep(2)
+                                            # UNCOMMENT TO START TOWN HEAL + FISH LOOP
         finally:
             print(" - Talking to Akara - ")
             write_to_terminal("Talking to Akara")
