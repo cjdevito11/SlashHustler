@@ -416,8 +416,9 @@ def explore_and_learn(driver, maze_grid, walls, start_position, unexplored=None,
 
     while unexplored:
         current_tile = unexplored.popleft()  # Get the next tile to explore
-        visited.add(current_tile)  # Mark it as visited
         print(f"Exploring tile: {current_tile}")
+        
+        visited.add(current_tile)  # Mark it as visited
         print(f'Visited: {visited}')
         
         # Get the current state (tile and its walls)
@@ -436,17 +437,23 @@ def explore_and_learn(driver, maze_grid, walls, start_position, unexplored=None,
         
         if unexplored_directions:
             # Choose an unexplored direction if available
+            print(f'Unexplored Directions: {unexplored_directions}')
             direction, new_tile = unexplored_directions[0]  # Prioritize the first unexplored direction
+            print(f'\n\nMOVING TO --- {direction}\n\n')
+            time.sleep(3)
+            move_in_maze(driver, direction)
         else:
             # If no unexplored directions, choose an action based on the Q-table (or backtrack)
             action = choose_action(state)
+            #action = choose_learned_move()
             move_in_maze(driver, action)
             new_tile = get_current_position(driver)
 
         
-        # Move to the selected tile
-        move_in_maze(driver, direction)
-        new_tile = get_current_position(driver)
+            # Move to the selected tile
+            #print('~~ MOVE IN MAZE ~~')
+            #move_in_maze(driver, direction)
+            #new_tile = get_current_position(driver)
         reward = 10 if new_tile != current_tile else -5  # Reward for moving to a new room, penalty for failing
         print(f"Moved to new tile: {new_tile}. Reward: {reward}")
 
@@ -499,10 +506,13 @@ def visualize_maze(maze_grid, visited, player_position):
             
             if tile == player_position:
                 maze_representation += Fore.GREEN + 'P ' + Style.RESET_ALL  # Player's position
+
             elif tile in visited:
                 maze_representation += Fore.YELLOW + 'V ' + Style.RESET_ALL  # Visited tile
+
             elif tile in maze_grid and maze_grid[tile] == 'open':
                 maze_representation += Fore.CYAN + '. ' + Style.RESET_ALL  # Unexplored but open tile
+            
             elif tile in maze_grid and maze_grid[tile] == 'blocked':
                 maze_representation += Fore.RED + '# ' + Style.RESET_ALL  # Blocked tile
             else:

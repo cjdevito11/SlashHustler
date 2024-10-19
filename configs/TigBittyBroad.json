@@ -1,0 +1,9 @@
+{
+    "name": "TigBittyBroad",
+    "class": "tank",
+    "leader": true,
+    "whistle": false,
+    "loot_threshold": 14,
+    "inventory": {},
+    "equipment": {}
+}
