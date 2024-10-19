@@ -1936,6 +1936,11 @@ def attack_nearest_monster(driver):
         elif attack_counter % 13 == 0:
             pass
             #actions = ActionChains(driver).key_down('R').key_up('R').perform()
+        elif attack_counter % 150 == 0:
+            send_keystrokes(driver, 'A')
+            time.sleep(.2)
+            send_keystrokes(driver, 'A')
+            time.sleep(.2)
 
         # Check abilities and use them if percentage >=75%
         """abilities = get_abilities(driver)
