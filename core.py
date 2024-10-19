@@ -988,7 +988,8 @@ def setFishingLevel(driver):
 
 def startFishing(driver, townHeal = False):
     try:
-        time.sleep(1)
+        print('Start Fishing')
+        time.sleep(3)
         if is_in_town(driver):
             selectFishingPond(driver)
         setFishingLevel(driver)
