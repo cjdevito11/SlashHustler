@@ -25,6 +25,7 @@ import threading
 import colorama
 from colorama import Fore, Back, Style
 from tkinter import messagebox
+from ttkthemes import ThemedStyle
 
 colorama.init()
 
@@ -2328,6 +2329,14 @@ overlay.configure(bg='#839351')  # Ladder Slasher color green BG
 overlay.withdraw()
 
 show_loading_screen()
+
+style = ThemedStyle(overlay)
+style.set_theme("default")  # Use 'clam' theme for a modern look
+style.configure('TNotebook.Tab', padding=[10, 10], font=('Helvetica', '12', 'bold'))
+style.configure('TButton', padding=6, font=('Helvetica', 14), relief='flat', borderwidth=0, focuscolor='none')
+style.configure('TFrame', background='#2E3B4E')
+style.configure('TLabel', background='#2E3B4E', foreground='white', font=('Verdana', 12))
+style.configure('TCheckbutton', background='#2E3B4E', foreground='white', font=('Verdana', 12))
 
 # Create a notebook (tabs)
 notebook = ttk.Notebook(overlay)

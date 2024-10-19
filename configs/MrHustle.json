@@ -90,18 +90,6 @@
     "equipment": {
         "weapon": {
             "type": "iconDagger",
-            "name": "Magical wyvernskin padded robe",
-            "magic_level": null,
-            "quality_level": null,
-            "level_req": "40",
-            "physical_defense": "0 to 80",
-            "magical_defense": "49 to 124",
-            "enhanced effect": "97",
-            "score": 32,
-            "action": "fight_with"
-        },
-        "armor": {
-            "type": "iconPaddedRobe",
             "name": "Rare adamantium dagger",
             "magic_level": null,
             "quality_level": null,
@@ -110,6 +98,18 @@
             "enhanced effect": "72",
             "ice mastery": "14",
             "score": 29,
+            "action": "fight_with"
+        },
+        "armor": {
+            "type": "iconPaddedRobe",
+            "name": "Magical wyvernskin padded robe",
+            "magic_level": null,
+            "quality_level": null,
+            "level_req": "40",
+            "physical_defense": "0 to 80",
+            "magical_defense": "49 to 124",
+            "enhanced effect": "97",
+            "score": 32,
             "action": "fight_with"
         },
         "charm": {
@@ -121,16 +121,6 @@
             "damage": "19 to 33",
             "enhanced effect": "4",
             "score": 4,
-            "action": "fight_with"
-        },
-        "acc._charm": {
-            "type": "iconFireCharm",
-            "name": "fire XIV",
-            "magic_level": null,
-            "quality_level": null,
-            "level_req": "55",
-            "damage": "48 to 128",
-            "score": 25,
             "action": "fight_with"
         }
     }
