@@ -110,6 +110,20 @@ flattened_abilities = abilitiesMap["row1"] + abilitiesMap["row2"] + abilitiesMap
 main_config_path = 'configs'
 auto_stat_path = os.path.join(main_config_path, 'autoStat')
 
+#CONFIG GUI
+def load_json(file_path):
+    with open(file_path, 'r') as file:
+        return json.load(file)
+
+def save_json(file_path, data):
+    with open(file_path, 'w') as file:
+        json.dump(data, file, indent=4)
+
+def get_config_files():
+    return [f.split('.')[0] for f in os.listdir('configs') if f.endswith('.json')]
+
+# CONFIG GUI
+
 # Function to load JSON files
 def load_json_files(directory):
     json_files = {}
@@ -960,8 +974,9 @@ def setup_browser():
     return driver
 
 def write_to_terminal(message):
-    terminal_output.insert(tk.END, message + '\n')
-    terminal_output.see(tk.END)
+    print(f'WTT: {message}')
+    #terminal_output.insert(tk.END, message + '\n')
+    #terminal_output.see(tk.END)
 
 def getCharacter(driver):
     global CHARACTER_JSON_PATH, CONFIG, loot_threshold, whistle, autoStat
@@ -1887,7 +1902,7 @@ def mage_attack_strategy(driver):
     attack_counter = attack_counter + 1
     
     if attack_counter % 2 == 0:
-        spellAttack(driver,'R')
+        spellAttack(driver,'R') # Add hotkey config
     else:
         attack_nearest_monster(driver)
     
@@ -2087,7 +2102,7 @@ def validate_input(threshold):
 # Function to get and check the loot threshold value
 def get_loot_threshold():
     global loot_threshold
-    loot_threshold = loot_textbox.get()
+    #loot_threshold = loot_textbox.get()
     if loot_threshold == "":
         print('loot_threshold is empty. using 9 as default')
         write_to_terminal(f"loot_threshold: ({loot_threshold})is empty. using 9 as defaukt")
@@ -2102,16 +2117,17 @@ def get_loot_threshold():
         write_to_terminal(f"Loot Threshold set to: {loot_threshold}")
 
 def run_fighting():
-    global fighting, running, role
+    global fighting, running, role, loot_threshold
     driver = setup_browser()
 
     print("Get Character Config")
     getCharacter(driver)
     role = CONFIG['role']
     whistle = CONFIG['whistle']
+    loot_threshold = CONFIG['loot_threshold']
 
     update_character_json(driver)
-    get_loot_threshold()
+    #get_loot_threshold()
 
     print('checkStats and abilities')
     spendStatPoints(driver, STAT_JSON_PATH)
@@ -2162,6 +2178,9 @@ def fight():
     fighting_thread = threading.Thread(target=run_fighting)
     fighting_thread.start()
 
+def team_fight():
+    print("Team Fight button pressed")
+
 def stop_automation():
     global fighting, fishing, cooking, running
     fighting = False
@@ -2184,6 +2203,7 @@ def stop_fishing():
 
 # Function to handle config selection
 def load_selected_configs():
+    return
     main_config_name = main_config_var.get()
     auto_stat_config_name = auto_stat_config_var.get()
     
@@ -2199,81 +2219,277 @@ def load_selected_configs():
 
     print(f"Main Config: {CONFIG}")
     print(f"Auto Stat Config: {STAT_JSON_PATH}")
+    
+# Image : images/SlashHustler.png = 1312x736
+# Image : images/SlashHustler.png = 1312x736
+def show_loading_screen():
+    # Create a separate window for loading
+    loading_screen = tk.Toplevel()
+    
+    # Get the screen width and height
+    screen_width = loading_screen.winfo_screenwidth()
+    screen_height = loading_screen.winfo_screenheight()
 
-main_configs = load_json_files(main_config_path)
-auto_stat_configs = load_json_files(auto_stat_path)
+    # Set your desired window width and height
+    window_width = 1312
+    window_height = 736
+
+    # Calculate the position to center the window
+    position_x = int((screen_width / 2) - (window_width / 2))
+    position_y = int((screen_height / 2) - (window_height / 2))
+
+    # Set the geometry with the calculated position
+    loading_screen.geometry(f"{window_width}x{window_height}+{position_x}+{position_y}")
+    
+    loading_screen.configure(bg='#2E3B4E')  # Darker blue background for loading screen
+
+    # Load and display the image
+    banner_image = Image.open("images/SlashHustler.png")
+    banner_photo = ImageTk.PhotoImage(banner_image)
+    banner_label = tk.Label(loading_screen, image=banner_photo, bg='#2E3B4E')
+    banner_label.pack()
+
+    # After 3 seconds (3000 ms), close the loading screen
+    loading_screen.after(2000, loading_screen.destroy)
+
+    # Block the main window from appearing until the loading screen is closed
+    overlay.wait_window(loading_screen)
+
+def load_config():
+    config_file = config_dropdown.get()
+    if config_file:
+        config_data = load_json(f"configs/{config_file}.json")
+        # Update the fields with the loaded config data
+        name_entry.delete(0, tk.END)
+        name_entry.insert(0, config_data.get('name', ''))
+        role_entry.delete(0, tk.END)
+        role_entry.insert(0, config_data.get('role', ''))
+        class_entry.delete(0, tk.END)
+        class_entry.insert(0, config_data.get('class', ''))
+        leader_var.set(config_data.get('leader', False))
+        whistle_var.set(config_data.get('whistle', False))
+        auto_stat_var.set(config_data.get('auto_stat', False))
+        loot_entry.delete(0, tk.END)
+        loot_entry.insert(0, str(config_data.get('loot_threshold', '')))
+        max_monsters_entry.set(str(config_data.get('max_monsters', '')))
+
+
+def save_config():
+    new_config_data = {
+        "name": name_entry.get(),
+        "role": role_entry.get(),
+        "class": class_entry.get(),
+        "leader": leader_var.get(),
+        "whistle": whistle_var.get(),
+        "loot_threshold": int(loot_entry.get()),
+        "auto_stat": auto_stat_var.get(),
+        "max_monsters": int(max_monsters_entry.get()),
+
+        # Empty inventory and equipment for now; you can later extend this to handle dynamic inventory input
+        "inventory": {},
+        "equipment": {}
+
+    }
+
+    config_name = new_config_data['name']
+    save_json(f"configs/{config_name}.json", new_config_data)
+    tk.messagebox.showinfo("Save Config", "Configuration saved successfully.")
+
+
+# Refresh button to apply new config and restart threads
+def refresh_threads():
+    x = 0
+    if fighting:
+        x = 1
+    elif fishing:
+        x = 2
+    elif cooking:
+        x = 3
+
+    stop_automation()
+    load_config()
+
+    if x == 1:
+        fight()
+    if x == 2:
+        fish()
+    if x == 3:
+        cook()
+
+#CONFIG GUI
+
+
 
 # Set up the GUI
 overlay = tk.Tk()
 overlay.title("Slash Hustler")
-overlay.geometry("600x750+100+100")
-overlay.attributes('-alpha', 0.9)
+overlay.geometry("470x425+1400+700")
+overlay.configure(bg='#839351')  # Ladder Slasher color green BG
+overlay.withdraw()
 
-# Load and add a banner image
-banner_image = Image.open("images/SlashHustler.png")  # Add the correct path to your image
-banner_image = banner_image.resize((600, 350))
-banner_photo = ImageTk.PhotoImage(banner_image)
-banner_label = tk.Label(overlay, image=banner_photo)
-banner_label.pack(pady=.5)
+show_loading_screen()
 
 # Create a notebook (tabs)
 notebook = ttk.Notebook(overlay)
-notebook.pack(expand=True, fill='both')
+notebook.grid(row=1, column=0, columnspan=2, sticky='nsew', padx=10, pady=10)
 
-# Dropdown for Main Configs
-tk.Label(overlay, text="Select Main Config", bg='black', fg='white', font=('exocet', 10)).pack(pady=10)
-main_config_var = tk.StringVar()
-main_config_dropdown = ttk.Combobox(overlay, textvariable=main_config_var, values=list(main_configs.keys()))
-main_config_dropdown.pack(pady=10)
+# Main Tab
+main_frame = tk.Frame(notebook, bg='#2E3B4E')  # Dark blue for contrast
+notebook.add(main_frame, text="Main")
 
-# Dropdown for Class Configs
-tk.Label(overlay, text="Select Class Config", bg='black', fg='white', font=('exocet', 10)).pack(pady=10)
-auto_stat_config_var = tk.StringVar()
-auto_stat_dropdown = ttk.Combobox(overlay, textvariable=auto_stat_config_var, values=list(auto_stat_configs.keys()))
-auto_stat_dropdown.pack(pady=10)
+tk.Label(main_frame, text="Slash Hustler", font=('Verdana', 40), bg='#2E3B4E', fg='white').grid(row=0, column=1, columnspan=3, padx=40,pady=10, sticky='nsew')
 
-# Personal Configs Tab
-personal_frame = tk.Frame(notebook, bg='black')
-notebook.add(personal_frame, text="Personal Configs")
+tk.Button(main_frame, text="Fight", command=fight, font=('Verdana', 24), bg='green', fg='white').grid(row=1, column=1, padx=25, pady=15, sticky='nsew')
+tk.Button(main_frame, text="Stop", command=stop_automation, font=('Verdana', 24), bg='red', fg='black').grid(row=1, column=3, padx=25, pady=15, sticky='nsew')
 
-# Add widgets to the Personal Configs tab
-tk.Label(personal_frame, text="Profile Name", bg='black', fg='white', font=('exocet', 10)).pack(pady=10)
-profile_entry = tk.Entry(personal_frame, bg='black', fg='white', font=('exocet', 10))
-profile_entry.pack(pady=10)
+tk.Label(main_frame, text="", font=('Verdana', 16), bg='#3A3A3A', fg='#FFFFFF').grid(row=2, column=1, padx=5, pady=10, sticky='nsew')
 
-# Character Configs Tab
-character_frame = tk.Frame(notebook, bg='black')
-notebook.add(character_frame, text="Character Configs")
+tk.Button(main_frame, text="Fish", command=fish, font=('Verdana', 24), bg='#4C8BF5', fg='white').grid(row=3, column=1, padx=25, pady=15, sticky='nsew')
+tk.Button(main_frame, text="Cook", command=cook, font=('Verdana', 24), bg='#4C8BF5', fg='white').grid(row=3, column=3, padx=25, pady=15, sticky='nsew')
 
-# Add widgets for character configs
-tk.Label(character_frame, text="Character Name", bg='black', fg='white', font=('exocet', 10)).pack(pady=10)
-character_entry = tk.Entry(character_frame, bg='black', fg='white', font=('exocet', 10))
-character_entry.pack(pady=10)
+"""
+# Fighting Tab
+fighting_frame = tk.Frame(notebook, bg='#3A3A3A')  # Darker gray background
+notebook.add(fighting_frame, text="Fighting")
 
-# Settings Tab for Activities (Fighting, Fishing, Cooking)
-settings_frame = tk.Frame(notebook, bg='black')
-notebook.add(settings_frame, text="Activity Settings")
+tk.Label(fighting_frame, text="Fighting Settings", font=('Verdana', 16), bg='#3A3A3A', fg='#FFFFFF').grid(row=0, column=1, padx=5, pady=10, sticky='nsew')
 
-load_button = tk.Button(overlay, text="Load Configs", command=load_selected_configs)
-load_button.pack(pady=20)
+roleFrame = tk.Frame(fighting_frame, bg='#5A5A5A')  # Slightly lighter for contrast
+roleFrame.grid(row=1, column=1, padx=10, pady=5, sticky='nsew')
 
-# Activity settings section
-tk.Label(settings_frame, text="Loot Threshold", bg='black', fg='white', font=('exocet', 15)).pack(pady=1)
-loot_textbox = tk.Entry(settings_frame, bg='black', fg='white')
-loot_textbox.pack(pady=1)
+tk.Label(roleFrame, text="Role: ", font=('Verdana', 12), bg='#5A5A5A', fg='white').grid(row=0, column=0, padx=5, pady=5)
+role_dropdown = ttk.Combobox(roleFrame, values=["Tank", "DPS", "Mage", "Healer", "TankHeal", "NoHit"])
+role_dropdown.grid(row=0, column=1, padx=5, pady=5, sticky='nsew')
 
-fight_button = tk.Button(settings_frame, bg='black', fg='white', font=('exocet', 15), text="Fight", command=fight)
-fight_button.pack(pady=5)
+lootFrame = tk.Frame(fighting_frame, bg='#5A5A5A')
+lootFrame.grid(row=2, column=1, padx=10, pady=5, sticky='nsew')
 
-fish_button = tk.Button(settings_frame, bg='black', fg='white', font=('exocet', 15), text="Fish", command=fish)
-fish_button.pack(pady=5)
+tk.Label(lootFrame, text="Loot Threshold: ", font=('Verdana', 12), bg='#5A5A5A', fg='white').grid(row=0, column=0, padx=5, pady=5)
+loot_entry = ttk.Combobox(lootFrame, values=[str(i) for i in range(0, 50)], width=5)
+loot_entry.grid(row=0, column=1, padx=5, pady=5, sticky='nsew')
 
-cook_button = tk.Button(settings_frame, bg='black', fg='white', font=('exocet', 15), text="Cook", command=cook)
-cook_button.pack(pady=5)
+monsterFrame = tk.Frame(fighting_frame, bg='#5A5A5A')
+monsterFrame.grid(row=3, column=1, padx=10, pady=5, sticky='nsew')
 
-# Add a text terminal at the bottom
-terminal_output = tk.Text(overlay, bg='black', fg='white', font=('exocet', 9), wrap='word', height=10)
-terminal_output.pack(expand=True, fill='both')
+tk.Label(monsterFrame, text="Max Monsters: ", font=('Verdana', 12), bg='#5A5A5A', fg='white').grid(row=0, column=0, padx=5, pady=5)
+max_monsters_dropdown = ttk.Combobox(monsterFrame, values=[str(i) for i in range(2, 11)], width=5)
+max_monsters_dropdown.grid(row=0, column=1, padx=5, pady=5, sticky='nsew')
+
+tk.Checkbutton(fighting_frame, text="Leader", font=('Verdana', 12), bg='#3A3A3A', fg='black').grid(row=4, column=1, padx=5, pady=5, sticky='nsew')
+tk.Checkbutton(fighting_frame, text="Whistle", font=('Verdana', 12), bg='#3A3A3A', fg='black').grid(row=5, column=1, padx=5, pady=5, sticky='nsew')
+
+tk.Checkbutton(fighting_frame, text="Fish while healing", font=('Verdana', 12), bg='#3A3A3A', fg='black').grid(row=6, column=1, padx=5, pady=5, sticky='nsew')
+tk.Checkbutton(fighting_frame, text="Eat fish in between fights", font=('Verdana', 12), bg='#3A3A3A', fg='black').grid(row=7, column=1, padx=5, pady=5, sticky='nsew')
+
+tk.Button(fighting_frame, text="Save", font=('Verdana', 10), bg='#4C8BF5', fg='white', width='5').grid(row=8, column=1, padx=5, pady=5, sticky='nsew')
+
+
+# MasterQuest Tab
+masterquest_frame = tk.Frame(notebook, bg='#2E3B4E')
+notebook.add(masterquest_frame, text="MasterQuest")
+
+tk.Checkbutton(masterquest_frame, text="Attempt MasterQuest", font=('Verdana', 12), bg='#3A3A3A', fg='black').grid(row=0, column=0, padx=5, pady=5)
+
+tk.Label(masterquest_frame, text="Key Pattern", font=('Verdana', 12), bg='#3A3A3A', fg='white').grid(row=1, column=0, padx=5, pady=5)
+key_pattern_1 = ttk.Combobox(masterquest_frame, values=["Random", "1st Gold", "2nd Silver", "3rd Bronze"])
+key_pattern_1.grid(row=1, column=1, padx=5, pady=5)
+
+tk.Checkbutton(masterquest_frame, text="Class Progression", font=('Verdana', 12), bg='#3A3A3A', fg='black').grid(row=3, column=0, padx=5, pady=5)
+
+
+# Leveling Tab
+leveling_frame = tk.Frame(notebook, bg='#3A3A3A')
+notebook.add(leveling_frame, text="Leveling")
+
+tk.Label(leveling_frame, text="Skill Allocation", font=('Verdana', 12), bg='#3A3A3A', fg='white').grid(row=0, column=0, padx=5, pady=5)
+tk.Label(leveling_frame, text="Stat Allocation", font=('Verdana', 12), bg='#3A3A3A', fg='white').grid(row=1, column=0, padx=5, pady=5)
+
+
+# Proficiencies Tab
+proficiencies_frame = tk.Frame(notebook, bg='#2E3B4E')
+notebook.add(proficiencies_frame, text="Proficiencies")
+
+tk.Label(proficiencies_frame, text="Fishing Level", font=('Verdana', 12), bg='#3A3A3A', fg='white').grid(row=1, column=0, padx=5, pady=5)
+fishing_level_dropdown = ttk.Combobox(proficiencies_frame, values=["Auto", "1", "25"])
+fishing_level_dropdown.grid(row=2, column=0, padx=5, pady=5)
+
+tk.Checkbutton(proficiencies_frame, text="Fill Hot Key Bar with Fish", font=('Verdana', 12), bg='#3A3A3A', fg='black').grid(row=3, column=0, padx=5, pady=5)
+
+fish_radio_var = tk.IntVar()
+tk.Radiobutton(proficiencies_frame, text="Trash all fish", variable=fish_radio_var, value=1, font=('Verdana', 12), bg='#3A3A3A', fg='black').grid(row=4, column=0, padx=5, pady=5)
+tk.Radiobutton(proficiencies_frame, text="Keep one stack", variable=fish_radio_var, value=2, font=('Verdana', 12), bg='#3A3A3A', fg='black').grid(row=5, column=0, padx=5, pady=5)
+tk.Radiobutton(proficiencies_frame, text="Cook all fish", variable=fish_radio_var, value=3, font=('Verdana', 12), bg='#3A3A3A', fg='black').grid(row=6, column=0, padx=5, pady=5)
+
+
+# Marketplace Tab
+marketplace_frame = tk.Frame(notebook, bg='#3A3A3A')
+notebook.add(marketplace_frame, text="Marketplace")
+
+tk.Checkbutton(marketplace_frame, text="Check Marketplace", font=('Verdana', 12), bg='#3A3A3A', fg='black').grid(row=0, column=0, padx=5, pady=5)
+
+
+# Vault Tab
+vault_frame = tk.Frame(notebook, bg='#2E3B4E')
+notebook.add(vault_frame, text="Vault")
+
+tk.Checkbutton(vault_frame, text="Auto Vault", font=('Verdana', 12), bg='#3A3A3A', fg='black').grid(row=0, column=0, padx=5, pady=5)
+tk.Checkbutton(vault_frame, text="Auto Gear", font=('Verdana', 12), bg='#3A3A3A', fg='black').grid(row=1, column=0, padx=5, pady=5)
+
+"""
+
+# CONFIG Tab
+config_frame = tk.Frame(notebook, bg='#3A3A3A')
+notebook.add(config_frame, text="Config")
+
+tk.Label(config_frame, text="Select Character", font=('Verdana', 12), bg='#3A3A3A', fg='white').grid(row=0, column=0, padx=5, pady=5)
+config_dropdown = ttk.Combobox(config_frame, values=get_config_files())  # This function lists all config files
+config_dropdown.grid(row=0, column=1, padx=5, pady=5)
+
+tk.Label(config_frame, text="Character Name:", font=('Verdana', 12), bg='#3A3A3A', fg='white').grid(row=1, column=0, padx=5, pady=5)
+name_entry = tk.Entry(config_frame, bg='#2E3B4E', fg='white')
+name_entry.grid(row=1, column=1, padx=5, pady=5)
+
+tk.Label(config_frame, text="Role:", font=('Verdana', 12), bg='#3A3A3A', fg='white').grid(row=2, column=0, padx=5, pady=5)
+role_entry = tk.Entry(config_frame, bg='#2E3B4E', fg='white')
+role_entry.grid(row=2, column=1, padx=5, pady=5)
+
+tk.Label(config_frame, text="Class:", font=('Verdana', 12), bg='#3A3A3A', fg='white').grid(row=3, column=0, padx=5, pady=5)
+class_entry = tk.Entry(config_frame, bg='#2E3B4E', fg='white')
+class_entry.grid(row=3, column=1, padx=5, pady=5)
+
+# Add Hotkey handling for Which charm you want to be used for healing or mage attacks
+
+tk.Label(config_frame, text="Loot Threshold:", font=('Verdana', 12), bg='#3A3A3A', fg='white').grid(row=4, column=0, padx=5, pady=5)
+loot_entry = tk.Entry(config_frame, bg='#2E3B4E', fg='white')
+loot_entry.grid(row=4, column=1, padx=5, pady=5)
+
+leader_var = tk.IntVar()
+tk.Label(config_frame, text="Leader:", font=('Verdana', 12), bg='#3A3A3A', fg='white').grid(row=5, column=0, padx=5, pady=5)
+leader_check = tk.Checkbutton(config_frame, variable=leader_var, bg='#3A3A3A', fg='black')
+leader_check.grid(row=5, column=1, padx=5, pady=5)
+
+whistle_var = tk.IntVar()
+tk.Label(config_frame, text="Whistle:", font=('Verdana', 12), bg='#3A3A3A', fg='white').grid(row=7, column=0, padx=5, pady=5)
+whistle_check = tk.Checkbutton(config_frame, variable=whistle_var, bg='#3A3A3A')
+whistle_check.grid(row=7, column=1, padx=5, pady=5)
+
+auto_stat_var = tk.IntVar()
+tk.Label(config_frame, text="Auto Stat:", font=('Verdana', 12), bg='#3A3A3A', fg='white').grid(row=8, column=0, padx=5, pady=5)
+auto_stat_check = tk.Checkbutton(config_frame, variable=auto_stat_var, bg='#3A3A3A')
+auto_stat_check.grid(row=8, column=1, padx=5, pady=5)
+
+tk.Label(config_frame, text="Max Monsters:", font=('Verdana', 12), bg='#3A3A3A', fg='white').grid(row=9, column=0, padx=5, pady=5)
+max_monsters_entry = ttk.Combobox(config_frame, values=[str(i) for i in range(1, 11)], width=3)
+max_monsters_entry.grid(row=9, column=1, padx=5, pady=5)
+
+tk.Button(config_frame, text="Load Config", command=load_config, bg='#4C8BF5', fg='white').grid(row=10, column=0, padx=5, pady=5)
+tk.Button(config_frame, text="Save Config", command=save_config, bg='#4C8BF5', fg='white').grid(row=10, column=1, padx=5, pady=5)
+tk.Button(config_frame, text="Refresh", command=refresh_threads, bg='#4C8BF5', fg='white').grid(row=10, column=0, columnspan=2, padx=5, pady=10)
+
+
+
+# Show main window after loading screen
+overlay.deiconify()
 
 # Start the GUI loop
 overlay.mainloop()
