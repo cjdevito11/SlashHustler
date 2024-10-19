@@ -5,6 +5,7 @@
     "leader": true,
     "whistle": false,
     "loot_threshold": 9,
+    "fishing_level": 1,
     "auto_stat": true,
     "inventory": {},
     "equipment": {}

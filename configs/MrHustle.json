@@ -7,18 +7,40 @@
     "loot_threshold": 14,
     "auto_stat": 1,
     "max_monsters": 4,
+    "fishing_level": 1,
     "inventory": {
         "1": {
+            "name": "lightning XIV",
+            "magic_level": null,
+            "quality_level": null,
+            "level_req": "55",
+            "damage": "16 to 161",
+            "mana_cost": "109",
+            "score": 25,
+            "action": "fight_with"
+        },
+        "2": {
+            "name": "Rare adamantium dagger",
+            "magic_level": null,
+            "quality_level": null,
+            "level_req": "35",
+            "damage": "150 to 263",
+            "Enhanced Effect": "+72",
+            "Ice Mastery": "+14",
+            "score": 29,
+            "action": "fight_with"
+        },
+        "3": {
             "name": "Mystical mithril dagger",
             "magic_level": null,
             "quality_level": null,
             "level_req": "25",
-            "damage": "89 to 157",
+            "damage": "91 to 160",
             "Enhanced Effect": "+30",
             "score": 17,
             "action": "fight_with"
         },
-        "2": {
+        "4": {
             "name": "Arcane elvan padded robe",
             "magic_level": null,
             "quality_level": null,
@@ -34,17 +56,17 @@
             "score": 32,
             "action": "fight_with"
         },
-        "3": {
+        "5": {
             "name": "Rare alloy dagger",
             "magic_level": null,
             "quality_level": null,
             "level_req": "15",
-            "damage": "67 to 118",
+            "damage": "69 to 121",
             "Enhanced Effect": "+31",
             "score": 14,
             "action": "fight_with"
         },
-        "4": {
+        "6": {
             "name": "Magical brocade robe",
             "magic_level": null,
             "quality_level": null,
@@ -55,17 +77,17 @@
             "score": 15,
             "action": "fight_with"
         },
-        "5": {
+        "7": {
             "name": "Mystical steel dagger",
             "magic_level": null,
             "quality_level": null,
             "level_req": "10",
-            "damage": "43 to 76",
+            "damage": "44 to 77",
             "Life": "+1 to 10",
             "score": 1,
             "action": "sell"
         },
-        "6": {
+        "8": {
             "name": "Arcane cotton robe",
             "magic_level": null,
             "quality_level": null,
@@ -77,11 +99,11 @@
             "score": 1,
             "action": "sell"
         },
-        "7": {
+        "9": {
             "name": "Rare ice II",
             "magic_level": null,
             "quality_level": null,
-            "damage": "13 to 15",
+            "damage": "11 to 13",
             "mana_cost": "13",
             "score": 0,
             "action": "sell"
@@ -89,15 +111,14 @@
     },
     "equipment": {
         "weapon": {
-            "type": "iconDagger",
-            "name": "Rare adamantium dagger",
+            "type": "iconStaff",
+            "name": "Magical angelwood staff",
             "magic_level": null,
             "quality_level": null,
-            "level_req": "35",
-            "damage": "147 to 258",
-            "enhanced effect": "72",
-            "ice mastery": "14",
-            "score": 29,
+            "level_req": "50",
+            "damage": "160 to 427",
+            "enhanced effect": "94",
+            "score": 38,
             "action": "fight_with"
         },
         "armor": {
@@ -121,6 +142,16 @@
             "damage": "19 to 33",
             "enhanced effect": "4",
             "score": 4,
+            "action": "fight_with"
+        },
+        "acc._charm": {
+            "type": "iconFireCharm",
+            "name": "fire XIV",
+            "magic_level": null,
+            "quality_level": null,
+            "level_req": "55",
+            "damage": "48 to 128",
+            "score": 25,
             "action": "fight_with"
         }
     }

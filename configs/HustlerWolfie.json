@@ -6,6 +6,7 @@
     "leader": true,
     "whistle": true,
     "loot_threshold": 4,
+    "fishing_level": 1,
     "auto_stat": true,
     "max_monsters": 10,
     "inventory": {

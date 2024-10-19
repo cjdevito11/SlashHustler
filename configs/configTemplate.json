@@ -12,7 +12,7 @@
     "eat_fish": true,
     "attempt_mq": true,
     "class_progression": true,
-    "fishing_level": 4,
+    "fishing_level": 1,
     "fillhotkeywithfish": false,
     "trash_keep_cook": "trash",
     "check_marketplace": false,

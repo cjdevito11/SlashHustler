@@ -60,6 +60,7 @@ fight_state = 0
 role = ''
 attack_counter = 0
 loot_threshold = 4
+fishingLevel = 1
 whistle = False
 autoStat = False
 
@@ -919,6 +920,7 @@ def click_fish(driver):
 
 def fishing_loop(driver, townHeal = False):
     global fishing, running
+    counter = 0
     try:
         print(' - Fishing Loop - ')
         while fishing and running:
@@ -940,9 +942,14 @@ def fishing_loop(driver, townHeal = False):
             #rod_health = check_rod_health(driver)
             #if rod_health < 10:  # If rod health is below 10%, stop reeling
             #    print(f"Rod health low! - {rod_health} - Stopping reel...")
-            #    continue  
-            
-    
+            #    continue 
+            counter+=1 
+            if counter % 100 == 0:
+                print('Check if still fishing')
+                if is_in_town(driver):
+                    print('WAS IN TOWN!!!')
+                    startFishing(driver, townHeal)
+                    return
             try:
                 if townHeal & isHealthAbove(driver,90):
                     print(Fore.BLUE + 'Healed - Stop fishing' + Style.RESET_ALL)
@@ -960,16 +967,30 @@ def fishing_loop(driver, townHeal = False):
         print(f'Failed fishing_loop : {e}')
         write_to_terminal(f"Failed fishing loop: {e}")
 
+#<input title="" type="text" class="skLvlTxt" maxlength="2">
+
+def setFishingLevel(driver):
+    global fishingLevel
+    try:
+        if fishingLevel > 1:
+            fishLevel = driver.find_element(By.CLASS_NAME, "skLvlTxt")
+            time.sleep(.2)
+            fishLevel.clear()
+            time.sleep(.2)
+            fishLevel.send_keys(str(fishingLevel))
+            time.sleep(.2)
+    except:
+        print('Failed to set fishing level')
+
 
 def startFishing(driver, townHeal = False):
     try:
         time.sleep(1)
         if is_in_town(driver):
             selectFishingPond(driver)
+        setFishingLevel(driver)
         click_fish(driver)
         fishing_loop(driver, townHeal)
-        print('Done Fishing')
-        time.sleep(1)
         fishingToTown(driver)
     except:
         print('Failed to click Fish to town button')
@@ -988,15 +1009,15 @@ def write_to_terminal(message):
     #terminal_output.see(tk.END)
 
 def getCharacter(driver):
-    global CHARACTER_JSON_PATH, CONFIG, loot_threshold, whistle, autoStat
+    global CHARACTER_JSON_PATH, CONFIG, loot_threshold, whistle, autoStat, fishingLevel
+
     characterName = driver.find_element(By.CSS_SELECTOR, ".cName").text
     print(Fore.BLUE + f'characterName: {characterName}' + Style.RESET_ALL)
-    write_to_terminal(f"characterName: {characterName}")
+    #write_to_terminal(f"characterName: {characterName}")
 
-    charJsonPath = 'configs/' + characterName
-    charJsonPath = charJsonPath + '.json'
+    charJsonPath = 'configs/' + characterName + '.json'
     print(Fore.GREEN + f'charJsonPath: {charJsonPath}' + Style.RESET_ALL)
-    write_to_terminal(f"charJsonPath: {charJsonPath}")
+    #write_to_terminal(f"charJsonPath: {charJsonPath}")
 
     CHARACTER_JSON_PATH = charJsonPath
 
@@ -1005,10 +1026,13 @@ def getCharacter(driver):
     loot_threshold = CONFIG["loot_threshold"]
     whistle = CONFIG["whistle"]
     autoStat = CONFIG["auto_stat"]
+    fishingLevel = CONFIG["fishing_level"]
+
     write_to_terminal(f"Loaded CONFIG =: {CONFIG}")
     print('* - * - * - READ CONFIG - SETTING GLOBAL VARIABLES = ')
     print(f'autoStat : {autoStat}')
     print(f'whistle : {whistle}')
+    print(f'fishingLevel : {fishingLevel}')
     print(Fore.GREEN + f'loot_threshold : {loot_threshold}' + Style.RESET_ALL)
     return
 
@@ -1745,7 +1769,7 @@ def selectFishingPond(driver):
         write_to_terminal(f"Error selecting fishing pond: {e}")
 
 def fishingToTown(driver):
-    print(Fore.BLUE + 'fishingToTown' + Style.RESET_ALL)
+    print(Fore.BLUE + 'Done Fishing -> fishingToTown' + Style.RESET_ALL)
     try:
         fishToTownButton = driver.find_element(By.CSS_SELECTOR, ".abutGradBl.fishBTT")
         print('click to town')
@@ -2285,8 +2309,9 @@ def load_config():
         whistle_var.set(config_data.get('whistle', False))
         auto_stat_var.set(config_data.get('auto_stat', False))
         loot_entry.delete(0, tk.END)
-        loot_entry.insert(0, str(config_data.get('loot_threshold', '')))
-        max_monsters_entry.set(str(config_data.get('max_monsters', '')))
+        loot_entry.insert(0, str(config_data.get('loot_threshold', '14')))
+        max_monsters_entry.set(str(config_data.get('max_monsters', '4')))
+        fishing_level_entry.set(int(config_data.get('fishing_level', '1')))
 
 
 def save_config():
@@ -2299,6 +2324,7 @@ def save_config():
         "loot_threshold": int(loot_entry.get()),
         "auto_stat": auto_stat_var.get(),
         "max_monsters": int(max_monsters_entry.get()),
+        "fishing_level": int(fishing_level_entry.get()),
 
         # Empty inventory and equipment for now; you can later extend this to handle dynamic inventory input
         "inventory": {},
@@ -2427,14 +2453,15 @@ notebook.add(leveling_frame, text="Leveling")
 tk.Label(leveling_frame, text="Skill Allocation", font=('Verdana', 12), bg='#3A3A3A', fg='white').grid(row=0, column=0, padx=5, pady=5)
 tk.Label(leveling_frame, text="Stat Allocation", font=('Verdana', 12), bg='#3A3A3A', fg='white').grid(row=1, column=0, padx=5, pady=5)
 
-
+"""
 # Proficiencies Tab
 proficiencies_frame = tk.Frame(notebook, bg='#2E3B4E')
 notebook.add(proficiencies_frame, text="Proficiencies")
 
 tk.Label(proficiencies_frame, text="Fishing Level", font=('Verdana', 12), bg='#3A3A3A', fg='white').grid(row=1, column=0, padx=5, pady=5)
-fishing_level_dropdown = ttk.Combobox(proficiencies_frame, values=["Auto", "1", "25"])
-fishing_level_dropdown.grid(row=2, column=0, padx=5, pady=5)
+#   fishing_level_dropdown = ttk.Combobox(proficiencies_frame, values=["Auto", "1", "25"])
+fishing_level_entry = ttk.Combobox(proficiencies_frame, values=[str(i) for i in range(1, 30)], width=3)
+fishing_level_entry.grid(row=2, column=0, padx=5, pady=5)
 
 tk.Checkbutton(proficiencies_frame, text="Fill Hot Key Bar with Fish", font=('Verdana', 12), bg='#3A3A3A', fg='black').grid(row=3, column=0, padx=5, pady=5)
 
@@ -2443,7 +2470,7 @@ tk.Radiobutton(proficiencies_frame, text="Trash all fish", variable=fish_radio_v
 tk.Radiobutton(proficiencies_frame, text="Keep one stack", variable=fish_radio_var, value=2, font=('Verdana', 12), bg='#3A3A3A', fg='black').grid(row=5, column=0, padx=5, pady=5)
 tk.Radiobutton(proficiencies_frame, text="Cook all fish", variable=fish_radio_var, value=3, font=('Verdana', 12), bg='#3A3A3A', fg='black').grid(row=6, column=0, padx=5, pady=5)
 
-
+"""
 # Marketplace Tab
 marketplace_frame = tk.Frame(notebook, bg='#3A3A3A')
 notebook.add(marketplace_frame, text="Marketplace")
