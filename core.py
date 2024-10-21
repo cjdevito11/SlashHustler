@@ -1986,6 +1986,8 @@ def attack_nearest_monster(driver):
             actions = ActionChains(driver).key_down(Keys.ALT).key_up(Keys.ALT).perform()
         elif attack_counter % 21 == 0:
             actions = ActionChains(driver).key_down(Keys.SHIFT).key_up(Keys.SHIFT).perform()
+        elif attack_counter % 23 == 0:
+            actions = ActionChains(driver).key_down(Keys.SHIFT).key_up(Keys.SHIFT).perform()
         elif attack_counter % 13 == 0:
             pass
             #actions = ActionChains(driver).key_down('R').key_up('R').perform()
