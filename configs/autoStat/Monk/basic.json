@@ -4,8 +4,8 @@
         "dexterity": 140
     },
     "skills":{
-        "doublestrike": 60,
         "retribution": 60,
-        "multistrike": 10
+        "multistrike": 10,
+        "doublestrike": 60
     }
 }
