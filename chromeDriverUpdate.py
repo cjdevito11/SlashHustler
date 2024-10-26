@@ -25,7 +25,7 @@ def get_latest_version_info():
     # Get the latest stable Chrome version from the <code> tag
     stable_section = soup.find('section', id='stable')
     latest_version = stable_section.find('p').find('code').text
-
+    
     # Find the row for chromedriver win64
     table_rows = soup.find_all('tr', class_='status-ok')
 
@@ -34,8 +34,8 @@ def get_latest_version_info():
         columns = row.find_all('th')
         cells = row.find_all('td')
         
-        if 'chromedriver-win64.zip' in cells[2].find('code').text:
-            download_url = cells[2].find('code').text.strip() 
+        if 'chromedriver-win64.zip' in cells[2].text:
+            download_url = cells[2].find('code').text
             print(f'Download_url: {download_url}')
             
        # if columns and 'chromedriver' in columns[0].text and 'win64' in columns[1].text:
